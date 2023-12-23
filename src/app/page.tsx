@@ -3,17 +3,42 @@
 import axios from 'axios';
 import {useState} from 'react';
 
-export default function NewPost() {  
-  const [file, setFile] = useState();
-  const [caption, setCaption] = useState("");
+export default function NewPost() {
 
-  const submit = async (e : React.FormEvent) => {
+  const [file, setFile] = useState<File | null>(null);
+  const [caption, setCaption] = useState<string>("");
+  const [uploading, setUploading] = useState<boolean>(false);
+
+
+  const handleFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if(selectedFile instanceof File) setFile(selectedFile);
+  }
+
+  const handleSubmit = async (e : React.FormEvent) => {
     e.preventDefault();
-
+    if(!file) return;
+    setUploading(true);
     const formData = new FormData();
     formData.append("image", file);
     formData.append("caption", caption);
-    await axios.post("/api/posts", formData)
+
+    try {
+      // await axios.post("/api/posts", formData);
+      const response = await fetch("/api/posts", {
+        method: "POST",
+        body: formData
+      });
+
+      const responseData = await response.json();
+      console.log(responseData.status);
+
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setUploading(false);
+    }
+    
   }
 
   return (
@@ -23,10 +48,12 @@ export default function NewPost() {
           ChalChitra
         </p>
         <div className="flex flex-col w-full items-center justify-center">
-          <form className='space-x-4' onSubmit={(e) => submit(e)}>
-            <input className='border-2 border-white p-2 rounded-lg' name='image' onChange={e => setFile(e.target.files?.[0])} type="file" accept="image/*"></input>
+          <form className='space-x-4' onSubmit={handleSubmit}>
+            <input className='border-2 border-white p-2 rounded-lg' name='image' onChange={handleFileChange} type="file" accept="image/*"></input>
             <input className='text-black p-2 rounded-lg' name='caption' onChange={e => setCaption(e.target.value)} type="text" value={caption} placeholder='Caption'></input>
-            <button className='border-2 border-white p-2 rounded-lg' type="submit">Submit</button>
+            <button className='border-2 border-white p-2 rounded-lg' type="submit" disabled={!file || uploading}>
+              {uploading ? "Uploading..." : "Upload"}
+            </button>
           </form>
         </div>
       </div>

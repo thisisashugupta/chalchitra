@@ -19,18 +19,32 @@ async function uploadFileToS3(file: Buffer, fileName: string) {
 
     const fileBuffer = file;
     console.log(fileName);
+
+    const uploadParams = {
+        Bucket: bucketName,
+        Key: `myFolder/${fileName}`, // filename
+        Body: fileBuffer, // actual file
+        ContentType: "image/jpeg", // type of file
+        // ACL: "public-read",
+    };
+
+    const command = new PutObjectCommand(uploadParams);
+    const uploadResponse = await s3Client.send(command);
+    console.log("uploadResponse", uploadResponse);
+    return fileName;
     
 }
 
 export async function GET(req : Request, res : Response) {
     return new Response('Hello World!', {
         status: 200,
-        headers: { message: 'message not found' },
+        headers: { message: 'bro kya kr raha hai? post request hai na, get kyu khol raha hai' },
     });
 }
 
 export async function POST(req : Request, res : Response) {
     try {
+
         const formData = await req.formData();
         const file = formData.get('image');
         const caption = formData.get('caption');
@@ -46,7 +60,7 @@ export async function POST(req : Request, res : Response) {
 
         return new Response('File uploaded successfully!', {
             status: 200,
-            headers: { message: 'message not found' },
+            headers: { message: 'message not found', fileName: fileName },
         });
         
     } catch (error) {
