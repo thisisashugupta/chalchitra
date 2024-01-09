@@ -1,18 +1,21 @@
 "use client"
 
-import axios from 'axios';
+// import axios from 'axios';
 import {useState} from 'react';
+import Link from 'next/link';
 
 export default function NewPost() {
 
   const [file, setFile] = useState<File | null>(null);
   const [caption, setCaption] = useState<string>("");
   const [uploading, setUploading] = useState<boolean>(false);
+  const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
 
 
   const handleFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if(selectedFile instanceof File) setFile(selectedFile);
+    setUploadedUrl(null);
   }
 
   const handleSubmit = async (e : React.FormEvent) => {
@@ -24,14 +27,14 @@ export default function NewPost() {
     formData.append("caption", caption);
 
     try {
-      // await axios.post("/api/posts", formData);
+      // const response = await axios.post("/api/posts", formData);
       const response = await fetch("/api/posts", {
         method: "POST",
         body: formData
       });
-
-      const responseData = await response.json();
-      console.log(responseData.status);
+      const body = await response.json();
+      console.log(response.status, response.statusText, body);
+      setUploadedUrl(body.fileUrl);
 
     } catch (error) {
       console.error(error);
@@ -47,14 +50,19 @@ export default function NewPost() {
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 pb-6 pt-8">
           ChalChitra
         </p>
-        <div className="flex flex-col w-full items-center justify-center">
+        <div className="flex flex-col w-full items-center justify-center space-y-6">
+          <p>upload video files through server</p>
           <form className='space-x-4' onSubmit={handleSubmit}>
-            <input className='border-2 border-white p-2 rounded-lg' name='image' onChange={handleFileChange} type="file" accept="image/*"></input>
-            <input className='text-black p-2 rounded-lg' name='caption' onChange={e => setCaption(e.target.value)} type="text" value={caption} placeholder='Caption'></input>
-            <button className='border-2 border-white p-2 rounded-lg' type="submit" disabled={!file || uploading}>
+            <input className='border-2 border-white p-2' name='image' onChange={handleFileChange} type="file" accept="video/*"></input>
+            <input className='text-black p-2' name='caption' onChange={e => setCaption(e.target.value)} type="text" value={caption} placeholder='Caption'></input>
+            <button className='border-2 border-white p-2 hover:text-gray-300 hover:border-gray-300' type="submit" disabled={!file || uploading}>
               {uploading ? "Uploading..." : "Upload"}
             </button>
           </form>
+
+          {uploadedUrl && <Link href={uploadedUrl} target='_blank' className='text-blue-500 hover:text-blue-600'>{uploadedUrl}</Link>}
+
+          <p>go to <Link href='/upload' className='hover:text-green-500 border-green-500 border p-2'>/upload</Link> route to upload videos directly from frotend, withput routing through server.</p>
         </div>
       </div>
     </main>
