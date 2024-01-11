@@ -45,11 +45,11 @@ export default function NewPost() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-black text-white">
+    <main className="flex flex-col items-center justify-between p-24 bg-black text-white">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 pb-6 pt-8">
+        {/* <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 pb-6 pt-8">
           ChalChitra
-        </p>
+        </p> */}
         <div className="flex flex-col w-full items-center justify-center space-y-6">
           <p>upload video files through server</p>
           <form className='space-x-4' onSubmit={handleSubmit}>

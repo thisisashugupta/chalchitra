@@ -59,11 +59,11 @@ export default function UploadPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center pb-6 pt-8">
+        {/* <p className="fixed left-0 top-0 flex w-full justify-center pb-6 pt-8">
           ChalChitra
-        </p>
+        </p> */}
         <div className="flex flex-col w-full items-center justify-center">
           <form className='space-x-4' onSubmit={handleSubmit}>
             <input className='border-2 p-2' name='video' onChange={handleFileChange} type="file" accept="video/*" /*accept=".jpg, .jpeg, .png"*/ />
