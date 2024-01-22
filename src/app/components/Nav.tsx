@@ -11,9 +11,9 @@ export default async function Nav() {
         <div>Chalchitra</div>
         <div className='space-x-4'>
             <Link href="/">Home</Link>
-            <Link href="/protected">Protected</Link>
+            <Link href="/server">ServerPage</Link>
+            <Link href="/client">ClientPage</Link>
             <Link href="/api/auth/signout">Sign out</Link>
-            <Link href="/newUser">Create User</Link>
             {session ? (
                 <Link href="/api/auth/signout?callbackUrl=/">Logout</Link>
             ) : (
