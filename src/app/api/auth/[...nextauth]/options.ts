@@ -25,7 +25,7 @@ export const authOptions : NextAuthOptions  = {
       // ...add more providers here
         GoogleProvider({
             profile(profile) {
-                console.log("Profile GitHub", profile);
+                console.log("Profile Google", profile);
 
                 return {
                     ...profile,
@@ -39,17 +39,17 @@ export const authOptions : NextAuthOptions  = {
     callbacks: {
         async jwt({ token, user }) {
             if(user) {
-                console.log("JWT User", user);
-                console.log("JWT Token", token);
+                // console.log("JWT User", user);
+                // console.log("JWT Token", token);
                 // token.role = user.role;
             }
             return token;
         },
         async session({ session, token }) {
             if (session?.user) {
-                console.log("Session", session);
-                console.log("Session.User", session.user);
-                console.log("Session Token", token);
+                // console.log("Session", session);
+                // console.log("Session.User", session.user);
+                // console.log("Session Token", token);
                 // session.user.role = token.role;
             }
             return session;
