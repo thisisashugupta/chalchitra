@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chalchitra - Your Video Streaming Platform
+
+Chalchitra is an upcoming video streaming platform developed with Next.js, AWS S3 for video storage, Prisma as the ORM, PostgreSQL as the database in a Docker container (currently run locally), NextAuth for authentication, Tailwind CSS for styling, and TypeScript.
+
+## Features
+
+- Seamless video streaming experience
+- Secure user authentication powered by NextAuth
+- Efficient video storage using AWS S3
+- Robust database management with Prisma and PostgreSQL
+- Responsive and visually appealing UI with Tailwind CSS
+
+## Technologies Used
+
+- [Next.js](https://nextjs.org/) - A React framework for building server-side rendered applications.
+- [AWS S3](https://aws.amazon.com/s3/) - Scalable object storage in the cloud for video storage.
+- [Prisma](https://www.prisma.io/) - A modern database toolkit for TypeScript and Node.js.
+- [PostgreSQL](https://www.postgresql.org/) - A powerful, open-source relational database system.
+- [Docker](https://www.docker.com/) - Containerization platform for easy deployment.
+- [NextAuth](https://next-auth.js.org/) - Authentication for Next.js applications.
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for building custom designs.
+- [TypeScript](https://www.typescriptlang.org/) - A typed superset of JavaScript for enhanced development.
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   git clone https://github.com/thisisashugupta/chalchitra.git
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   cd chalchitra
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Set up your environment variables:
 
-## Learn More
+   ```bash
+   cp .env.example .env.local
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+   Update the variables in the `.env.local` file with your AWS S3 credentials, database connection details, and other necessary configurations.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Run the app locally:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
