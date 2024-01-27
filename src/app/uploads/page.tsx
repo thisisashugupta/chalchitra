@@ -18,7 +18,7 @@ export default function UploadsPage() {
         async function getVideos() {
             try {
                 const response = await fetch(`/api/videos?limit=${limit}&offset=${offset}`, {
-                    method: 'POST'
+                    method: 'GET'
                 })
                 const data = await response.json()
                 console.log(data.data);
