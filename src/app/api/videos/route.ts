@@ -50,14 +50,14 @@ export async function POST(request : NextRequest) {
 
   const requestBody = await request.json();
   console.log('requestBody', requestBody);
-  const { title, description, videoUrl } = requestBody;
+  const { title, description, video_id } = requestBody;
   
 
   const newVideo = await prisma.video.create({
     data: {
       title: title,
       content: description,
-      url: videoUrl,
+      video_id: video_id,
       published: true,
       author: {
         connect: {
@@ -68,7 +68,7 @@ export async function POST(request : NextRequest) {
   });
 
   console.log('prisma data', newVideo);
-  
+
   try {
       return new NextResponse(JSON.stringify({
           data: "newVideo",

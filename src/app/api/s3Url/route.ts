@@ -19,22 +19,21 @@ const s3 = new aws.S3({
 async function generateUploadURL() {
     try {
         const rawBytes = await randomBytes(16); // buffer        
-        const imageName = rawBytes.toString('hex'); // unique image name
-        console.log('imageName', imageName);
+        const video_id = rawBytes.toString('hex'); // unique video_id
     
         const params = ({
             Bucket: bucketName,
-            Key: imageName,
-            Expires: 60 // seconds
+            Key: video_id,
+            Expires: 300 // seconds
         });
 
         const uploadURL = await s3.getSignedUrlPromise('putObject', params); // signed url to put an object in bucket
-        console.log('uploadURL', uploadURL);
-        return uploadURL;
+
+        return { video_id, url: uploadURL };
         
     } catch (error) {
         console.error(error);
-        return null;
+        return { video_id: null, url: null };
     }
 
 }
@@ -46,8 +45,8 @@ export async function POST(req : Request) {
 export async function GET(req : Request) {
     try {
 
-        const url = await generateUploadURL();
-        return new NextResponse(JSON.stringify({ url: url }), { status: 200 });
+        const { video_id, url } = await generateUploadURL();
+        return new NextResponse(JSON.stringify({ video_id, url }), { status: 200 });
         
     } catch (error) {
 

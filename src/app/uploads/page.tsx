@@ -1,8 +1,10 @@
 "use client"
+
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Video } from '@prisma/client'
-// import { Button } from "@/components/ui/button"
+import Link from 'next/link'
+import { Button } from "@/components/ui/button"
 
 export default function UploadsPage() {
 
@@ -12,6 +14,7 @@ export default function UploadsPage() {
 
     const [isLoading, setIsLoading] = useState(true)
     const [videos, setVideos] = useState([])
+    const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
 
@@ -31,18 +34,20 @@ export default function UploadsPage() {
         }
         getVideos()
 
-    }, [limit, offset])
+    }, [limit, offset, refresh])
 
     return (
         <div>
-        <h1>My Uploads</h1>
+        <h1>My Uploads</h1> 
+        <Button onClick={() => setRefresh(!refresh)}>Refresh</Button>
         { isLoading ? 
             <p>Loading...</p> : 
             <ul>
                 {videos.map((video : Video) => (
                     <li key={video.id}>
-                    <h3 className='font-black'>{video.title}</h3>
-                    <p>{video.content}</p>
+                        <h3 className='font-black'>{video.title}</h3>
+                        <Link href={`/video/${video.video_id}`}>Click Here</Link>
+                        <p>{video.content}</p>
                     </li>
                 ))}
             </ul> 

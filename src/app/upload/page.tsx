@@ -34,7 +34,7 @@ export default function UploadPage() {
         // get signed url from server
 
       const response = await fetch("/api/s3Url", { method: "GET" });
-      const { url } = await response.json();
+      const { video_id, url } = await response.json();
       console.log('Signed URL:', url);
 
       // post video directly to the signedUrl using PUT request
@@ -53,7 +53,7 @@ export default function UploadPage() {
       // TODO: post request to my server to save some additional data into db
       const response3 = await fetch("/api/videos", {
         method: "POST",
-        body: JSON.stringify({ title, description, videoUrl }),
+        body: JSON.stringify({ title, description, videoUrl, video_id }),
         headers: {
           "Content-Type": "application/json"
         }
