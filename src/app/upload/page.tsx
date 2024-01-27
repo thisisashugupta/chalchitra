@@ -6,9 +6,10 @@ import Link from 'next/link';
 export default function UploadPage() {
 
   const [file, setFile] = useState<File | null>(null);
-  const [caption, setCaption] = useState<string>("");
   const [uploading, setUploading] = useState<boolean>(false);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
 
   const handleFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +24,8 @@ export default function UploadPage() {
 
     const formData = new FormData();
     formData.append("video", file);
-    formData.append("caption", caption);
+    formData.append("title", title);
+    formData.append("description", description);
     console.log(formData);
     
 
@@ -33,7 +35,7 @@ export default function UploadPage() {
 
       const response = await fetch("/api/s3Url", { method: "GET" });
       const { url } = await response.json();
-      console.log('signed s3 url:', url);
+      console.log('Signed URL:', url);
 
       // post video directly to the signedUrl using PUT request
       const response2 = await fetch(url, {
@@ -49,6 +51,15 @@ export default function UploadPage() {
       setVideoUrl(videoUrl);
 
       // TODO: post request to my server to save some additional data into db
+      const response3 = await fetch("/api/videos", {
+        method: "POST",
+        body: JSON.stringify({ title, description, videoUrl }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const data = await response3.json();
+      console.log('data', data);
 
     } catch (error) {
       console.error(error);
@@ -67,7 +78,8 @@ export default function UploadPage() {
         <div className="flex flex-col w-full items-center justify-center">
           <form className='space-x-4' onSubmit={handleSubmit}>
             <input className='border-2 p-2' name='video' onChange={handleFileChange} type="file" accept="video/*" /*accept=".jpg, .jpeg, .png"*/ />
-            <input className='border-2 p-2' name='caption' onChange={e => setCaption(e.target.value)} type="text" value={caption} placeholder='Caption' />
+            <input className='border-2 p-2' name='title' onChange={e => setTitle(e.target.value)} type="text" value={title} placeholder='Title' />
+            <input className='border-2 p-2' name='description' onChange={e => setDescription(e.target.value)} type="text" value={description} placeholder='Description' />
             <button className='border-2 p-2' type="submit" disabled={!file || uploading}>
               {uploading ? "Uploading..." : "Upload"}
             </button>

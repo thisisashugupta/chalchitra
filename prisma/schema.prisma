@@ -27,8 +27,9 @@ model Video {
   title     String   @db.VarChar(255)
   content   String?
   published Boolean  @default(false)
-  playlist  Playlist @relation(fields: [playlistId], references: [id])
-  playlistId Int
+  url       String   @db.VarChar(255) @default("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+  playlist  Playlist? @relation(fields: [playlistId], references: [id])
+  playlistId Int?
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
 }
