@@ -5,7 +5,7 @@ export default function VideoPage({ params }: { params: { video_id: string } }) 
     const BUCKET_NAME = process.env.BUCKET_NAME
     const BUCKET_REGION = process.env.BUCKET_REGION
 
-    const videoUrl = `https:/${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${params.video_id}`
+    const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${params.video_id}`
 
     return (
         <div>
