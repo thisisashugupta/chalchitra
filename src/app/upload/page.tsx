@@ -50,10 +50,10 @@ export default function UploadPage() {
       console.log('video url:', videoUrl);
       setVideoUrl(videoUrl);
 
-      // TODO: post request to my server to save some additional data into db
+      // post request to my server to save some additional data into db
       const response3 = await fetch("/api/videos", {
         method: "POST",
-        body: JSON.stringify({ title, description, videoUrl, video_id }),
+        body: JSON.stringify({ title, description, video_id }),
         headers: {
           "Content-Type": "application/json"
         }
