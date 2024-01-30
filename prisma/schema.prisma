@@ -27,7 +27,7 @@ model Video {
   title     String   @db.VarChar(255)
   content   String?
   published Boolean  @default(false)
-  video_id  String   @db.VarChar(255) @default("e32101b3954cabcdc874cd0ddc3c5dad")
+  video_id  String   @unique @db.VarChar(255) @default("e32101b3954cabcdc874cd0ddc3c5dad")
   playlist  Playlist? @relation(fields: [playlistId], references: [id])
   playlistId Int?
   author    User     @relation(fields: [authorId], references: [id])

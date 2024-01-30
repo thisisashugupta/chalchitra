@@ -51,7 +51,7 @@ export default function UploadPage() {
       setVideoUrl(videoUrl);
 
       // post request to my server to save some additional data into db
-      const response3 = await fetch("/api/videos", {
+      const response3 = await fetch("/api/video", {
         method: "POST",
         body: JSON.stringify({ title, description, video_id }),
         headers: {
@@ -86,15 +86,12 @@ export default function UploadPage() {
           </form>
 
           {videoUrl && (
-            <>
-            <Link href={videoUrl} target='_blank' className='text-blue-500 hover:text-blue-700'>{videoUrl}</Link>
             <video width="750" controls autoPlay>
               <source src={videoUrl} type="video/mp4"/>
             </video>
-            </>
           )}
 
-          <p className='m-6'>go to <Link href='/' className='hover:text-green-500 border-green-500 border p-2'>/</Link> route to upload videos routing through server.</p>
+          <p className='m-6'>go to <Link href='/uploadViaServer' className='hover:text-green-500 border-green-500 border p-2'>/uploadViaServer</Link> route to upload videos routing through server.</p>
 
         </div>
       </div>

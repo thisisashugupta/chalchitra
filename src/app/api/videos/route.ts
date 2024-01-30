@@ -25,7 +25,7 @@ export async function GET(request : NextRequest) {
         },
       });
 
-    console.log('prisma data', data);
+    // console.log('prisma data', data);
     
     try {
         return new NextResponse(JSON.stringify({
@@ -39,44 +39,4 @@ export async function GET(request : NextRequest) {
         return new NextResponse(JSON.stringify({ error: 'Internal Server Error. Failed to fetch videos.' }), { status: 500 });
 
     }
-}
-
-export async function POST(request : NextRequest) {
-
-  const session = await getServerSession(authOptions);
-  const email = session?.user?.email!;
-
-  const requestBody = await request.json();
-  console.log('requestBody', requestBody);
-  const { title, description, video_id } = requestBody;
-  
-
-  const newVideo = await prisma.video.create({
-    data: {
-      title: title,
-      content: description,
-      video_id: video_id,
-      published: true,
-      author: {
-        connect: {
-          email: email,
-        },
-      },
-    },
-  });
-
-  console.log('prisma data', newVideo);
-
-  try {
-      return new NextResponse(JSON.stringify({
-          data: "newVideo",
-          message: `Video added successfully.`
-      }), { status: 200 });
-      
-  } catch (error) {
-
-      console.error(error);
-      return new NextResponse(JSON.stringify({ error: 'Internal Server Error. Failed to fetch videos.' }), { status: 500 });
-
-  }
 }

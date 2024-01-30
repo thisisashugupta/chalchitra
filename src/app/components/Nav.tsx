@@ -12,6 +12,7 @@ export default async function Nav() {
         <div className='space-x-4'>
             <Link href="/">Home</Link>
             <Link href="/uploads">Uploads</Link>
+            <Link href="/upload">Create</Link>
             
             {/* <Link href="/api/auth/signout">Sign out</Link> */}
             {session ? (

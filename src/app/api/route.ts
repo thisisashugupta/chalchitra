@@ -14,10 +14,7 @@ export async function POST(request: NextRequest) {
             }
         }
     });
-
-    console.log(response);
     
-
     const videos = response.map(({ id, title, video_id, author }) => ({ id, title, video_id, name: author.name }));
 
     return NextResponse.json({ videos }, {status: 200});

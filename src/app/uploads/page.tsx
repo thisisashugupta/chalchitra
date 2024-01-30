@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { Video } from '@prisma/client'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
+import Card from "@/components/ui/Card"
 
 export default function UploadsPage() {
 
@@ -24,7 +25,6 @@ export default function UploadsPage() {
                     method: 'GET'
                 })
                 const data = await response.json()
-                console.log(data.data);
                 setVideos(data.data);
             } catch (error) {
                 console.error(error)
@@ -45,9 +45,9 @@ export default function UploadsPage() {
             <ul>
                 {videos.map((video : Video) => (
                     <li key={video.id}>
-                        <h3 className='font-black'>{video.title}</h3>
-                        <Link href={`/watch?v=${video.video_id}`}>Click Here</Link>
-                        <p>{video.content}</p>
+                        <Link href={`/watch?v=${video.video_id}`}>
+                            <Card title={video.title} author={video.content!} />
+                        </Link>
                     </li>
                 ))}
             </ul> 
