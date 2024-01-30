@@ -46,7 +46,7 @@ export default function UploadsPage() {
                 {videos.map((video : Video) => (
                     <li key={video.id}>
                         <h3 className='font-black'>{video.title}</h3>
-                        <Link href={`/video/${video.video_id}`}>Click Here</Link>
+                        <Link href={`/watch?v=${video.video_id}`}>Click Here</Link>
                         <p>{video.content}</p>
                     </li>
                 ))}

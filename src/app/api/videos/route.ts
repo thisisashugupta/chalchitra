@@ -1,11 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/app/components/PrismaProvider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 
 export async function GET(request : NextRequest) {
 
-    const prisma = new PrismaClient()
     const session = await getServerSession(authOptions);
     const email = session?.user?.email!;
     const searchParams = request.nextUrl.searchParams;
@@ -44,7 +43,6 @@ export async function GET(request : NextRequest) {
 
 export async function POST(request : NextRequest) {
 
-  const prisma = new PrismaClient()
   const session = await getServerSession(authOptions);
   const email = session?.user?.email!;
 
