@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { Video } from '@prisma/client'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
-import Card from "@/components/ui/Card"
+import VideoCard from "@/components/ui/VideoCard"
 
 export default function UploadsPage() {
 
@@ -44,10 +44,8 @@ export default function UploadsPage() {
             <p>Loading...</p> : 
             <ul>
                 {videos.map((video : Video) => (
-                    <li key={video.id}>
-                        <Link href={`/watch?v=${video.video_id}`}>
-                            <Card title={video.title} author={video.content!} />
-                        </Link>
+                    <li key={video.id}>                        
+                        <VideoCard title={video.title} author={video.content!} video_id={video.video_id} />
                     </li>
                 ))}
             </ul> 
@@ -55,3 +53,24 @@ export default function UploadsPage() {
         </div>
     )
 }
+
+/*
+
+<AlertDialog>
+    <AlertDialogTrigger className='bg-red-500 px-3 py-2 rounded'>Delete</AlertDialogTrigger>
+    <AlertDialogContent>
+    <AlertDialogHeader>
+        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+        <AlertDialogDescription>
+        This action cannot be undone. It will permanently delete this video and remove the data from our servers.
+        </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+        <AlertDialogCancel>Cancel</AlertDialogCancel>
+        <AlertDialogAction>Delete</AlertDialogAction>
+    </AlertDialogFooter>
+    </AlertDialogContent>
+</AlertDialog>
+
+
+*/
