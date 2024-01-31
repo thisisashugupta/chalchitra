@@ -45,9 +45,7 @@ export default function UploadPage() {
           "Content-Type": "multipart/form-data"
         }
       });
-      console.log(response2.status, response2.statusText);
       const videoUrl = url.split('?')[0];
-      console.log('video url:', videoUrl);
       setVideoUrl(videoUrl);
 
       // post request to my server to save some additional data into db
@@ -58,8 +56,7 @@ export default function UploadPage() {
           "Content-Type": "application/json"
         }
       });
-      const data = await response3.json();
-      console.log('data', data);
+      await response3.json();
 
     } catch (error) {
       console.error(error);

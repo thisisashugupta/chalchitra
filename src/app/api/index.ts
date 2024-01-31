@@ -1,4 +1,4 @@
-import { prisma } from '@/app/components/PrismaProvider';
+import { prisma } from '@/app/providers/PrismaProvider';
 
 async function main() {
     // ... you will write your Prisma Client queries here

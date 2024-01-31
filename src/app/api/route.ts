@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/app/components/PrismaProvider';
+import { prisma } from '@/app/providers/PrismaProvider';
 
 // import { dbcall as getUsers } from './index'
 

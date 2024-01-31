@@ -26,8 +26,7 @@ async function uploadFileToS3(file: any) {
         // ACL: "public-read",
     };
     const command = new PutObjectCommand(uploadParams);
-    const uploadResponse = await s3Client.send(command);
-    console.log("uploadResponse", uploadResponse);
+    await s3Client.send(command);
     return file.name;
     
 }

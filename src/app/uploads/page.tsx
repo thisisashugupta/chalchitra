@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Video } from '@prisma/client'
-import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import VideoCard from "@/components/ui/VideoCard"
 
@@ -38,14 +37,14 @@ export default function UploadsPage() {
 
     return (
         <div>
-        <h1>My Uploads</h1> 
-        <Button onClick={() => setRefresh(!refresh)}>Refresh</Button>
+        <h1>My Uploads</h1>
+        <Button onClick={() => setRefresh((prevVal) => !prevVal)}>Refresh</Button>
         { isLoading ? 
             <p>Loading...</p> : 
             <ul>
                 {videos.map((video : Video) => (
                     <li key={video.id}>                        
-                        <VideoCard title={video.title} author={video.content!} video_id={video.video_id} />
+                        <VideoCard title={video.title} author={video.content!} video_id={video.video_id} setRefresh={setRefresh}/>
                     </li>
                 ))}
             </ul> 
@@ -53,24 +52,3 @@ export default function UploadsPage() {
         </div>
     )
 }
-
-/*
-
-<AlertDialog>
-    <AlertDialogTrigger className='bg-red-500 px-3 py-2 rounded'>Delete</AlertDialogTrigger>
-    <AlertDialogContent>
-    <AlertDialogHeader>
-        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-        <AlertDialogDescription>
-        This action cannot be undone. It will permanently delete this video and remove the data from our servers.
-        </AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction>Delete</AlertDialogAction>
-    </AlertDialogFooter>
-    </AlertDialogContent>
-</AlertDialog>
-
-
-*/

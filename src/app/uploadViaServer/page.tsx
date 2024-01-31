@@ -1,6 +1,5 @@
 "use client"
 
-// import axios from 'axios';
 import {useState} from 'react';
 import Link from 'next/link';
 
@@ -33,7 +32,6 @@ export default function NewPost() {
         body: formData
       });
       const body = await response.json();
-      console.log(response.status, response.statusText, body);
       setUploadedUrl(body.fileUrl);
 
     } catch (error) {

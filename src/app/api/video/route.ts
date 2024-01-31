@@ -1,7 +1,11 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { prisma } from '@/app/components/PrismaProvider';
+import { type NextRequest, NextResponse } from "next/server";
+import s3Client from '@/app/providers/S3Provider';
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { prisma } from '@/app/providers/PrismaProvider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options';
+
+const bucketName = process.env.BUCKET_NAME!;
 
 export async function GET(request : NextRequest) {
 
@@ -32,7 +36,6 @@ export async function POST(request : NextRequest) {
     const email = session?.user?.email!;
   
     const requestBody = await request.json();
-    console.log('requestBody', requestBody);
     const { title, description, video_id } = requestBody;
     
   
@@ -61,4 +64,40 @@ export async function POST(request : NextRequest) {
         return new NextResponse(JSON.stringify({ error: 'Internal Server Error. Failed to Add video.' }), { status: 500 });
   
     }
-  }
+}
+
+
+export async function DELETE(request : NextRequest) {
+
+    const searchParams = request.nextUrl.searchParams;
+    const video_id = searchParams.get('v');
+    
+    if(!video_id) return new NextResponse(JSON.stringify({ error: 'No such video.' }), { status: 404 });
+
+    try {
+
+        // Delete video from aws s3
+
+        const input = {
+            "Bucket": bucketName,
+            "Key": video_id
+        };
+
+        const command = new DeleteObjectCommand(input);
+        await s3Client.send(command);
+
+        // Delete video from db
+    
+        const response = await prisma.video.delete({
+            where: {
+                video_id
+            }
+        });
+
+        return new NextResponse(JSON.stringify(response), { status: 200 });
+
+    } catch (error) {
+        console.error(error);
+        return new NextResponse(JSON.stringify({ error: 'Internal Server Error. Failed to delete video.' }), { status: 500 });
+    }
+}

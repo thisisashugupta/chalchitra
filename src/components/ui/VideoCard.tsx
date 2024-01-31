@@ -10,7 +10,18 @@ import {
   } from "@/components/ui/dropdown-menu";
   import { MoreVertical } from 'lucide-react';
 
-export default function VideoCard({title, author, video_id}: {title: string, author: string, video_id: string}) {
+export default function VideoCard({title, author, video_id, setRefresh}: {title: string, author: string, video_id: string, setRefresh: React.Dispatch<React.SetStateAction<boolean>> }) {
+
+    async function handleDelete() {
+        try {
+            await fetch(`/api/video?v=${video_id}`, {
+                method: 'DELETE'
+            });
+            setRefresh((prevVal) => !prevVal);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className="flex w-full items-center justify-center m-2">
@@ -29,15 +40,11 @@ export default function VideoCard({title, author, video_id}: {title: string, aut
                         <DropdownMenuLabel>Options</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
-                        {/* TODO: add delete function and edit form (pop-up or separate page?) */}
+                        <DropdownMenuItem onClick={handleDelete} className='text-red-500 hover:text-red-600'>Delete</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
-                
-
             </div>
-
         </div>
     )
 
