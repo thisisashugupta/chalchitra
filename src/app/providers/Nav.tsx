@@ -7,10 +7,9 @@ export default async function Nav() {
     const session = await getServerSession(authOptions);
 
     return (
-    <nav className='flex justify-between px-10 py-4'>
-        <div>Chalchitra</div>
+    <nav className='flex justify-between px-10 py-4 space-x-4'>
+        <Link href="/">Chalchitra</Link>
         <div className='space-x-4'>
-            <Link href="/">Home</Link>
             <Link href="/uploads">Uploads</Link>
             <Link href="/upload">Create</Link>
             
