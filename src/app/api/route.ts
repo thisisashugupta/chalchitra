@@ -1,8 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/app/providers/PrismaProvider';
 
-// import { dbcall as getUsers } from './index'
-
 export async function POST(request: NextRequest) {
 
     const response = await prisma.video.findMany({

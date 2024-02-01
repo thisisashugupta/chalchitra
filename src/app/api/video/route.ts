@@ -1,11 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
-import s3Client from '@/app/providers/S3Provider';
+import s3Client, { bucketName } from '@/app/providers/S3Provider';
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { prisma } from '@/app/providers/PrismaProvider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options';
-
-const bucketName = process.env.BUCKET_NAME!;
 
 export async function GET(request : NextRequest) {
 

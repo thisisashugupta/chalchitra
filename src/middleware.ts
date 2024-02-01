@@ -1,3 +1,3 @@
 export {default} from 'next-auth/middleware';
 
-export const config = { matcher: ["/upload", "/uploads", "/video/:video_id*"] }
+export const config = { matcher: ["/upload", "/uploads", "/uploadViaServer"] }

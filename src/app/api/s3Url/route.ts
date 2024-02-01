@@ -2,10 +2,9 @@ import aws from "aws-sdk";
 import { NextResponse } from "next/server";
 import crypto from 'crypto';
 import { promisify } from "util";
+import { bucketName, bucketRegion } from "@/app/providers/S3Provider";
 const randomBytes = promisify(crypto.randomBytes);
 
-const bucketName = process.env.BUCKET_NAME!;
-const bucketRegion = process.env.BUCKET_REGION!;
 const accessKeyId = process.env.SIGNED_ACCESS_KEY!;
 const secretAccessKey = process.env.SIGNED_SECRET_ACCESS_KEY!;
 
