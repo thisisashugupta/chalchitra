@@ -32,7 +32,7 @@ export default function VideoPage() {
             
         }
         fetchVideoData()
-    }, [])
+    }, [v])
 
 
     return (

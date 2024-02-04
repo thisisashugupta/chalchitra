@@ -32,7 +32,7 @@ const UserProfile = ({params}:{params: {user_id: string}}) => {
         }
         getUserProfile();
         
-    }, []);
+    }, [params.user_id]);
 
     return (
         <div>
