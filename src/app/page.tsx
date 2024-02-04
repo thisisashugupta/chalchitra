@@ -29,17 +29,16 @@ export default function Home() {
     }
     fetchVideos();
 
-  }, [])
-
+  })
 
   return (
-    <main className="flex flex-col items-center justify-between p-4">
-      <div className="w-full items-center justify-between font-mono text-sm lg:flex">
-        {isLoading ? <p>Loading...</p> : <>
-          <div className='flex flex-wrap'>
+    <main className="p-4">
+      <div className="font-mono text-sm sm:flex">
+        {isLoading ? <p className="text-center">Loading...</p> : <>
+          <div className="w-full flex flex-col sm:flex-row sm:flex-wrap items-center">
             {videos.map((video : Video & { name: string }) => (
               <div key={video.id}>
-                <Link href={`/watch?v=${video.video_id}`} >
+                <Link href={`/watch?v=${video.video_id}`} className="w-full sm:w-1/3 p-2">
                   <Card title={video.title} author={video.name} />
                 </Link>
               </div>
