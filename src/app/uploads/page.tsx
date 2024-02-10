@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Video } from '@prisma/client'
 import { Button } from "@/components/ui/button"
-import VideoCard from "@/components/ui/VideoCard"
+import VideoCard from "@/components/VideoCard"
 
 export default function UploadsPage() {
 
