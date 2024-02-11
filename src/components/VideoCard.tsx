@@ -1,16 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu";
-  import { MoreVertical } from 'lucide-react';
+import Dropdown from '@/app/uploads/Dropdown';
 
-export default function VideoCard({title, author, video_id, setRefresh}: {title: string, author: string, video_id: string, setRefresh: React.Dispatch<React.SetStateAction<boolean>> }) {
+const time = 2;
+const views = 26;
+
+export default function VideoCard({title, video_id, setRefresh}: {title: string, video_id: string, setRefresh: React.Dispatch<React.SetStateAction<boolean>> }) {
 
     async function handleDelete() {
         try {
@@ -24,25 +19,21 @@ export default function VideoCard({title, author, video_id, setRefresh}: {title:
     }
 
     return (
-        <div className="flex w-full items-center justify-center m-2">
-            <div className='flex flex-col space-y-2'>
-                <Link href={`/watch?v=${video_id}`}>
-                    <img src='https://picsum.photos/200' className="rounded-lg w-48 h-24" />
-                </Link>
-                <div className='flex align-center justify-between'>
-                    <div>
-                        <div className='font-bold'>{title}</div>
-                        <div className='text-sm'>{author}</div>
+        <div className="flex flex-col">
+            <Link href={`/watch?v=${video_id}`}><img className="w-full aspect-video rounded-xl" src='https://picsum.photos/200' /></Link>
+            <div className='flex w-full justify-between'>
+
+                {/* <img className="mt-3 mr-3 w-10 h-10 rounded-full" src='https://picsum.photos/200' /> */}
+
+                <div className='flex flex-col w-full'>
+                    <div className='mt-3 font-bold text-lg'>{title}</div>
+                    <div className='text-sm text-gray-500'>{`${views}`}K views • {`${time}`} weeks ago</div>
+                </div>
+
+                <div>
+                    <div className='mt-3 ml-3 w-10 h-10 text-center p-2 rounded-full hover:bg-gray-300'>
+                        <Dropdown handleDelete={handleDelete} />
                     </div>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger><MoreVertical /></DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuLabel>Options</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem onClick={handleDelete} className='text-red-500 hover:text-red-600'>Delete</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
                 </div>
             </div>
         </div>

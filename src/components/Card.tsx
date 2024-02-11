@@ -36,11 +36,9 @@ export default function Card({title, author}: CardProps) {
                 Report
                  */}
 
-                <Link href='/watch?v=b4ddd647aac91217f9cc4d20ff3255bb'>
-                <div className='mt-3 ml-3 hover:bg-gray-300 rounded-full'>
-                    <div className=" w-10 h-10 text-center p-2 font-bold"><p>︙</p></div>
+                <div>
+                    <div className='mt-3 ml-3 w-10 h-10 text-center p-2 rounded-full font-bold hover:bg-gray-300'>︙</div>
                 </div>
-                </Link>
             </div>
         </div>
     )
