@@ -38,7 +38,7 @@ export default function UploadsPage() {
 
     return (
         <main className="p-2 bg-white">
-            <div className='flex justify-between mx-2'>
+            <div className='flex justify-between mx-2 mb-4'>
                 <h1>My Uploads</h1>
                 <Button onClick={() => setRefresh((prevVal) => !prevVal)}>Refresh</Button>
             </div>
