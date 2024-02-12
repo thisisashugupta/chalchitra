@@ -2,6 +2,7 @@
 "use client"
 
 import Link from 'next/link';
+import { Menu } from 'lucide-react';
 
 import {
     Sheet,
@@ -18,7 +19,7 @@ const SheetBar = ({session}:{session:any}) => {
 
   return (
     <Sheet>
-      <SheetTrigger className='text-white text-sm bg-black px-3 py-1 border border-black rounded'>ham</SheetTrigger>
+      <SheetTrigger><Menu /></SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetDescription>Pages</SheetDescription>
