@@ -46,9 +46,9 @@ export default function VideoPage() {
     return (
         <main className='flex flex-col items-center justify-center'>
         <div className='max-w-7xl'>
-            
+
             <div className='md:mx-4'>
-            <video className='md:rounded-xl' controls autoPlay>
+            <video className='max-h-screen md:rounded-xl' controls autoPlay>
                 <source src={videoUrl} type="video/mp4"/>
             </video>
             </div>

@@ -76,7 +76,7 @@ export default function UploadPage() {
 
       {videoUrl && (
         <div>
-          <video className='md:rounded-2xl' width="768" controls autoPlay>
+          <video className='max-h-screen md:rounded-2xl' controls autoPlay>
             <source src={videoUrl} type="video/mp4"/>
           </video>
           <p className='my-4 text-center text-sm'>Video uploaded successfully</p>
