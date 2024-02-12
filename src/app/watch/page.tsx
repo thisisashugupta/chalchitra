@@ -1,6 +1,14 @@
 'use client'
+
 import { useState, useEffect } from 'react'
 import { permanentRedirect, useSearchParams } from 'next/navigation'
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+  } from "@/components/ui/accordion"
+  
 // function VideoPage({ params }: { params: { video_id: string } })
 
 export default function VideoPage() {
@@ -36,14 +44,31 @@ export default function VideoPage() {
 
 
     return (
-        <div>
-            <h1>Video Page</h1>
-            <video width="750" controls autoPlay>
+        <main className='flex flex-col items-center justify-center'>
+        <div className='max-w-7xl'>
+            
+            <div className='md:mx-4'>
+            <video className='md:rounded-xl' controls autoPlay>
                 <source src={videoUrl} type="video/mp4"/>
             </video>
-            <h2 className='text-xl font-black'>{title}</h2>
-            <p>{description}</p>
-            <p>Uploaded on {createdAt.substring(0,10)}</p>
+            </div>
+                
+            <div>
+                <p className='mx-4 mt-2 text-lg font-bold'>{title}</p>
+                <p className='mx-4 text-xs text-gray-500'>25K views . 4 weeks ago . <span className='text-black'>...more</span></p>
+                <Accordion className='mx-4 my-2 px-4 border bg-slate-200 rounded-lg' type="single" collapsible>
+                    <AccordionItem value="item-1">
+                    <AccordionTrigger>
+                        Description
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        <p>{description}</p>
+                        <p className='mt-2 text-xs text-gray-500'>Uploaded on {createdAt.substring(0,10)}</p>
+                    </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            </div>
         </div>
+        </main>
     )
 }
