@@ -5,6 +5,7 @@ import {useState} from 'react';
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Loader2 } from "lucide-react"
 
 export default function UploadPage() {
 
@@ -86,8 +87,8 @@ export default function UploadPage() {
           <Input name='video' onChange={handleFileChange} type="file" accept="video/*" /*accept=".jpg, .jpeg, .png"*/ required />
           <Input name='title' onChange={e => setTitle(e.target.value)} type="text" value={title} placeholder='Title' required />
           <Textarea name='description' onChange={e => setDescription(e.target.value)} value={description} placeholder='Description (optional)' />
-          <Button type="submit" disabled={!file || uploading}>
-            {uploading ? "Uploading..." : "Upload"}
+          <Button type="submit" disabled={!file || title === "" || uploading}>
+            {uploading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Uploading...</> : "Upload"}
           </Button>
         </form>        
 
