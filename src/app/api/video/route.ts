@@ -12,7 +12,7 @@ export async function GET(request : NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const video_id = searchParams.get('v');
     
-    if(!video_id) return new NextResponse(JSON.stringify({ error: 'No such video.' }), { status: 404 });
+    if(!video_id) return new NextResponse(JSON.stringify({ error: 'No video_id received.' }), { status: 404 });
 
     try {
         const response = await prisma.video.findUnique({

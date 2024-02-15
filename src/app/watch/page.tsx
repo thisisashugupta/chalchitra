@@ -4,6 +4,7 @@ import { permanentRedirect } from 'next/navigation'
 import VideoDetails from './VideoDetails'
 import VideoPlayer from './VideoPlayer'
 import { Suspense } from 'react'
+import { VideoDetailsSkeleton, VideoPlayerSkeleton } from './loading'
 
 interface WatchPageProps {
     searchParams: { [key: string]: string | string[] | undefined }
@@ -12,18 +13,16 @@ interface WatchPageProps {
 export default async function WatchPage({ searchParams }: WatchPageProps) {
 
     const v = searchParams.v;
-    console.log(`v is ${v as string}`);
-    
     if (!v) permanentRedirect('/');
 
     return (
         <main className='flex flex-col items-center justify-center'>
         <div className='w-full max-w-7xl'>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<VideoPlayerSkeleton />}>
                 <VideoPlayer v={v as string} />
             </Suspense>
-            <Suspense fallback={<div>Loading...</div>}>
-                <VideoDetails />
+            <Suspense fallback={<VideoDetailsSkeleton />}>
+                <VideoDetails v={v as string} />
             </Suspense>
         </div>
         </main>
