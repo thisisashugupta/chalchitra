@@ -1,6 +1,8 @@
 import React from 'react'
 import EditVideoForm from "./EditVideoForm"
-import { prisma } from "@/app/providers/PrismaProvider"
+// import { prisma } from "@/app/providers/PrismaProvider"
+import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
+const prisma = getPrismaClient();
 import { Video } from '@prisma/client'
 
 interface EditVideoFormProps {
@@ -9,12 +11,19 @@ interface EditVideoFormProps {
 
 export default async function EditVideo({ video_id }: EditVideoFormProps) {
 
-    const video : Video | null = await prisma.video.findUnique({
-        where: {
-            video_id
-        }
-    });
-    console.log('video from EditVideo.tsx');
+    let video : Video | null = null;
+
+    try {
+        video = await prisma.video.findUnique({
+            where: {
+                video_id
+            }
+        });
+    } catch (error) {
+        console.error(error);
+    } finally {
+        await cleanup();
+    }
 
     if (!video) return (<p>Video not found</p>);
 

@@ -1,5 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/app/providers/PrismaProvider";
+// import { prisma } from "@/app/providers/PrismaProvider";
+import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
+const prisma = getPrismaClient();
 import {User, Playlist} from '@prisma/client';
 
 type UserPlaylistResponse = (User & { playlists: Playlist[] | null }) | null;
@@ -28,5 +30,7 @@ export async function GET(request: NextRequest) {
         console.log('error', error);
         return NextResponse.json({message: 'Not Found'}, {status: 404});
 
+    } finally {
+        await cleanup();
     }
 }

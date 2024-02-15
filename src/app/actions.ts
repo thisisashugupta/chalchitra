@@ -1,6 +1,8 @@
 'use server'
 
-import { prisma } from "@/app/providers/PrismaProvider"
+// import { prisma } from "@/app/providers/PrismaProvider"
+import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
+const prisma = getPrismaClient();
 // import { Video } from '@prisma/client'
 
 export async function mutateVideoServerAction(id: number, formData: FormData) {
@@ -32,6 +34,8 @@ export async function mutateVideoServerAction(id: number, formData: FormData) {
 
     } catch (error) {
         console.error(error);
+    } finally {
+        await cleanup();
     }
     
 }
