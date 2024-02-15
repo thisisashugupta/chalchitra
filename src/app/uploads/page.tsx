@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation'
 import { Video } from '@prisma/client'
 import { Button } from "@/components/ui/button"
 import VideoCard from "@/components/VideoCard"
-import Link from 'next/link'
 
 export default function UploadsPage() {
 
