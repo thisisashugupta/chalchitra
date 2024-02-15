@@ -1,7 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
 import s3Client, { bucketName } from '@/app/providers/S3Provider';
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
-import { prisma } from '@/app/providers/PrismaProvider';
+// import { prisma } from '@/app/providers/PrismaProvider';
+import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
+const prisma = getPrismaClient();
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 
@@ -24,6 +26,8 @@ export async function GET(request : NextRequest) {
     } catch (error) {
         console.error(error);
         return new NextResponse(JSON.stringify({ error: 'Internal Server Error. Failed to fetch video.' }), { status: 500 });
+    } finally {
+        await cleanup();
     }
 }
 
@@ -61,6 +65,8 @@ export async function POST(request : NextRequest) {
         console.error(error);
         return new NextResponse(JSON.stringify({ error: 'Internal Server Error. Failed to Add video.' }), { status: 500 });
   
+    } finally {
+        await cleanup();
     }
 }
 
@@ -97,5 +103,7 @@ export async function DELETE(request : NextRequest) {
     } catch (error) {
         console.error(error);
         return new NextResponse(JSON.stringify({ error: 'Internal Server Error. Failed to delete video.' }), { status: 500 });
+    } finally {
+        await cleanup();
     }
 }

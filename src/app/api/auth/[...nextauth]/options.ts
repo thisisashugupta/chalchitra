@@ -1,7 +1,9 @@
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
-import { prisma } from "@/app/providers/PrismaProvider";
+// import { prisma } from "@/app/providers/PrismaProvider";
+import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
+const prisma = getPrismaClient();
 
 export const authOptions : NextAuthOptions  = {
     // Configure one or more authentication providers
@@ -65,6 +67,7 @@ export const authOptions : NextAuthOptions  = {
                     update: { name: user.name },
                     create: { email: user.email, name: user.name },
                 });
+                await cleanup();
             }
             
             const isAllowedToSignIn = true
