@@ -7,14 +7,15 @@ const views = 26;
 interface CardProps {
     title: string;
     author: string;
+    thumbnailUrl?: string;
 }
 
-export default function Card({title, author}: CardProps) {
+export default function Card({title, author, thumbnailUrl}: CardProps) {
 
     return (
         
         <div className='flex flex-col gap-1'>
-            <img className="w-full aspect-video md:rounded-xl" src='https://picsum.photos/200' />
+            <img className="w-full aspect-video md:rounded-xl" src={thumbnailUrl} />
             <div className='flex w-full justify-between pl-2'>
                 <img className="mt-2 mr-3 w-9 h-9 rounded-full" src='https://picsum.photos/200' />
                 

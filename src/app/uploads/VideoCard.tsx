@@ -5,17 +5,18 @@ import Dropdown from '@/app/uploads/Dropdown';
 interface VideoCardProps {
     title: string;
     video_id: string;
+    thumbnailUrl: string;
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const time = 2;
 const views = 26;
 
-export default function VideoCard({title, video_id, setRefresh}: VideoCardProps) {
+export default function VideoCard({title, video_id, thumbnailUrl, setRefresh}: VideoCardProps) {
 
     return (
         <div className="flex flex-col">
-            <Link href={`/watch?v=${video_id}`}><img className="w-full aspect-video rounded-xl" src='https://picsum.photos/200' /></Link>
+            <Link href={`/watch?v=${video_id}`}><img className="w-full aspect-video rounded-xl" src={thumbnailUrl} /></Link>
             <div className='flex w-full justify-between'>
 
                 {/* <img className="mt-3 mr-3 w-10 h-10 rounded-full" src='https://picsum.photos/200' /> */}

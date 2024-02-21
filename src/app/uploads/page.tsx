@@ -4,7 +4,11 @@ import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Video } from '@prisma/client'
 import { Button } from "@/components/ui/button"
-import VideoCard from "@/components/VideoCard"
+import VideoCard from "@/app/uploads/VideoCard"
+
+const BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME
+const BUCKET_REGION = process.env.NEXT_PUBLIC_BUCKET_REGION
+const thumbnailUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails`
 
 export default function UploadsPage() {
 
@@ -49,7 +53,7 @@ export default function UploadsPage() {
                     {videos.map((video : Video & { name: string }) => (
                         <div key={video.id} className='mx-2 mb-6'>
                           {/* <Link href={`/watch?v=${video.video_id}`}> */}
-                          <VideoCard title={video.title} video_id={video.video_id} setRefresh={setRefresh}/>
+                          <VideoCard title={video.title} video_id={video.video_id} thumbnailUrl={`${thumbnailUrl}/${video.thumbnail_id}`} setRefresh={setRefresh}/>
                           {/* </Link> */}
                         </div>
                     ))}

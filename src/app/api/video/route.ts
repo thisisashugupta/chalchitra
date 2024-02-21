@@ -38,7 +38,7 @@ export async function POST(request : NextRequest) {
     const email = session?.user?.email!;
   
     const requestBody = await request.json();
-    const { title, description, video_id } = requestBody;
+    const { title, description, video_id, thumbnail_id } = requestBody;
     
   
     const newVideo = await prisma.video.create({
@@ -46,6 +46,7 @@ export async function POST(request : NextRequest) {
         title: title,
         content: description,
         video_id: video_id,
+        thumbnail_id: thumbnail_id,
         published: true,
         author: {
           connect: {

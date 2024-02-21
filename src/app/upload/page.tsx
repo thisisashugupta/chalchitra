@@ -55,7 +55,7 @@ export default function UploadPage() {
       // post thumbnail directly to the signedUrl using PUT request
       await fetch(thumbnailUrl, {
         method: "PUT",
-        body: video,
+        body: thumbnail,
         headers: {
           "Content-Type": "multipart/form-data"
         }
@@ -65,7 +65,7 @@ export default function UploadPage() {
       // post request to my server to save some additional data into db
       const response3 = await fetch("/api/video", {
         method: "POST",
-        body: JSON.stringify({ title, description, video_id }),
+        body: JSON.stringify({ title, description, video_id, thumbnail_id }),
         headers: {
           "Content-Type": "application/json"
         }
