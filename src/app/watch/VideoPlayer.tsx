@@ -9,7 +9,7 @@ interface VideoPlayerProps {
 
 export default async function VideoPlayer({v} : VideoPlayerProps) {
 
-    const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${v}`
+    const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/videos/${v}`
 
     return (
         <div className='bg-black flex flex-col items-center justify-center md:mx-4 md:rounded-xl'>

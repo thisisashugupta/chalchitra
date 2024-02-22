@@ -19,20 +19,30 @@ async function generateUploadURL() {
     try {
         const rawBytes = await randomBytes(16); // buffer        
         const video_id = rawBytes.toString('hex'); // unique video_id
+
+        const rawBytes2 = await randomBytes(16);
+        const thumbnail_id = rawBytes2.toString('hex'); // unique thumbnail_id
     
-        const params = ({
+        const videoParams = ({
             Bucket: bucketName,
-            Key: video_id,
+            Key: `videos/${video_id}`,
             Expires: 300 // seconds
         });
 
-        const uploadURL = await s3.getSignedUrlPromise('putObject', params); // signed url to put an object in bucket
+        const thumbnailParams = ({
+            Bucket: bucketName,
+            Key: `thumbnails/${thumbnail_id}`,
+            Expires: 300 // seconds
+        });
 
-        return { video_id, url: uploadURL };
+        const videoUploadURL = await s3.getSignedUrlPromise('putObject', videoParams);  // signed url to put an object in bucket
+        const thumbnailUploadURL = await s3.getSignedUrlPromise('putObject', thumbnailParams);
+
+        return { video_id, videoUrl: videoUploadURL, thumbnail_id, thumbnailUrl: thumbnailUploadURL};
         
     } catch (error) {
         console.error(error);
-        return { video_id: null, url: null };
+        return { video_id: null, videoUrl: null, thumbnail_id: null, thumbnailUrl: null};
     }
 
 }
@@ -44,8 +54,8 @@ export async function POST(req : Request) {
 export async function GET(req : Request) {
     try {
 
-        const { video_id, url } = await generateUploadURL();
-        return new NextResponse(JSON.stringify({ video_id, url }), { status: 200 });
+        const { video_id, videoUrl, thumbnail_id, thumbnailUrl } = await generateUploadURL();
+        return new NextResponse(JSON.stringify({ video_id, videoUrl, thumbnail_id, thumbnailUrl }), { status: 200 });
         
     } catch (error) {
 

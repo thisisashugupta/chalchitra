@@ -15,7 +15,7 @@ interface EditVideoFormProps {
 
 export default function EditVideoForm({ video }: EditVideoFormProps) {
     const id = video.id;
-    const sendWithFormData = mutateVideoServerAction.bind(null, id);
+    const sendWithFormData = mutateVideoServerAction.bind(null, id, video.thumbnail_id);
     const { toast } = useToast()
 
     // console.log('video from EditVideoForm');
@@ -23,6 +23,11 @@ export default function EditVideoForm({ video }: EditVideoFormProps) {
 
     return (
             <form className='w-full space-y-4 flex flex-col items-left' action={sendWithFormData}>
+
+                <div>
+                <Label htmlFor='thumbnail'>Choose Thumbnail</Label>
+                <Input name='thumbnail' type="file" accept="image/*" />
+                </div>
 
                 <div>
                 <Label htmlFor='title'>Title</Label>
