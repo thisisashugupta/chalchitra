@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postinstall": "prisma migrate resolve --applied \"20240110191304_init\" && prisma migrate resolve --applied \"20240127101152_added_video_url\" && prisma migrate resolve --applied \"20240127135225_modified_to_video_id\" && prisma migrate resolve --applied \"20240130180430_unique_video_id\" && prisma migrate deploy && prisma generate",
+    "postinstall": "prisma migrate deploy && prisma generate",
     "start": "next start",
     "lint": "next lint"
   },
