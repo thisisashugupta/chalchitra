@@ -5,6 +5,9 @@ import { NextResponse } from "next/server";
 async function uploadFileToS3(file: any) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
+
+    console.log(buffer);
+    
     const uploadParams = {
         Bucket: bucketName,
         Key: file.name, // filename
@@ -13,7 +16,9 @@ async function uploadFileToS3(file: any) {
         // ACL: "public-read",
     };
     const command = new PutObjectCommand(uploadParams);
-    await s3Client.send(command);
+    const response = await s3Client.send(command);
+    console.log(response);
+    
     return file.name;
     
 }

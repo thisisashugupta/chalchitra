@@ -1,6 +1,5 @@
 import React from 'react'
 import EditVideoForm from "./EditVideoForm"
-// import { prisma } from "@/app/providers/PrismaProvider"
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
 const prisma = getPrismaClient();
 import { Video } from '@prisma/client'
