@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server';
 // import { prisma } from '@/app/providers/PrismaProvider';
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
 const prisma = getPrismaClient();
@@ -25,5 +25,5 @@ export async function POST(request: NextRequest) {
         console.error(error);
     } finally {
         await cleanup();
-}
+    }
 }

@@ -14,13 +14,18 @@ import {
     SheetClose,
   } from "@/components/ui/sheet";
 
+  type SheetBarProps = {
+    session: any,
+    side: "top" | "bottom" | "left" | "right" | null | undefined
+  }
+
   // TODO: typeof session is any
-const SheetBar = ({session}:{session:any}) => {
+const SheetBar = ({session, side}: SheetBarProps) => {
 
   return (
     <Sheet>
       <SheetTrigger><Menu /></SheetTrigger>
-      <SheetContent>
+      <SheetContent side={side}>
         <SheetHeader>
           <SheetDescription>Pages</SheetDescription>
           <SheetTitle><Link href="/uploads"><SheetClose>Uploads</SheetClose></Link></SheetTitle>
