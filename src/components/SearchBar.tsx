@@ -51,9 +51,9 @@ const SearchBar: React.FC = () => {
     return (
         <div>
             <form className='flex' onSubmit={handleSubmit}>
-                <Input className='z-10 border-r-0 rounded-s-full rounded-e-none' type="text" value={searchTerm || ""} onChange={handleSearch} placeholder="Search" />
-                {searchTerm && <div className='border-t border-b border-grey-500'><button className='p-1 bg-white hover:bg-gray-200 rounded-full' type='button' onClick={() => {setSearchTerm("")}}><X strokeWidth={1} /></button></div>}
-                <Button className='rounded-s-none rounded-e-full' variant='outline' type='submit' ><Search strokeWidth={1} /></Button>
+                <Input className='z-10 h-10 border-r-0 rounded-s-full rounded-e-none' type="text" value={searchTerm || ""} onChange={handleSearch} placeholder="Search" />
+                {searchTerm && <div className='border-t border-b border-grey-500 flex items-center px-1'><button className='p-1 bg-white hover:bg-gray-200 rounded-full' type='button' onClick={() => {setSearchTerm("")}}><X strokeWidth={1} /></button></div>}
+                <Button className='h-10 rounded-s-none rounded-e-full bg-gray-100 hover:bg-gray-200 focus:bg-gray-300' variant='outline' type='submit' ><Search strokeWidth={1} /></Button>
             </form>
             <div className='w-72 mt-2 absolute'>
                 {showSuggestions && searchTerm!=="" && searchResults !== null && searchResults.length > 0 && (

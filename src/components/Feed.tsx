@@ -40,8 +40,8 @@ export default async function Feed() {
     if(isError) return (<main className="p-4"><p className="text-center">Error fetching videos</p></main>);
 
     return (
-    <div className="flex">
-    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6">
+    <div className="flex md:mx-4 md:my-6">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6">
         {videos.map((video : Video & { name: string }) => (
             <div key={video.id} className='md:mx-2 mb-6'>
               <Link href={`/watch?v=${video.video_id}`} >

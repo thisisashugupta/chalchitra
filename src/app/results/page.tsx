@@ -1,7 +1,6 @@
 'use server';
 
 import React from 'react';
-// import { useSearchParams } from 'next/navigation';
 import { Video } from '@prisma/client';
 import { type NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
@@ -49,8 +48,6 @@ const VideoList = async ({searchParams}:any) => {
 
     return (
         <div>
-
-            
             { videos.length>0 ? 
                 <>
                 <h2>Videos</h2>
