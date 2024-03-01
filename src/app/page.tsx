@@ -1,5 +1,6 @@
 "use server"
 
+import Tags from '@/components/Tags'
 import Feed from '@/components/Feed'
 import { Suspense } from 'react'
 import FeedSkeleton from './loading'
@@ -7,11 +8,18 @@ import FeedSkeleton from './loading'
 export default async function Home() {
 
   return (
-    <main className="md:p-2 bg-white">
-      <p className='mx-2 my-4'>Home</p>
-      <Suspense fallback={<FeedSkeleton />}>
-        <Feed />
-      </Suspense>
+    <main>
+      {/* <div className='fixed top-12 md:top-[56px] md:ml-20 bg-white'></div> */}
+      
+      {/* md:ml-20 mt-[108px] md:mt-32 */}
+        <div className='fixed bg-white'><Tags /></div>
+        <div className='z-10 pt-16 md:pt-14'>
+        <Suspense fallback={<FeedSkeleton />}>
+          <Feed />
+        </Suspense>
+      </div>
+      
+
     </main>
   )
 }
