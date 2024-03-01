@@ -9,7 +9,7 @@ export default async function Home() {
 
   return (
     <main>
-      <div className='fixed top-12 md:top-[56px] md:ml-20 bg-white'></div>
+      {/* <div className='fixed top-12 md:top-[56px] md:ml-20 bg-white'></div> */}
       
       {/* md:ml-20 mt-[108px] md:mt-32 */}
         <div className='fixed bg-white'><Tags /></div>
