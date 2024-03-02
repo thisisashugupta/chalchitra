@@ -1,10 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
-// import { prisma } from "@/app/providers/PrismaProvider";
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
 const prisma = getPrismaClient();
-import {User, Profile} from '@prisma/client';
+import { User, Channel } from '@prisma/client';
 
-type UserProfileResponse = ({ profile: Profile | null; } & User) | null;
+type UserResponse = (User & { ownChannel: Channel | null; }) | null;
 
 export async function GET(request: NextRequest) {
 
@@ -13,12 +12,12 @@ export async function GET(request: NextRequest) {
 
     try {
 
-        const data : UserProfileResponse = await prisma.user.findUnique({
+        const data : UserResponse = await prisma.user.findUnique({
             where: {
                 id: user_id
             },
             include: {
-                profile: true
+                ownChannel: true
             }
         });
 

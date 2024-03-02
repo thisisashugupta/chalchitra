@@ -1,20 +1,20 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { User, Profile } from '@prisma/client';
+import { User, Channel } from '@prisma/client';
 
-type UserProfileResponse = (User & { profile: Profile | null }) | null;
+type UserResponse = (User & { ownChannel: Channel | null }) | null;
 
 
 const UserProfile = ({params}:{params: {user_id: string}}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [userProfile, setUserProfile] = useState<UserProfileResponse>();
+    const [userProfile, setUserProfile] = useState<UserResponse>();
 
     useEffect(() => {
 
         async function getUserProfile() {
-            const response = await fetch(`/api/profile?user_id=${params.user_id}`, {
+            const response = await fetch(`/api/channel?user_id=${params.user_id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -39,7 +39,8 @@ const UserProfile = ({params}:{params: {user_id: string}}) => {
             {isLoading ? <p>Loading User Page...</p> : 
                 <div>
                     <h1>{userProfile?.name}</h1>
-                    <h2>Bio: {userProfile?.profile?.bio}</h2>
+                    {/* <h2>Bio: {userProfile?.profile?.bio}</h2> */}
+                    <h2>Channel: {userProfile?.ownChannel?.name}</h2>
                 </div>
             }
         </div>

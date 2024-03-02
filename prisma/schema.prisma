@@ -77,7 +77,7 @@ model User {
   liked_videos Video[]      @relation("LikedVideos")
   comments     Comment[]
   // many to many relationship with Channel
-  channels     Channel[]    @relation("ChannelSubscriptions")
+  subscriptions     Channel[]    @relation("ChannelSubscriptions")
   // one to one relationship with Channel
   ownChannel   Channel?
 }
