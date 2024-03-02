@@ -21,32 +21,63 @@ model Playlist {
 }
 
 model Video {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  video_id  String   @unique @db.VarChar(32) @default("e00000b0000cabcdc000cd0ddc0c0dad")
-  thumbnail_id  String   @db.VarChar(32)
-  playlist  Playlist? @relation(fields: [playlistId], references: [id])
-  playlistId Int?
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  title           String    @db.VarChar(255)
+  content         String?
+  published       Boolean   @default(false)
+  likes           Int       @default(0)
+  dislikes        Int       @default(0)
+  total_comments  Int       @default(0)
+  comments       Comment[]
+  video_id        String    @unique @db.VarChar(32)
+  thumbnail_id    String    @unique @db.VarChar(32)
+  playlist        Playlist? @relation(fields: [playlistId], references: [id])
+  playlistId      Int?
+  author          User      @relation(fields: [authorId], references: [id])
+  authorId        Int
+  liked_by        User[]    @relation("LikedVideos")
 }
 
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+model Comment {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  content   String 
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  Int 
+  video     Video     @relation(fields: [videoId], references: [id])
+  videoId   Int 
+  likes     Int       @default(0)
+  dislikes  Int       @default(0)
+  replies   Comment[] @relation("CommentReplies")
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  parentId  Int?      @unique
+}
+
+model Channel {
+  id                Int     @id @default(autoincrement())
+  name              String  @default("Channel")
+  bio               String?
+  total_subscribers Int     @default(0)
+  // many to many relationship with User
+  subscribers       User[]  @relation("ChannelSubscriptions")
+  // one to one relationship with User
+  owner             User    @relation(fields: [ownerId], references: [id])
+  ownerId           Int     @unique
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  videos  Video[]
-  playlists Playlist[]
-  profile Profile?
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  name         String?
+  videos       Video[]
+  playlists    Playlist[]
+  liked_videos Video[]      @relation("LikedVideos")
+  comments     Comment[]
+  // many to many relationship with Channel
+  channels     Channel[]    @relation("ChannelSubscriptions")
+  // one to one relationship with Channel
+  ownChannel   Channel?
 }
