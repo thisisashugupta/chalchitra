@@ -1,4 +1,5 @@
 import { MoreVertical } from "lucide-react";
+import Link from "next/link";
 
 interface ResultDetailsProps {
     title: string;
@@ -11,7 +12,7 @@ interface ResultDetailsProps {
 
 export default function ResultDetails({ title, views, uploadedAt, description, authorImage, author }: ResultDetailsProps) {
     return (
-        <div className='w-full flex flex-col'>
+        <div className='w-full flex flex-col cursor-pointer'>
     
             <div className='flex justify-between space-x-2 text-md font-medium'>
                 <div className="line-clamp-2">{title}</div>
@@ -24,9 +25,9 @@ export default function ResultDetails({ title, views, uploadedAt, description, a
                 <span>{`${views}`} views</span><span> • {`${uploadedAt}`} ago</span>
             </div>
 
-            <div className='flex items-center py-3 space-x-3'>
-                <img className="w-6 h-6 rounded-full" src='https://picsum.photos/200' />
-                <span className='text-xs text-gray-500'>{author}</span>
+            <div className='flex items-center py-3 space-x-2'>
+                <Link className="rounded-full overflow-hidden" href={`/user/${author}`}><img className="w-6 h-6" src='https://picsum.photos/200' /></Link>
+                <Link className='text-xs text-gray-500 hover:text-black' href={`/user/${author}`}>{author}</Link>
             </div>
 
             <div className='text-xs text-gray-600 line-clamp-2' id='description'>{description}</div>

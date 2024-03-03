@@ -50,18 +50,18 @@ const VideoList = async ({searchParams}:any) => {
         await cleanup();
     }
 
-    const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails`
+    const thumbnailDir = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails`
 
     return (
         <main className='mx-8'>
-        <div className='max-w-5xl mx-auto'>
+        <div className='max-w-6xl mx-auto'>
             { videos.length>0 ? 
                 <>
                 <h2 className='py-3 text-2xl font-semibold'>Results</h2>
                     <div className='space-y-4'>
                         {videos.map((video: VideoDetailsProps) => (
                         <div key={video.id}>
-                            <ResultCard title={video?.title} author={video.name} thumbnailUrl={`${videoUrl}/${video.thumbnail_id}`} />
+                            <ResultCard title={video?.title} author={video.name} thumbnailUrl={`${thumbnailDir}/${video.thumbnail_id}`} video_id={video.video_id} />
                         </div>
                         ))}
                     </div>

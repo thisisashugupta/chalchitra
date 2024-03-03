@@ -36,7 +36,7 @@ const UserProfile = ({params}:{params: {user_id: string}}) => {
 
     return (
         <div>
-            {isLoading ? <p>Loading User Page...</p> : 
+            {isLoading ? <p>{params.user_id} Loading User Page...</p> : 
                 <div>
                     <h1>{userProfile?.name}</h1>
                     {/* <h2>Bio: {userProfile?.profile?.bio}</h2> */}
