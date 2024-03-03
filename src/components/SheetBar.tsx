@@ -24,7 +24,7 @@ const SheetBar = ({session, side}: SheetBarProps) => {
 
   return (
     <Sheet>
-      <SheetTrigger><Menu /></SheetTrigger>
+      <SheetTrigger><Menu strokeWidth={1} size={26} /></SheetTrigger>
       <SheetContent side={side}>
         <SheetHeader>
           <SheetDescription>Pages</SheetDescription>

@@ -11,11 +11,11 @@ export default async function Nav() {
     const session = await getServerSession(authOptions);
 
     return (
-    <nav className='flex items-center justify-between py-3 md:py-2 px-4 space-x-4'>
+    <nav className='flex items-center justify-between py-3 md:py-2 px-6 space-x-4'>
 
-        <div className='flex gap-3'>
+        <div className='flex'>
             <SheetBar session={session} side='left' />
-            <Link className='flex gap-1' href="/"><MonitorPlay />Chalchitra</Link>
+            <Link className='flex gap-1 px-4' href="/"><MonitorPlay />Chalchitra</Link>
         </div>
 
         <div className='hidden md:block space-x-4'>

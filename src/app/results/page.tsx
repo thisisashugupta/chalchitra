@@ -1,15 +1,21 @@
 'use server';
 
 import React from 'react';
-import { Video } from '@prisma/client';
-import { type NextRequest, NextResponse } from 'next/server';
+import ResultCard from '@/components/ResultCard';
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
 const prisma = getPrismaClient();
 
 const BUCKET_NAME = process.env.BUCKET_NAME
 const BUCKET_REGION = process.env.BUCKET_REGION
 
-type VideoDetailsProps = Partial<Video> & {name: string};
+type VideoDetailsProps = 
+{
+    id: number;
+    title: string;
+    video_id: string;
+    name: string;
+    thumbnail_id: string;
+}
 
 const VideoList = async ({searchParams}:any) => {
     // const [videos, setVideos] = useState<Partial<Video>[]>([]);
@@ -47,22 +53,24 @@ const VideoList = async ({searchParams}:any) => {
     const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails`
 
     return (
-        <div>
+        <main className='mx-8'>
+        <div className='max-w-5xl mx-auto'>
             { videos.length>0 ? 
                 <>
-                <h2>Videos</h2>
-                    {videos.map((video: VideoDetailsProps) => (
-                    <div key={video.id}>
-                        <img src={`${videoUrl}/${video.thumbnail_id}`} alt="" />
-                        <h3>{video.title}</h3>
-                        <p>{video.name}</p>
+                <h2 className='py-3 text-2xl font-semibold'>Results</h2>
+                    <div className='space-y-4'>
+                        {videos.map((video: VideoDetailsProps) => (
+                        <div key={video.id}>
+                            <ResultCard title={video?.title} author={video.name} thumbnailUrl={`${videoUrl}/${video.thumbnail_id}`} />
+                        </div>
+                        ))}
                     </div>
-                    ))}
                 </> 
                 : 
                 <p>No videos found.</p>
             }
         </div>
+        </main>
     );
 };
 

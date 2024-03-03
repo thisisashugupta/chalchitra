@@ -20,7 +20,7 @@ export default function Card({title, author, thumbnailUrl}: CardProps) {
                 <img className="mt-2 mr-3 w-9 h-9 rounded-full" src='https://picsum.photos/200' />
                 
                 <div className='flex flex-col w-full'>
-                    <div className='mt-2 text-sm font-semibold'>{title}</div>
+                    <div className='mt-2 text-sm font-semibold line-clamp-2'>{title}</div>
                     <div className='mt-1 text-xs text-gray-500 space-x-1'>
                         <span>{author}</span>
                         <span>•</span>
