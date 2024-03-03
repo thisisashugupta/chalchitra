@@ -2,7 +2,7 @@
 
 import { permanentRedirect } from 'next/navigation'
 import VideoDetails from './VideoDetails'
-// import VideoPlayer from './VideoPlayer'
+import Suggestions from './Suggestions'
 import { Suspense } from 'react'
 import { VideoDetailsSkeleton, VideoPlayerSkeleton } from './loading'
 import dynamic from 'next/dynamic'
@@ -29,13 +29,14 @@ export default async function WatchPage({ searchParams }: WatchPageProps) {
     const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/videos/${v}`
 
     return (
-        <main className='flex flex-col items-center justify-center'>
+        <main className='md:mx-6 flex flex-col lg:flex-row gap-4 items-start justify-center'>
         <div className='w-full max-w-5xl'>
             <DynamicVideoPlayer videoUrl={videoUrl as string} />
             <Suspense fallback={<VideoDetailsSkeleton />}>
                 <VideoDetails v={v as string} />
             </Suspense>
         </div>
+        <Suggestions />
         </main>
     )
 }

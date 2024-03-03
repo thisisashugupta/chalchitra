@@ -1,36 +1,57 @@
 "use server"
 
+import Image from "next/image"
+import { MoreHorizontal } from "lucide-react"
+import WatchButton from "@/components/WatchButton"
+import { Like, Dislike } from "@/components/LikeDislike"
+import Share from "@/components/Share"
+import Download from "@/components/Download"
+import { getElapsedTime, formatDate } from "@/lib/functions"
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
+import { Video } from "@prisma/client"
 const prisma = getPrismaClient();
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
+import DescriptionBox from "./DescriptionBox"
 
 interface VideoDetailsProps {
     v: string;
 }
 
+const BUCKET_NAME = process.env.BUCKET_NAME
+const BUCKET_REGION = process.env.BUCKET_REGION
+const testUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails/38eaabe3554423e614d1ca25951254fd`
+
 export default async function VideoDetails({v}: VideoDetailsProps) {
 
-    let title = "title title";
-    let description = "description description";
-    let createdAt = new Date();
+    let video: any | null = null;
+    let elapsedTime = '';
+    let uploadedOn = '';
 
     try {
         const response = await prisma.video.findUnique({
             where: {
                 video_id: v
+            },
+            include: {
+                author: {
+                    select: {
+                        ownChannel: {
+                            select: {
+                                name: true,
+                                subscribers: true
+                            }
+                        },
+                        name: true
+                    }
+                }
             }
         });
 
-        if (!response) return (<>No video found</>);
+        // console.log(response);
+        video = response;
+        elapsedTime = getElapsedTime(video?.createdAt);
+        uploadedOn = formatDate(video?.createdAt);
 
-        title = response.title!;
-        description = response.content!;
-        createdAt = response.createdAt!;
+        if (!response) return (<div className="mx-auto">No video found</div>);
 
     } catch (error) {
         console.error(error);
@@ -40,18 +61,39 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
     
     return (
     <div>
-        <p className='mx-4 mt-2 text-lg font-bold'>{title}</p>
-        <p className='mx-4 text-xs text-gray-500'>25K views . 4 weeks ago . <span className='text-black'>...more</span></p>
-        <Accordion className='mx-4 my-2 px-4 border bg-slate-200 rounded-lg' type="single" collapsible>
-            <AccordionItem value="item-1">
-            <AccordionTrigger>
-                Description
-            </AccordionTrigger>
-            <AccordionContent>
-                <p>{description}</p>
-                <p className='mt-2 text-xs text-gray-500'>Uploaded on {createdAt.toString().substring(0,10)}</p>
-            </AccordionContent>
-            </AccordionItem>
-        </Accordion>
+        <p className='mt-3 text-lg font-bold'>{video?.title}</p>
+
+        <div className="flex flex-wrap gap-3 mt-2 justify-between font-semibold">
+            <div id="left" className="flex items-center">
+                <Image
+                    src={testUrl}
+                    alt="avatar"
+                    width={100}
+                    height={100}
+                    className="w-10 h-10 rounded-full mr-4"
+                />
+                <div>
+                    <p className="font-semibold text-base">{`${video?.author?.ownChannel?.name}`}</p>
+                    <p className="font-base text-xs text-gray-500">{`${video?.author?.ownChannel?.subscribers}`} subscribers</p>
+                </div>
+                
+                <button className="ml-6 bg-black rounded-full px-4 py-2">
+                    <p className="text-white text-sm font-semibold">Subscribe</p>
+                </button>
+                
+            </div>
+
+            <div id="right" className="flex items-center space-x-2">
+                <div>
+                    <Like video_id={video.video_id} likes={video?.likes} />
+                    <Dislike video_id={video.video_id} />
+                </div>
+                <div><Share video_id={v} /></div>
+                <div><Download video_id={v} /></div>
+                <div><WatchButton><p className="text-0.5xs"><MoreHorizontal strokeWidth={1} size={20} /></p></WatchButton></div>
+            </div>
+        </div>
+
+        <DescriptionBox description={video?.content} elapsedTime={elapsedTime} />
     </div>);
 }

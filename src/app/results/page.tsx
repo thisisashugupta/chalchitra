@@ -53,7 +53,7 @@ const VideoList = async ({searchParams}:any) => {
     const thumbnailDir = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails`
 
     return (
-        <main className='mx-8'>
+        <main className='mx-8 pb-4'>
         <div className='max-w-6xl mx-auto'>
             { videos.length>0 ? 
                 <>
