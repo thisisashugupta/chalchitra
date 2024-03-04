@@ -20,8 +20,7 @@ async function generateUploadURL() {
         const rawBytes = await randomBytes(16); // buffer        
         const video_id = rawBytes.toString('hex'); // unique video_id
 
-        const rawBytes2 = await randomBytes(16);
-        const thumbnail_id = rawBytes2.toString('hex'); // unique thumbnail_id
+        const thumbnail_id = video_id; // unique thumbnail_id
     
         const videoParams = ({
             Bucket: bucketName,

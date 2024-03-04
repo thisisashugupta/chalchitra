@@ -27,11 +27,12 @@ export default async function WatchPage({ searchParams }: WatchPageProps) {
     if (!v) permanentRedirect('/');
 
     const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/videos/${v}`
+    const thumbnailUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails/${v}`
 
     return (
         <main className='md:mx-6 flex flex-col lg:flex-row gap-4 items-start justify-center'>
         <div className='w-full max-w-5xl'>
-            <DynamicVideoPlayer videoUrl={videoUrl as string} />
+            <DynamicVideoPlayer videoUrl={videoUrl as string} thumbnailUrl={thumbnailUrl as string} />
             <Suspense fallback={<VideoDetailsSkeleton />}>
                 <VideoDetails v={v as string} />
             </Suspense>

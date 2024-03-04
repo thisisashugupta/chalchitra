@@ -15,7 +15,7 @@ interface EditVideoFormProps {
 
 export default function EditVideoForm({ video }: EditVideoFormProps) {
     const id = video.id;
-    const sendWithFormData = mutateVideoServerAction.bind(null, id, video.thumbnail_id);
+    const sendWithFormData = mutateVideoServerAction.bind(null, id, video.video_id);
     const { toast } = useToast()
 
     // console.log('video from EditVideoForm');

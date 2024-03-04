@@ -1,16 +1,22 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useReducer } from 'react'
 import { permanentRedirect } from 'next/navigation'
 
 interface VideoPlayerProps {
-    videoUrl: string
+    videoUrl: string,
+    thumbnailUrl: string
 }
 
-export default function VideoPlayer({videoUrl} : VideoPlayerProps) {
+export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps) {
     
     if (!videoUrl) permanentRedirect('/');
     const [videoError, setVideoError] = useState(false);
+    
+    useEffect(() => {
+        console.log("videoUrl changed, set video error false");
+        setVideoError(false);
+    }, [videoUrl])
 
 // TODO: type of event is any // ReactEventHandler<HTMLVideoElement>
     const handleError = (e: any) => {
@@ -27,9 +33,10 @@ export default function VideoPlayer({videoUrl} : VideoPlayerProps) {
             
             {!videoError &&
             <video 
+                key={videoUrl}
                 className="md:rounded-xl" 
-                // make thumbnail_id and video_id same
-                poster={`https://${process.env.NEXT_PUBLIC_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_BUCKET_REGION}.amazonaws.com/thumbnails/38eaabe3554423e614d1ca25951254fd`}
+                // TODO: make thumbnail_id and video_id same
+                poster={thumbnailUrl}
                 preload="auto"
                 controls 
                 // loop

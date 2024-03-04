@@ -82,7 +82,7 @@ export default function UploadPage() {
 
   return (
     <main className="min-w-screen flex flex-col items-center">
-      <div className="w-full max-w-5xl flex flex-col items-center justify-center">
+      <div className="w-full max-w-5xl flex flex-col items-center justify-center my-4">
 
       {videoUrl && (
         <div>
@@ -104,9 +104,6 @@ export default function UploadPage() {
             {uploading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />{uploading}</> : "Upload"}
           </Button>
         </form>        
-        <p>{videoUrl}</p>
-        <p>{thumbnailUrl}</p>
-        {/* <p className='mx-2 my-4 border-2 border-black p-4 rounded'>go to <Link href='/uploadViaServer' className='hover:text-green-500 border-green-500 border p-2'>/uploadViaServer</Link> route to upload videos routing through server.</p> */}
       </div>
     </main>
   )
