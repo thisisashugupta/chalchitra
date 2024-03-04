@@ -45,7 +45,8 @@ const Suggestions = async () => {
 
     return (
         <>
-            <div className='lg:max-w-sm space-y-4 md:my-6'>
+            <div className='lg:max-w-sm space-y-4 mb-6 md:my-6 mx-3 md:mx-0'>
+                <h2 className='text-xl font-semibold'>Suggestions</h2>
                 {videos.map((video: VideoDetailsProps) => (
                 <div key={video.id}>
                     <SuggestionsCard updatedAt={video.updatedAt.toString()} title={video?.title} author={video.author.name} thumbnailUrl={`${thumbnailDir}/${video.thumbnail_id}`} video_id={video.video_id} />

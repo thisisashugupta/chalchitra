@@ -9,7 +9,10 @@ import { Video } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { Search, X } from 'lucide-react'
 
-const SearchBar: React.FC = () => {
+type SetOpenSearchType = (value: boolean) => void;
+
+const SearchBar: React.FC<{ setOpenSearch?: SetOpenSearchType }> = ({setOpenSearch}) => {
+
     const [searchTerm, setSearchTerm] = useState<string | null>(null);
     const [searchResults, setSearchResults] = useState<Video[] | null>(null);
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
@@ -24,6 +27,7 @@ const SearchBar: React.FC = () => {
 
     const handleSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
         setSearchTerm(event.currentTarget.innerText);
+        setOpenSearch && setOpenSearch(false);
         setShowSuggestions(false);
         router.push(`/results?search_query=${event.currentTarget.innerText}`);
         
@@ -31,6 +35,7 @@ const SearchBar: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement> ) => {
         event.preventDefault();
+        setOpenSearch && setOpenSearch(false);
         setShowSuggestions(false);
         router.push(`/results?search_query=${searchTerm}`)
     }

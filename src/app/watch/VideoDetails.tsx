@@ -1,8 +1,7 @@
 "use server"
 
 import Image from "next/image"
-import { MoreHorizontal } from "lucide-react"
-import WatchButton from "@/components/WatchButton"
+import MoreOptions from "@/components/MoreOptions"
 import { Like, Dislike } from "@/components/LikeDislike"
 import Share from "@/components/Share"
 import Download from "@/components/Download"
@@ -60,7 +59,7 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
     }
     
     return (
-    <div>
+    <div className="mx-3 md:mx-0">
         <p className='mt-3 text-lg font-bold'>{video?.title}</p>
 
         <div className="flex flex-wrap gap-3 mt-2 justify-between font-semibold">
@@ -90,7 +89,7 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
                 </div>
                 <div><Share video_id={v} /></div>
                 <div><Download video_id={v} /></div>
-                <div><WatchButton><p className="text-0.5xs"><MoreHorizontal strokeWidth={1} size={20} /></p></WatchButton></div>
+                <div><MoreOptions /></div>
             </div>
         </div>
 

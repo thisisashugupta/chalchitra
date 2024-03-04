@@ -25,18 +25,19 @@ export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps)
     }
 
     return (
-        <div className='bg-transparent flex flex-col items-center justify-center mt-6 md:rounded-xl overflow-hidden'>
+        <div className='bg-transparent w-full flex flex-col items-center justify-center md:mt-6 overflow-hidden'>
             
             {videoError && <div className='bg-black w-full aspect-video text-red-500 flex items-center justify-center'>
                 <p>Video failed to load</p>
             </div>}
             
             {!videoError &&
+
             <video 
                 key={videoUrl}
-                className="md:rounded-xl" 
+                className=" md:rounded-xl max-h-[75vh]" 
                 // TODO: make thumbnail_id and video_id same
-                poster={thumbnailUrl}
+                // poster={thumbnailUrl}
                 preload="auto"
                 controls 
                 // loop

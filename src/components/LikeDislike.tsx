@@ -9,7 +9,7 @@ export function Dislike({video_id}: {video_id: string}) {
         
     }
 
-    return <button className="bg-gray-200 hover:bg-gray-300 rounded-l-none rounded-r-full px-4 py-2" onClick={handleDislike} >
+    return <button className="bg-gray-200 hover:bg-gray-300 rounded-l-none rounded-r-full px-3 py-2" onClick={handleDislike} >
         <div className="flex space-x-2">
             <ThumbsDown strokeWidth={1} size={20} />
         </div>
@@ -26,7 +26,7 @@ export function Like({likes, video_id}: {likes: number, video_id: string}) {
     }
 
 
-    return <button className="bg-gray-200 hover:bg-gray-300 rounded-l-full rounded-r-none px-4 py-2" onClick={handleLike} >
+    return <button className="bg-gray-200 hover:bg-gray-300 rounded-l-full rounded-r-none px-3 py-2" onClick={handleLike} >
         <div className="flex space-x-2">
             <ThumbsUp strokeWidth={1} size={20} />
             <p className="text-0.5xs">{likes}</p>
