@@ -3,7 +3,7 @@ import TagWrapper from "@/components/TagWrapper"
 function Tags() {
     // TODO: Create a carousel for tags
   return (
-    <div className="flex space-x-3 p-3 select-none overflow-hidden">
+    <div className="tags flex space-x-3 p-3 select-none overflow-auto">
       
         <TagWrapper label="All" />
         <TagWrapper label="Mixes" />
