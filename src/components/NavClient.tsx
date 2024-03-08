@@ -5,6 +5,7 @@ import { type Session } from 'next-auth'
 import Link from 'next/link'
 import SheetBar from '@/components/SheetBar'
 import SearchBar from '@/components/SearchBar'
+import VoiceButton from '@/components/VoiceButton'
 import { MonitorPlay, Search, ArrowLeft, X } from 'lucide-react'
 import { Button } from '@/components/ui/button';
 
@@ -19,13 +20,18 @@ export default function NavClient({session} : {session: Session | null}) {
                 <SheetBar session={session} side='left' />
                 <Link className='flex gap-1 ml-2 md:ml-0 md:ml-4' href="/"><MonitorPlay />Chalchitra</Link>
             </div>
-            <SearchBar />
-            <Button>
-                { session ? 
-                    ( <Link href="/api/auth/signout?callbackUrl=/">Logout</Link> ) : 
-                    ( <Link href="/api/auth/signin">Login</Link> )
-                }
-            </Button>
+            <div className='px-16 w-[50rem] flex justify-center'>
+                <div className='pl-4 w-full max-w-[40rem]'><SearchBar /></div>
+                <VoiceButton />
+            </div>
+            <div className='pl-16'>
+                <Button>
+                    { session ? 
+                        ( <Link href="/api/auth/signout?callbackUrl=/">Logout</Link> ) : 
+                        ( <Link href="/api/auth/signin">Login</Link> )
+                    }
+                </Button>
+            </div>
         </nav>
 
         {/* mobile */}
