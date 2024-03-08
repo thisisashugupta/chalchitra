@@ -60,12 +60,19 @@ const SearchBar: React.FC<{ setOpenSearch?: SetOpenSearchType }> = ({setOpenSear
                 {searchTerm && <div className='border-gray-300 border-t border-b flex items-center px-1'><button className='p-1 bg-white hover:bg-gray-200 rounded-full' type='button' onClick={() => {setSearchTerm("")}}><X strokeWidth={1} /></button></div>}
                 <Button className='h-10 px-[1.2rem] border-gray-300 rounded-s-none rounded-e-full bg-gray-100 hover:bg-gray-200 focus:bg-gray-300' variant='outline' type='submit' ><Search strokeWidth={1} /></Button>
             </form>
-            <div className='w-72 mt-2 absolute'>
+            <div className='mr-[24rem] min-w-[18rem] md:min-w-[20rem] max-w-[33.5rem] mt-1 absolute'>
                 {showSuggestions && searchTerm!=="" && searchResults !== null && searchResults.length > 0 && (
-                    <ScrollArea className='w-full border border-grey-500 rounded-xl p-2 bg-white'>
-                        {searchResults.map((result, index) => (
-                            <div className='hover:bg-blue-100' key={index}><button className='w-full py-1 text-left pl-2 text-sm text-gray-500 hover:text-black' onClick={handleSelect}>{result.title}</button></div>
+                    <ScrollArea className='w-full border border-grey-500 rounded-xl bg-white'>
+                        <div className='h-4'></div>
+                        {searchResults.slice(0,10).map((result, index) => (
+                            <div className='hover:bg-gray-200' key={index}>
+                                <button className='w-full px-3 py-1 flex items-center space-x-4 text-left text-sm text-black' onClick={handleSelect}>
+                                    <div className=''><Search strokeWidth={1} size={24} /></div>
+                                    <p className='font-semibold line-clamp-1'>{result.title}</p>
+                                </button>
+                            </div>
                         ))}
+                        <div className='h-2'></div>
                     </ScrollArea>
                 )}
             </div>
