@@ -35,9 +35,9 @@ export default async function Feed() {
         await cleanup();
     }
 
-    if (!videos) return (<main className="p-4"><p className="text-center">No Videos</p></main>);
-
     if(isError) return (<main className="p-4"><p className="text-center">Error fetching videos</p></main>);
+
+    if (!videos) return (<main className="p-4"><p className="text-center">No Videos</p></main>);
 
     return (
     <div className="flex md:mx-4 md:my-6">

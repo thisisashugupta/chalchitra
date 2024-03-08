@@ -3,7 +3,7 @@
 import Tags from '@/components/Tags'
 import Feed from '@/components/Feed'
 import { Suspense } from 'react'
-import FeedSkeleton from './loading'
+import { FeedSkeleton } from './loading'
 
 export default async function Home() {
 

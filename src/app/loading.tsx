@@ -8,7 +8,7 @@ const videos = Array.from({ length: 10 }, (_, i) => ({
   name: "name",
 }));
 
-export default async function FeedSkeleton() {
+export async function FeedSkeleton() {
 
   return (
     <div className="md:mx-4 md:my-6 flex">
@@ -21,4 +21,12 @@ export default async function FeedSkeleton() {
     </div>
     </div>
   );
+}
+
+export default async function Loading() {
+  return (
+    <div className='w-screen h-screen fixed flex flex-col items-center justify-center p-16 font-semibold'>
+      <p>Page is Loading...</p>
+    </div>
+  )
 }
