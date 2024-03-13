@@ -3,10 +3,10 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/app/api/auth/[...nextauth]/options"
 import Image from "next/image"
-import MoreOptions from "@/components/MoreOptions"
-import { Like, Dislike } from "@/components/LikeDislike"
-import Share from "@/components/Share"
-import Download from "@/components/Download"
+import MoreOptions from "@/app/watch/buttons/MoreOptions"
+import { Like, Dislike } from "@/app/watch/buttons/LikeDislike"
+import Share from "@/app/watch/buttons/Share"
+import Download from "@/app/watch/buttons/Download"
 import { getElapsedTime, formatDate } from "@/lib/functions"
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
 import { Video } from "@prisma/client"
@@ -85,9 +85,11 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
                     <p className="min-w-max font-base text-xs text-gray-500">{`${video?.author?.ownChannel?.subscribers}`} subscribers</p>
                 </div>
                 
-                <button className="ml-6 bg-black rounded-full px-4 py-2">
-                    <p className="text-white text-sm font-semibold">Subscribe</p>
+                <div className="ml-6 flex items-center">
+                <button className="bg-black dark:bg-white rounded-full px-4 py-2">
+                    <p className="text-white dark:text-black text-sm font-semibold">Subscribe</p>
                 </button>
+                </div>
                 
             </div>
 

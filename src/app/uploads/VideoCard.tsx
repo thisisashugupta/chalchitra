@@ -30,7 +30,7 @@ export default function VideoCard({title, video_id, thumbnailUrl, setRefresh}: V
                 </div>
 
                 <div>
-                    <div className='mt-3 ml-3 w-10 h-10 text-center p-2 rounded-full hover:bg-gray-300'>
+                    <div className='mt-3 ml-3 w-10 h-10 text-center p-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600/70'>
                         <Dropdown video_id={video_id} setRefresh={setRefresh} />
                     </div>
                 </div>

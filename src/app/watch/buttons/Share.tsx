@@ -32,7 +32,7 @@ export default function Share({video_id}:{video_id: string}) {
   return (
       <Dialog>
         <DialogTrigger>
-          <div className="flex bg-gray-200 rounded-full p-2 hover:bg-gray-300">
+          <div className="flex rounded-full px-3 py-2 bg-gray-200 dark:bg-gray-700/80 hover:bg-gray-300 dark:hover:bg-gray-600/70">
             <Forward strokeWidth={1} size={20} />
             <p className="ml-2 text-0.5xs">Share</p>
           </div>

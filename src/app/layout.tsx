@@ -4,6 +4,7 @@ import './globals.css'
 import NavBar from '@/components/NavBar';
 // import SideBar from '@/components/SideBar';
 import AuthProvider from './providers/AuthProvider';
+import { ThemeModeProvider } from '@/app/providers/ThemeProvider';
 import { Toaster } from "@/components/ui/toaster";
 import SidebarLayout from '@/components/SidebarLayout';
 
@@ -20,16 +21,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        <ThemeModeProvider>
         <AuthProvider>
-          <div className='z-10 w-full fixed top-0 bg-white'><NavBar /></div>
+          <div className='z-10 w-full fixed top-0'><NavBar /></div>
           <SidebarLayout>
             {children}
           </SidebarLayout>
           {/* <div className='z-10 md:fixed hidden md:block'><SideBar /></div> */}
-          {/* <div className='md:ml-20 mt-12 md:mt-14 bg-white'>{children}</div> */}
+          {/* <div className='md:ml-20 mt-12 md:mt-14'>{children}</div> */}
         </AuthProvider>
+        </ThemeModeProvider>
         <Toaster />
       </body>
     </html>

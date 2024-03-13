@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
+import { Badge } from "@/components/ui/badge"
 import { Loader2 } from "lucide-react"
 
 export default function UploadPage() {
@@ -84,6 +85,8 @@ export default function UploadPage() {
     <main className="min-w-screen flex flex-col items-center">
       <div className="w-full max-w-5xl flex flex-col items-center justify-center my-4">
 
+      {uploading && <Badge className='mb-4 p-1'><Loader2 className="mr-2 h-4 w-4 animate-spin" />{uploading}</Badge>}
+
       {videoUrl && (
         <div>
           <video className='max-h-screen md:rounded-2xl' controls autoPlay>
@@ -101,7 +104,7 @@ export default function UploadPage() {
           <Input name='title' onChange={e => setTitle(e.target.value)} type="text" value={title} placeholder='Title' required />
           <Textarea name='description' onChange={e => setDescription(e.target.value)} value={description} placeholder='Description (optional)' />
           <Button type="submit" disabled={!video || title === "" || uploading!==null}>
-            {uploading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />{uploading}</> : "Upload"}
+            {uploading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /><span>Uploading</span></> : "Upload"}
           </Button>
         </form>        
       </div>

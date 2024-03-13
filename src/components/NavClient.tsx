@@ -6,8 +6,9 @@ import Link from 'next/link'
 import SheetBar from '@/components/SheetBar'
 import SearchBar from '@/components/SearchBar'
 import VoiceButton from '@/components/VoiceButton'
+import { Button } from '@/components/ui/button'
 import { MonitorPlay, Search, ArrowLeft, X } from 'lucide-react'
-import { Button } from '@/components/ui/button';
+import ThemeSwitch from '@/components/ThemeSwitch'
 
 export default function NavClient({session} : {session: Session | null}) {
 
@@ -15,7 +16,7 @@ export default function NavClient({session} : {session: Session | null}) {
 
     return (<>
         {/* web */}
-        <nav className='hidden md:flex items-center justify-between space-x-4 py-2 px-6'>
+        <nav className='py-2 px-6 space-x-4 hidden md:flex items-center justify-between bg-white/60 dark:bg-black/60'>
             <div className='flex'>
                 <SheetBar session={session} side='left' />
                 <Link className='flex gap-1 ml-2 md:ml-0 md:ml-4' href="/"><MonitorPlay />Chalchitra</Link>
@@ -24,7 +25,8 @@ export default function NavClient({session} : {session: Session | null}) {
                 <div className='pl-4 w-full max-w-[40rem]'><SearchBar /></div>
                 <VoiceButton />
             </div>
-            <div className='pl-16'>
+            <div className='pl-4 flex items-center space-x-4'>
+                <ThemeSwitch />
                 <Button>
                     { session ? 
                         ( <Link href="/api/auth/signout?callbackUrl=/">Logout</Link> ) : 

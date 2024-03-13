@@ -56,17 +56,17 @@ const SearchBar: React.FC<{ setOpenSearch?: SetOpenSearchType }> = ({setOpenSear
     return (
         <div>
             <form className='flex' onSubmit={handleSubmit}>
-                <Input className='z-10 h-10 pl-4 text-base border-gray-300 border-r-0 rounded-s-full rounded-e-none' type="text" value={searchTerm || ""} onChange={handleSearch} placeholder="Search" />
-                {searchTerm && <div className='border-gray-300 border-t border-b flex items-center px-1'><button className='p-1 bg-white hover:bg-gray-200 rounded-full' type='button' onClick={() => {setSearchTerm("")}}><X strokeWidth={1} /></button></div>}
-                <Button className='h-10 px-[1.2rem] border-gray-300 rounded-s-none rounded-e-full bg-gray-100 hover:bg-gray-200 focus:bg-gray-300' variant='outline' type='submit' ><Search strokeWidth={1} /></Button>
+                <Input className='z-10 h-10 pl-4 bg-white/50 dark:bg-black/50 text-base border-r-0 border-gray-300 dark:border-gray-500/50 rounded-s-full rounded-e-none' type="text" value={searchTerm || ""} onChange={handleSearch} placeholder="Search" />
+                {searchTerm && <div className='bg-white/50 dark:bg-black/50 border-gray-300 dark:border-gray-500/50 border-t border-b flex items-center px-1'><button className='p-1 hover:bg-gray-200 dark:hover:bg-gray-700/80 rounded-full' type='button' onClick={() => {setSearchTerm("")}}><X strokeWidth={1} /></button></div>}
+                <Button className='h-10 px-[1.2rem] border-gray-300 dark:border-gray-500/50 rounded-s-none rounded-e-full bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-700/80 focus:bg-gray-300 dark:focus:bg-gray-600/70' variant='outline' type='submit' ><Search strokeWidth={1} /></Button>
             </form>
             <div className='mr-6 min-w-[18rem] md:min-w-[20rem] max-w-[33.5rem] mt-1 absolute'>
                 {showSuggestions && searchTerm!=="" && searchResults !== null && searchResults.length > 0 && (
-                    <ScrollArea className='w-full border border-grey-500 rounded-xl bg-white'>
+                    <ScrollArea className='w-full border border-grey-500 rounded-xl bg-white dark:bg-black'>
                         <div className='h-4'></div>
                         {searchResults.slice(0,10).map((result, index) => (
                             <div className='hover:bg-gray-200' key={index}>
-                                <button className='w-full px-3 py-1 flex items-center space-x-4 text-left text-sm text-black' onClick={handleSelect}>
+                                <button className='w-full px-3 py-1 flex items-center space-x-4 text-left text-sm' onClick={handleSelect}>
                                     <div className=''><Search strokeWidth={1} size={24} /></div>
                                     <p className='font-semibold line-clamp-1'>{result.title}</p>
                                 </button>

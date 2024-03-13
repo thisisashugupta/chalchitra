@@ -15,7 +15,7 @@ export default async function EditVideoPage({ params }: EditVideoPageProps) {
     const video_id = params.video_id;
 
     return (
-        <main className='bg-white w-full min-w-screen flex justify-center'>
+        <main className='w-full min-w-screen flex justify-center'>
         <div className='w-full max-w-3xl p-4 flex flex-col items-center gap-4'>
             
             <Badge variant="outline">Edit Video</Badge>

@@ -23,9 +23,9 @@ export default function SideBar() {
             </Link>
             <Link href='/feed/subscriptions'>
                 <Icon>
-                    <div>
+                    <div className='relative'>
                         <GalleryVerticalEnd size={22} strokeWidth={1} />
-                        <Play className="absolute bottom-[17.1rem] left-[2.35rem]" size={8} strokeWidth={2.3} />
+                        <Play className="absolute top-[0.68rem] left-[0.48rem]" size={7.5} strokeWidth={2.3} />
                     </div>
                     <p>Subscriptions</p>
                 </Icon>

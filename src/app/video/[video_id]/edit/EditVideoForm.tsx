@@ -36,7 +36,7 @@ export default function EditVideoForm({ video }: EditVideoFormProps) {
                 
                 <div>
                 <Label htmlFor="content">Description</Label>
-                <Textarea className='min-h-24 max-h-72' name="content" defaultValue={video.content!}/>
+                <Textarea className='min-h-36 max-h-72' name="content" defaultValue={video.content!}/>
                 </div>
                 
                 <div className='flex space-x-3 items-center'>
