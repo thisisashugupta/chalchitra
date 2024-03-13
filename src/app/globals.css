@@ -78,3 +78,7 @@
 .tags::-webkit-scrollbar { 
   display: none;
 }
+
+.hide-scrollbar::-webkit-scrollbar { 
+  display: none;
+}

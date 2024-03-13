@@ -2,13 +2,14 @@ import React from 'react';
 import { MoreVertical } from "lucide-react";
 import Link from 'next/link';
 import { getElapsedTime, formatDate } from '@/lib/functions'
+import Thumbnail from '@/components/ui/Thumbnail';
 
 const views = 33;
 
 interface SuggestionsCardProps {
     title: string;
     author: string;
-    thumbnailUrl?: string;
+    thumbnailUrl: string;
     video_id: string;
     updatedAt: string;
 }
@@ -18,9 +19,9 @@ export default function SuggestionsCard({title, author, thumbnailUrl, video_id, 
     return (
         <div className='flex gap-4'>
 
-            <div className='w-full min-w-[160px] max-w-[160px]'>
+            <div className='w-full min-w-[160px] max-w-[160px] select-none'>
                 <Link href={`/watch/?v=${video_id}`}>
-                    <img className="aspect-video rounded-xl" src={thumbnailUrl} />
+                    <Thumbnail thumbnailUrl={thumbnailUrl} rounded='lg' />
                 </Link>
             </div>
 

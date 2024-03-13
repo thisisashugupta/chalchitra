@@ -44,7 +44,7 @@ export default function FeedClient() {
         {videos.map((video : Video & { name: string }) => (
             <div key={video.id} className='md:mx-2 mb-6'>
               <Link href={`/watch?v=${video.video_id}`} >
-                <Card title={video.title} author={video.name} />
+                <Card title={video.title} author={video.name} thumbnailUrl={"kuch nahi hai yaha. ye component kahi use hi nahi ho raha."} />
               </Link>
             </div>
         ))}

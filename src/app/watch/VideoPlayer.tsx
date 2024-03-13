@@ -35,12 +35,12 @@ export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps)
 
             <video 
                 key={videoUrl}
-                className=" md:rounded-xl max-h-[75vh]" 
+                className="md:rounded-xl max-h-[75vh]"
                 // TODO: make thumbnail_id and video_id same
                 // poster={thumbnailUrl}
                 preload="auto"
                 controls 
-                // loop
+                loop
                 autoPlay 
                 onLoadedData={() => console.log("video loaded data")}
                 onLoadStart={() => console.log("video load start")}
@@ -48,7 +48,7 @@ export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps)
                 onCanPlay={() => console.log("video can play")}
                 onError={handleError}
             >
-                <source src={videoUrl} type="video/mp4" onCanPlay={() => console.log("can play")}/>
+                <source src={videoUrl} type="video/mp4" onCanPlay={() => console.log("source can play")}/>
             </video>}
         </div>
     )

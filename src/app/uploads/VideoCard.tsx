@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Dropdown from '@/app/uploads/Dropdown';
+import Thumbnail from '@/components/ui/Thumbnail';
 
 interface VideoCardProps {
     title: string;
@@ -16,7 +17,9 @@ export default function VideoCard({title, video_id, thumbnailUrl, setRefresh}: V
 
     return (
         <div className="flex flex-col">
-            <Link href={`/watch?v=${video_id}`}><img className="w-full aspect-video rounded-xl" src={thumbnailUrl} /></Link>
+            <Link href={`/watch?v=${video_id}`}>
+                <Thumbnail thumbnailUrl={thumbnailUrl} />
+            </Link>
             <div className='flex w-full justify-between'>
 
                 {/* <img className="mt-3 mr-3 w-10 h-10 rounded-full" src='https://picsum.photos/200' /> */}

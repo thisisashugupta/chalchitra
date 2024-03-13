@@ -1,5 +1,7 @@
 "use server"
 
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/options"
 import Image from "next/image"
 import MoreOptions from "@/components/MoreOptions"
 import { Like, Dislike } from "@/components/LikeDislike"
@@ -20,6 +22,9 @@ const BUCKET_REGION = process.env.BUCKET_REGION
 const testUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails/38eaabe3554423e614d1ca25951254fd`
 
 export default async function VideoDetails({v}: VideoDetailsProps) {
+
+    const session = await getServerSession(authOptions);
+    const email = session?.user?.email as string;
 
     let video: any | null = null;
     let elapsedTime = '';
@@ -50,20 +55,24 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
         elapsedTime = getElapsedTime(video?.createdAt);
         uploadedOn = formatDate(video?.createdAt);
 
-        if (!response) return (<div className="mx-auto">No video found</div>);
+        if (!response) return (
+            <div className="w-full mx-3 md:mx-0">
+                <p className='mt-3 text-lg font-bold'>{"No Video Found."}</p>
+            </div>
+        );
 
     } catch (error) {
         console.error(error);
     } finally {
         await cleanup();
     }
-    
+
     return (
-    <div className="mx-3 md:mx-0">
+    <div className="w-full px-3 md:px-0">
         <p className='mt-3 text-lg font-bold'>{video?.title}</p>
 
-        <div className="flex flex-wrap gap-3 mt-2 justify-between font-semibold">
-            <div id="left" className="flex items-center">
+        <div className="relative flex flex-col md:flex-row md:flex-wrap gap-3 mt-2 justify-between font-semibold">
+            <div id="left" className="flex items-left">
                 <Image
                     src={testUrl}
                     alt="avatar"
@@ -73,7 +82,7 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
                 />
                 <div>
                     <p className="font-semibold text-base">{`${video?.author?.ownChannel?.name}`}</p>
-                    <p className="font-base text-xs text-gray-500">{`${video?.author?.ownChannel?.subscribers}`} subscribers</p>
+                    <p className="min-w-max font-base text-xs text-gray-500">{`${video?.author?.ownChannel?.subscribers}`} subscribers</p>
                 </div>
                 
                 <button className="ml-6 bg-black rounded-full px-4 py-2">
@@ -82,9 +91,9 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
                 
             </div>
 
-            <div id="right" className="flex items-center space-x-2">
-                <div>
-                    <Like video_id={video.video_id} likes={video?.likes} />
+            <div id="right" className="flex items-left md:items-right space-x-2 overflow-auto hide-scrollbar">
+                <div className="min-w-max">
+                    <Like email={email} video_id={video.video_id} likes={video?.likes} />
                     <Dislike video_id={video.video_id} />
                 </div>
                 <div><Share video_id={v} /></div>

@@ -33,7 +33,7 @@ const Suggestions = async () => {
         });
         
         videos = response; // .map(({ id, title, video_id, author, thumbnail_id }) => ({ id, title, video_id, thumbnail_id, name: author.name }));
-        console.log("videos", videos);
+        // console.log("videos", videos);
         
     } catch (error) {
         console.error(error);
@@ -45,7 +45,7 @@ const Suggestions = async () => {
 
     return (
         <>
-            <div className='lg:max-w-sm space-y-4 mb-6 md:my-6 mx-3 md:mx-0'>
+            <div className='lg:max-w-[25rem] space-y-4 mb-6 md:my-6 mx-3 md:mx-0'>
                 <h2 className='text-xl font-semibold'>Suggestions</h2>
                 {videos.map((video: VideoDetailsProps) => (
                 <div key={video.id}>

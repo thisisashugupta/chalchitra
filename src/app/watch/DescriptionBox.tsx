@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 export default function DescriptionBox({description, elapsedTime}: {description?: string, elapsedTime: string }) {
 
     const [open, setOpen] = useState(false);
+    console.log(description);
+    
 
     return (<>
     {!open && <button className="text-start mt-3 p-3 w-full bg-gray-100 focus:bg-gray-300 rounded-xl" onClick={() => setOpen(true)}>
@@ -11,7 +13,7 @@ export default function DescriptionBox({description, elapsedTime}: {description?
             <span className="">80K views</span>
             <span>{elapsedTime}</span>
         </div>
-        <div className="text-sm line-clamp-2">
+        <div className="text-sm line-clamp-2 whitespace-pre-line">
             <p>{description}</p>
 
         </div>
@@ -23,7 +25,7 @@ export default function DescriptionBox({description, elapsedTime}: {description?
             <span>80,000 views</span>
             <span>{"16 May 2021"}</span>
         </div>
-        <div className="text-sm">
+        <div className="text-sm whitespace-pre-line">
             <p>{description}</p>
         </div>
         <button className='text-sm text-black font-semibold' onClick={() => setOpen(false)}>Show less</button>

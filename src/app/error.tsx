@@ -20,7 +20,7 @@ export default function ErrorBoundary({
   }, [error])
  
   return (
-    <div className='w-screen h-screen fixed flex flex-col items-center justify-center p-16 font-semibold'>
+    <div className='w-screen h-screen flex flex-col items-center justify-center p-16 font-semibold'>
       <p>src/app/error.tsx</p>
       <div className='text-xl text-red-500 font-mono m-6 p-6 pb-5 text-gray-600 bg-slate-200 border-2 border-red-500 rounded-xl'><p>{error.message || "Something went wrong."}</p></div>
       <button

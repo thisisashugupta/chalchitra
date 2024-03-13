@@ -67,3 +67,62 @@ export async function mutateVideoServerAction(id: number, thumbnail_id: string, 
     }
     
 }
+
+export async function likeVideo(email: string, video_id: string) {
+
+    try {
+
+        // 1. check if already liked by user
+
+        const userLikedVideoData = await prisma.user.findUnique({
+            where: { email },
+            select: {
+                liked_videos: {
+                    where: { video_id },
+                    select: { video_id: true }
+                }
+            }
+        })
+
+        console.log('userLikedVideoData', userLikedVideoData);
+
+        if (userLikedVideoData?.liked_videos.length === 0) {
+            // video is not already liked by user
+            // add user to videos's liked_by
+            // add video's likes count by one
+            await prisma.video.update({
+                where: { video_id },
+                data: {
+                    liked_by: {
+                        connect: { email },
+                    },
+                    likes: {
+                        increment: 1,
+                    },
+                },
+            });
+        } else {
+            // video is already liked by user
+            // remove user from videos's liked_by
+            // decrement video's likes count by one
+            await prisma.video.update({
+                where: { video_id },
+                data: {
+                    liked_by: {
+                        disconnect: { email },
+                    },
+                    likes: {
+                        decrement: 1,
+                    },
+                },
+            });
+        }
+
+    } catch (error) {
+        console.error(error);
+        throw new Error(`${error}`);
+    } finally {
+        await cleanup();
+    }
+
+}
