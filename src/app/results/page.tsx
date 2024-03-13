@@ -18,8 +18,6 @@ type VideoDetailsProps =
 }
 
 const VideoList = async ({searchParams}:any) => {
-    // const [videos, setVideos] = useState<Partial<Video>[]>([]);
-    // const searchParams = useSearchParams();
     const searchQuery = searchParams['search_query'];
 
     let videos:any[] = [];
