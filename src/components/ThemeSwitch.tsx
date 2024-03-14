@@ -25,7 +25,7 @@ export default function ThemeSwitch() {
             className="w-8 h-8 p-1 rounded-md"
             onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
         >
-            {resolvedTheme === 'dark' ? <Sun /> : <Moon />}
+            {resolvedTheme === 'dark' ? <Sun strokeWidth={1.5} /> : <Moon strokeWidth={1.5} />}
             {/* {theme === 'dark' ? <SunIcon /> : <MoonIcon />} */}
         </button>
     )
