@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useReducer } from 'react'
+import React, { useEffect, useState } from 'react'
 import { permanentRedirect } from 'next/navigation'
 
 interface VideoPlayerProps {
@@ -27,7 +27,7 @@ export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps)
     return (
         <div className='bg-transparent w-full flex flex-col items-center justify-center md:mt-6 overflow-hidden'>
             
-            {videoError && <div className='bg-black w-full aspect-video text-red-500 flex items-center justify-center'>
+            {videoError && <div className="bg-black w-full aspect-video text-red-500 flex items-center justify-center">
                 <p>Video failed to load</p>
             </div>}
             
@@ -42,10 +42,10 @@ export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps)
                 controls 
                 loop
                 autoPlay 
-                onLoadedData={() => console.log("video loaded data")}
                 onLoadStart={() => console.log("video load start")}
-                onPlay={() => console.log("video play")}
+                onLoadedData={() => console.log("video loaded data")}
                 onCanPlay={() => console.log("video can play")}
+                onPlay={() => console.log("video play")}
                 onError={handleError}
             >
                 <source src={videoUrl} type="video/mp4" onCanPlay={() => console.log("source can play")}/>

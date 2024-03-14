@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 export default function DescriptionBox({description, elapsedTime}: {description?: string, elapsedTime: string }) {
 
     const [open, setOpen] = useState(false);
-    console.log(description);
-    
 
     return (<>
     {!open && <button className="text-start mt-3 p-3 w-full rounded-xl bg-gray-100 dark:bg-gray-800/90 focus:bg-gray-300 dark:focus:bg-gray-600/70" onClick={() => setOpen(true)}>

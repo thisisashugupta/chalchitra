@@ -25,8 +25,8 @@ export async function FeedSkeleton() {
 
 export default async function Loading() {
   return (
-    <div className='w-screen h-screen flex flex-col items-center justify-center p-16 font-semibold'>
-      <p>Page is Loading...</p>
+    <div className='w-full h-full flex flex-col items-center justify-center p-16 font-semibold'>
+      <p className="text-3xl">Page is Loading...</p>
     </div>
   )
 }

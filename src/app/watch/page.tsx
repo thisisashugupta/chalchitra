@@ -1,19 +1,19 @@
 'use server'
 
 import { permanentRedirect } from 'next/navigation'
-import VideoDetails from './VideoDetails'
-import Suggestions from './Suggestions'
-import { Suspense } from 'react'
-import { VideoDetailsSkeleton, VideoPlayerSkeleton } from './loading'
+import dynamic from 'next/dynamic'
 import VideoPlayer from '@/app/watch/VideoPlayer'
-// import dynamic from 'next/dynamic'
+import { VideoDetailsSkeleton, SuggestionsSkeleton } from './loading'
 
-// const DynamicVideoPlayer = dynamic(
-//     () => import('@/app/watch/VideoPlayer'),
-//     {
-//       loading: () => <VideoPlayerSkeleton />,
-//     }
-//   )
+const DynamicSuggestions = dynamic(
+    () => import('@/app/watch/Suggestions'), 
+    { loading: () => <SuggestionsSkeleton /> }
+)
+
+const DynamicVideoDetails = dynamic(
+    () => import('@/app/watch/VideoDetails'),
+    { loading: () => <VideoDetailsSkeleton /> }
+)
 
 const BUCKET_NAME = process.env.BUCKET_NAME
 const BUCKET_REGION = process.env.BUCKET_REGION
@@ -32,22 +32,13 @@ export default async function WatchPage({ searchParams }: WatchPageProps) {
 
     return (
         <main className='flex justify-center'>
-            <div className='max-w-[106.5rem] md:mx-6 flex flex-col lg:flex-row gap-6 items-start justify-center '>
-
-                {/* <DynamicVideoPlayer videoUrl={videoUrl as string} thumbnailUrl={thumbnailUrl as string} /> */}
-
-                <Suspense fallback={<div className='h-8 bg-red-500 w-full'>FIRST IS LOADING</div>}>        
-                    <div className='w-full'>
-                        <VideoPlayer videoUrl={videoUrl as string} thumbnailUrl={thumbnailUrl as string} />
-                        <VideoDetails v={v as string} />
-                    </div>
-                    <Suspense fallback={<div className='h-8 bg-blue-500 w-full'>THIRD IS LOADING</div>}>
-                        <Suggestions />
-                    </Suspense>
-                </Suspense>
+            <div className='w-full max-w-[106.5rem] md:mx-6 flex flex-col lg:flex-row gap-6 items-start justify-center'>
+                <div className='w-full'>
+                    <VideoPlayer videoUrl={videoUrl as string} thumbnailUrl={thumbnailUrl as string} />
+                    <DynamicVideoDetails v={v as string} />
+                </div>
+                <DynamicSuggestions />
             </div>
         </main>
     )
 }
-
-// <VideoDetailsSkeleton />
