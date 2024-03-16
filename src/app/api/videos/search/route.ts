@@ -6,7 +6,6 @@ export async function GET(request: NextRequest) {
 
     const searchParams = new URLSearchParams(request.nextUrl.search);
     const queryParam = searchParams.get('query');
-    console.log("queryParam", queryParam);
 
     try {
 
@@ -27,7 +26,7 @@ export async function GET(request: NextRequest) {
     });
     
     const videos = response.map(({ id, title, video_id, author, thumbnail_id }) => ({ id, title, video_id, thumbnail_id, name: author.name }));
-    console.log("videos", videos);
+    // console.log("videos", videos);
 
     return NextResponse.json({ videos }, {status: 200});
     

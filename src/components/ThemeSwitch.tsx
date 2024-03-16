@@ -5,7 +5,11 @@ import { useTheme } from 'next-themes'
 import { Sun, Moon } from 'lucide-react'
 // import { MoonIcon, SunIcon } from '@heroicons/react/solid'
 
-export default function ThemeSwitch() {
+interface ThemeSwitchProps {
+    className?: string
+}
+
+export default function ThemeSwitch({ className = '' }: ThemeSwitchProps) {
     const [mounted, setMounted] = useState(false)
     const { setTheme, resolvedTheme } = useTheme()
 
@@ -22,7 +26,7 @@ export default function ThemeSwitch() {
         <button
             aria-label="Toggle Dark Mode"
             type="button"
-            className="w-8 h-8 p-1 rounded-md"
+            className={`w-8 h-8 p-1 rounded-md ${className}`}
             onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
         >
             {resolvedTheme === 'dark' ? <Sun strokeWidth={1.5} /> : <Moon strokeWidth={1.5} />}

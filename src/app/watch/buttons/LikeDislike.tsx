@@ -19,7 +19,7 @@ export function Dislike({video_id}: {video_id: string}) {
 
     const handleDislike = async () => {
         if (!openLoginModal && status === "authenticated") {
-            console.log('disliked');
+            // console.log('disliked');
         } else {
             setOpenLoginModal(true);
         }
@@ -52,7 +52,7 @@ export function Like({email, likes, video_id}: LikeProps) {
     const handleLike = async () => {
         if (!openLoginModal && status === "authenticated") {
             const likedVideo = await likeVideo(email, video_id);
-            console.log('liked', likedVideo);
+            // console.log('liked', likedVideo);
         } else setOpenLoginModal(true);
     }
 

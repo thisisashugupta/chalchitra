@@ -6,7 +6,7 @@ async function uploadFileToS3(file: any) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    console.log(buffer);
+    // console.log(buffer);
     
     const uploadParams = {
         Bucket: bucketName,
@@ -17,7 +17,7 @@ async function uploadFileToS3(file: any) {
     };
     const command = new PutObjectCommand(uploadParams);
     const response = await s3Client.send(command);
-    console.log(response);
+    // console.log(response);
     
     return file.name;
     

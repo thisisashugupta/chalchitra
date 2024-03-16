@@ -3,12 +3,13 @@
 
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
-
+import ThemeSwitch from '@/components/ThemeSwitch';
 import {
     Sheet,
     SheetContent,
     SheetDescription,
     SheetHeader,
+    SheetFooter,
     SheetTitle,
     SheetTrigger,
     SheetClose,
@@ -28,8 +29,8 @@ const SheetBar = ({session, side}: SheetBarProps) => {
       <SheetContent side={side}>
         <SheetHeader>
           <SheetDescription>Pages</SheetDescription>
-          <SheetTitle><Link href="/uploads"><SheetClose>Uploads</SheetClose></Link></SheetTitle>
-          <SheetTitle><Link href="/upload"><SheetClose>Create</SheetClose></Link></SheetTitle>
+          <SheetTitle><Link href="/uploads"><SheetClose>Your Uploads</SheetClose></Link></SheetTitle>
+          <SheetTitle><Link href="/upload"><SheetClose>Upload Video</SheetClose></Link></SheetTitle>
           <SheetTitle>
             {session ? (
                 <Link href="/api/auth/signout?callbackUrl=/"><SheetClose>Logout</SheetClose></Link>
@@ -38,6 +39,11 @@ const SheetBar = ({session, side}: SheetBarProps) => {
             )}
           </SheetTitle>
         </SheetHeader>
+        <SheetFooter>
+          <SheetClose>
+            <ThemeSwitch className='md:hidden m-4' />
+          </SheetClose>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
 

@@ -40,7 +40,7 @@ const VideoList = async ({searchParams}:any) => {
         });
         
         videos = response.map(({ id, title, video_id, author, thumbnail_id }) => ({ id, title, video_id, thumbnail_id, name: author.name }));
-        console.log("videos", videos);
+        // console.log("videos", videos);
         
     } catch (error) {
         console.error(error);

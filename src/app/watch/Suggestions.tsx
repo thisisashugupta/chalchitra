@@ -12,8 +12,6 @@ const prisma = getPrismaClient();
 const BUCKET_NAME = process.env.BUCKET_NAME
 const BUCKET_REGION = process.env.BUCKET_REGION
 
-console.log('Suggestions page');
-
 type VideoDetailsProps = Video & {
     author: { name: string }
 }

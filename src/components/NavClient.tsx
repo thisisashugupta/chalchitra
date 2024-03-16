@@ -37,7 +37,7 @@ export default function NavClient({session} : {session: Session | null}) {
         </nav>
 
         {/* mobile */}
-        <nav className='md:hidden flex items-center justify-between space-x-4 px-6 py-[0.3rem]'>
+        <nav className='md:hidden flex items-center justify-between space-x-4 px-6 py-[0.3rem] bg-white/60 dark:bg-black/60'>
 
             <SheetBar session={session} side='left' />
             {!openSearch && <Link className='flex gap-1 p-2' href="/"><MonitorPlay strokeWidth={1.5} />Chalchitra</Link>}
