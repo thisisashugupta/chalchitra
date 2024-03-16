@@ -1,8 +1,13 @@
-import React from 'react';
-import { MoreVertical } from "lucide-react";
-import Link from 'next/link';
+'use client'
+
+import React from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { MoreVertical } from 'lucide-react'
 import { getElapsedTime, formatDate } from '@/lib/functions'
-import Thumbnail from '@/components/ui/Thumbnail';
+import Thumbnail from '@/components/ui/Thumbnail'
+import { useSetRecoilState } from 'recoil'
+import { videoState } from '@/app/providers/RecoilProvider'
 
 const views = 33;
 
@@ -15,14 +20,21 @@ interface SuggestionsCardProps {
 }
 
 export default function SuggestionsCard({title, author, thumbnailUrl, video_id, updatedAt}: SuggestionsCardProps) {
+    const setVideoState = useSetRecoilState(videoState)
+    const router = useRouter()
 
     return (
         <div className='flex gap-4'>
 
             <div className='w-full min-w-[160px] max-w-[160px] select-none'>
-                <Link href={`/watch/?v=${video_id}`} prefetch={false}>
+                <button 
+                className='w-full aspect-video'
+                onClick={() => {
+                    setVideoState(video_id)
+                    router.push(`/watch/?v=${video_id}`)
+                }}>
                     <Thumbnail thumbnailUrl={thumbnailUrl} rounded='lg' />
-                </Link>
+                </button>
             </div>
 
             <Link className='w-full' href={`/watch/?v=${video_id}`} passHref legacyBehavior >

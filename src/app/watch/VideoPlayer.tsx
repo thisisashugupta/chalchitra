@@ -1,20 +1,38 @@
 'use client'
 
-import React, { useEffect, useState, /* useReducer */ } from 'react'
+import React, { useRef, useEffect, useState, /* useReducer, useCallback */ } from 'react'
+import { useRecoilValue } from 'recoil'
+import { videoState } from '@/app/providers/RecoilProvider'
+import { useSearchParams } from 'next/navigation'
+import VideoPlayerTemplate from '@/app/watch/VideoPlayerTemplate'
 console.log('VideoPlayer page');
 
-interface VideoPlayerProps {
-    videoUrl: string,
-    thumbnailUrl: string
-}
+const BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME
+const BUCKET_REGION = process.env.NEXT_PUBLIC_BUCKET_REGION
 
-export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps) {
-    console.log('VideoPlayer Component');
-    const [videoError, setVideoError] = useState(false);
-    // useEffect(() => {
-    //     console.log("videoUrl changed, set video error false");
-    //     setVideoError(false);
-    // }, [videoUrl])
+export default function VideoPlayer() {
+    console.log('VideoPlayer Component')
+    const v = useRecoilValue(videoState)    
+    console.log('v',v)
+    // const searchparams = useSearchParams()
+    // const video_id = searchparams.get('v')
+    const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/videos/${v}`
+    const thumbnailUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails/${v}`
+    const videoRef = useRef<HTMLVideoElement>()
+    const [mounted, setMounted] = useState(false)
+    const [videoError, setVideoError] = useState(false)
+
+    const pauseVideo = async () => videoRef.current?.pause()
+    pauseVideo();
+
+    useEffect(() => {
+        setMounted(true)
+        console.log('mounted')
+        return function() {
+            // setMounted(false)
+            console.log('unmounted')
+        }
+    }, [])
 
 // TODO: type of event is any // ReactEventHandler<HTMLVideoElement>
     const handleError = (e: any) => {
@@ -22,33 +40,35 @@ export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps)
         setVideoError(true);
     }
 
-    return (
-        <div className='bg-transparent w-full flex flex-col items-center justify-center md:mt-6 overflow-hidden'>
-            
-            {videoError && <div className='bg-black w-full aspect-video text-red-500 flex items-center justify-center'>
-                <p>Video failed to load</p>
-            </div>}
-            
+    return (<>
+        {!mounted && <VideoPlayerTemplate className="md:mt-6" text='Video Loading...' />}
+        {mounted && <div className='bg-transparent w-full flex flex-col items-center justify-center md:mt-6 overflow-hidden'>
+            {videoError && <VideoPlayerTemplate text='Video failed to load.' />}
             {!videoError &&
-
             <video 
-                // key={videoUrl}
+                key={v}
+                id='video-tag'
                 className="md:rounded-xl max-h-[75vh]"
                 // TODO: make thumbnail_id and video_id same
                 // poster={thumbnailUrl}
-                autoPlay 
+                // autoPlay={mounted}
                 controls 
-                loop
+                // loop
                 playsInline // for iOS
                 preload="auto"
-                onLoadedData={() => console.log("video loaded data")}
                 onLoadStart={() => console.log("video load start")}
-                onPlay={() => console.log("video play")}
+                onLoadedData={() => console.log("video loaded data")}
                 onCanPlay={() => console.log("video can play")}
+                onPlay={() => console.log("play video")}
                 onError={handleError}
             >
-                <source src={videoUrl} type="video/mp4" onCanPlay={() => console.log("source can play")}/>
+                <source 
+                    src={videoUrl}
+                    type="video/mp4"
+                    onCanPlay={() => console.log("source can play")}
+                />
             </video>}
-        </div>
+        </div>}
+        </>
     )
 }

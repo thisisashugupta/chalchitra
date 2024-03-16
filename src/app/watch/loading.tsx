@@ -17,6 +17,7 @@ export async function VideoDetailsSkeleton() {
         <Skeleton className='h-5 rounded-full mt-2 w-[50%] dark:bg-neutral-600/60' />
         <Skeleton className='h-5 rounded-full mt-3 w-[25%] dark:bg-neutral-600/60' />
         <Skeleton className='h-20 rounded-xl  mt-4 w-full  dark:bg-neutral-600/60' />
+        <div className='h-2 w-full' />
     </div>);
 }
 
