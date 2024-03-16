@@ -37,12 +37,10 @@ export default async function WatchPage({ searchParams }: WatchPageProps) {
         <main className='flex justify-center'>
             <div className='w-full max-w-[106.5rem] md:mx-6 flex flex-col lg:flex-row gap-6 items-start justify-center'>
                 <div className='text-3xl font-bold'>Hello from sam</div>
-                <div className='w-full'>
-                <div key={videoUrl}>
-                    <Suspense fallback={<>Loading Video Player...</>}>
-                        <VideoPlayer videoUrl={videoUrl as string} thumbnailUrl={thumbnailUrl as string} />
-                    </Suspense>
-                </div>
+                <div  key={videoUrl} className='w-full'>
+                <Suspense fallback={<>Loading Video Player...</>}>
+                    <VideoPlayer videoUrl={videoUrl as string} thumbnailUrl={thumbnailUrl as string} />
+                </Suspense>
                     {/* <DynamicVideoDetails v={v as string} /> */}
                     <Suspense fallback={<VideoDetailsSkeleton/>}>
                         <VideoDetails v={v as string} />
