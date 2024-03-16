@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { permanentRedirect } from 'next/navigation'
+import React, { useEffect, useState, /* useReducer */ } from 'react'
+console.log('VideoPlayer page');
 
 interface VideoPlayerProps {
     videoUrl: string,
@@ -9,14 +9,12 @@ interface VideoPlayerProps {
 }
 
 export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps) {
-    
-    if (!videoUrl) permanentRedirect('/');
+    console.log('VideoPlayer Component');
     const [videoError, setVideoError] = useState(false);
-    
-    useEffect(() => {
-        console.log("videoUrl changed, set video error false");
-        setVideoError(false);
-    }, [videoUrl])
+    // useEffect(() => {
+    //     console.log("videoUrl changed, set video error false");
+    //     setVideoError(false);
+    // }, [videoUrl])
 
 // TODO: type of event is any // ReactEventHandler<HTMLVideoElement>
     const handleError = (e: any) => {
@@ -27,25 +25,26 @@ export default function VideoPlayer({videoUrl, thumbnailUrl} : VideoPlayerProps)
     return (
         <div className='bg-transparent w-full flex flex-col items-center justify-center md:mt-6 overflow-hidden'>
             
-            {videoError && <div className="bg-black w-full aspect-video text-red-500 flex items-center justify-center">
+            {videoError && <div className='bg-black w-full aspect-video text-red-500 flex items-center justify-center'>
                 <p>Video failed to load</p>
             </div>}
             
             {!videoError &&
 
             <video 
-                key={videoUrl}
+                // key={videoUrl}
                 className="md:rounded-xl max-h-[75vh]"
                 // TODO: make thumbnail_id and video_id same
                 // poster={thumbnailUrl}
-                preload="auto"
+                autoPlay 
                 controls 
                 loop
-                autoPlay 
-                onLoadStart={() => console.log("video load start")}
+                playsInline // for iOS
+                preload="auto"
                 onLoadedData={() => console.log("video loaded data")}
-                onCanPlay={() => console.log("video can play")}
+                onLoadStart={() => console.log("video load start")}
                 onPlay={() => console.log("video play")}
+                onCanPlay={() => console.log("video can play")}
                 onError={handleError}
             >
                 <source src={videoUrl} type="video/mp4" onCanPlay={() => console.log("source can play")}/>

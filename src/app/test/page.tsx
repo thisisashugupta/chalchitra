@@ -1,6 +1,7 @@
-'use server'
+'use client'
 
-export default async function Test() {
+export default function Test() {
+    console.log('-------------------- Test page --------------------');
     return (
         <div className='grid grid-cols-2'>
         <div className="flex flex-col items-center p-16 m-4">

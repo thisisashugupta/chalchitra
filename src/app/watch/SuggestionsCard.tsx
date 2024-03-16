@@ -20,7 +20,7 @@ export default function SuggestionsCard({title, author, thumbnailUrl, video_id, 
         <div className='flex gap-4'>
 
             <div className='w-full min-w-[160px] max-w-[160px] select-none'>
-                <Link href={`/watch/?v=${video_id}`}>
+                <Link href={`/watch/?v=${video_id}`} prefetch={false}>
                     <Thumbnail thumbnailUrl={thumbnailUrl} rounded='lg' />
                 </Link>
             </div>

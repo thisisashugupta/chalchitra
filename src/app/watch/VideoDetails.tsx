@@ -21,6 +21,8 @@ const BUCKET_NAME = process.env.BUCKET_NAME
 const BUCKET_REGION = process.env.BUCKET_REGION
 const testUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails/38eaabe3554423e614d1ca25951254fd`
 
+console.log('Video Details page');
+
 export default async function VideoDetails({v}: VideoDetailsProps) {
 
     const session = await getServerSession(authOptions);
