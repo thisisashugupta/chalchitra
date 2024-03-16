@@ -1,29 +1,31 @@
 'use client'
-import { videoState } from '@/app/providers/RecoilProvider'
-import { permanentRedirect, useSearchParams } from 'next/navigation'
+import React, { useMemo, useRef, useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import React, { useRef, useEffect, useState, /* useReducer, useCallback */ } from 'react'
+import { VideoPlayerSkeleton } from './loading'
+import { Suspense } from 'react'
+import { videoState } from '@/app/providers/RecoilProvider'
+
 import VideoPlayerTemplate from '@/app/watch/VideoPlayerTemplate'
 console.log('VideoPlayer page');
 
 const BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME
 const BUCKET_REGION = process.env.NEXT_PUBLIC_BUCKET_REGION
 
-export default function VideoPlayer() {
-    
-    const searchParams = useSearchParams()
-    const v = searchParams.get('v')
-    if (!v) permanentRedirect('/')
+interface VideoPlayerProps {
+    children: React.ReactNode,
+    video_id?: string
+}
 
-    const getVideoState = useRecoilValue(videoState)
-    
-    let video_id = v
-    if (getVideoState !== '') video_id = getVideoState
+export default function VideoPlayer({children, video_id}: VideoPlayerProps) {
+    console.log('VideoPlayer Component')
+    const v = useRecoilValue(videoState)
+    console.log('video_id before v', video_id)
+    console.log('v', v)
+    video_id = v || video_id
+    console.log('video_id after v', video_id)
 
-    const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/videos/${video_id}`
-    const thumbnailUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails/${video_id}`
-    
-    const videoRef = useRef<any>()
+    const videoUrl = useMemo(() => `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/videos/${video_id}`, [video_id])
+    const videoRef: React.RefObject<HTMLVideoElement> = useRef<HTMLVideoElement>(null);
     const [mounted, setMounted] = useState(false)
     const [videoError, setVideoError] = useState(false)
 
@@ -38,20 +40,19 @@ export default function VideoPlayer() {
     
     const playVideo = async () => await videoRef.current?.play()
     
-    // TODO: type of event is any // ReactEventHandler<HTMLVideoElement>
-    const handleError = (e: any) => {
+    const handleError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
         console.error("error", e);
         setVideoError(true);
     }
 
     return (<>
+        <Suspense fallback={<VideoPlayerSkeleton/>}>
         {!mounted && <VideoPlayerTemplate className="md:mt-6" text='Video Loading...' />}
         {mounted && <div className='bg-transparent w-full flex flex-col items-center justify-center md:mt-6 overflow-hidden'>
             {videoError && <VideoPlayerTemplate text='Video failed to load.' />}
             {!videoError &&
             <video 
                 key={v}
-                id='video-tag'
                 className="md:rounded-xl max-h-[75vh]"
                 // autoPlay={mounted}
                 controls 
@@ -65,10 +66,7 @@ export default function VideoPlayer() {
                     playVideo()
                     console.log("video loaded data")
                 }}
-                onCanPlay={() => {
-                    // playVideo()
-                    console.log("video can play")
-                }}
+                onCanPlay={() => console.log("video can play")}
                 onPlay={() => console.log("play video")}
                 onError={handleError}
             >
@@ -79,6 +77,8 @@ export default function VideoPlayer() {
                 />
             </video>}
         </div>}
+        </Suspense>
+        {children}
         </>
     )
 }
