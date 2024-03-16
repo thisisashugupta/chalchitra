@@ -10,11 +10,16 @@ const BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME
 const BUCKET_REGION = process.env.NEXT_PUBLIC_BUCKET_REGION
 
 export default function VideoPlayer() {
+    
     const searchParams = useSearchParams()
     const v = searchParams.get('v')
     if (!v) permanentRedirect('/')
+
     const getVideoState = useRecoilValue(videoState)
-    const video_id = (getVideoState === '') ? v : getVideoState
+    
+    let video_id = v
+    if (getVideoState !== '') video_id = getVideoState
+
     const videoUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/videos/${video_id}`
     const thumbnailUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails/${video_id}`
     
