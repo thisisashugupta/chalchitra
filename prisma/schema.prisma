@@ -18,6 +18,8 @@ model Playlist {
   videos    Video[]
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
+  channel   Channel? @relation(fields: [channelId], references: [id])
+  channelId Int?
 }
 
 model Video {
@@ -37,6 +39,8 @@ model Video {
   playlistId      Int?
   author          User      @relation(fields: [authorId], references: [id])
   authorId        Int
+  channel         Channel?   @relation(fields: [channelId], references: [id])
+  channelId       Int?
   liked_by        User[]    @relation("LikedVideos")
 }
 
@@ -58,11 +62,16 @@ model Comment {
 
 model Channel {
   id                Int     @id @default(autoincrement())
+  tag               String  @unique
   name              String  @default("Channel")
+  photo             String?
   bio               String?
   total_subscribers Int     @default(0)
   // many to many relationship with User
   subscribers       User[]  @relation("ChannelSubscriptions")
+  total_videos      Int     @default(0)
+  videos            Video[]
+  playlists         Playlist[]
   // one to one relationship with User
   owner             User    @relation(fields: [ownerId], references: [id])
   ownerId           Int     @unique
@@ -72,6 +81,7 @@ model User {
   id           Int          @id @default(autoincrement())
   email        String       @unique
   name         String?
+  photo        String?
   videos       Video[]
   playlists    Playlist[]
   liked_videos Video[]      @relation("LikedVideos")
