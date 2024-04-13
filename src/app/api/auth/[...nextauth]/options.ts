@@ -1,16 +1,18 @@
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import { NextAuthOptions } from "next-auth";
-// import { prisma } from "@/app/providers/PrismaProvider";
+import AdapterUser, { type User, NextAuthOptions } from "next-auth";
+
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
 const prisma = getPrismaClient();
+
+type CustomUser = (User | typeof AdapterUser) & { photo: string | undefined }
 
 export const authOptions : NextAuthOptions  = {
     // Configure one or more authentication providers
     providers: [
         GithubProvider({
             profile(profile) {
-                // console.log("Profile GitHub", profile);
+                console.log("Profile GitHub", profile);
 
                 let userRole = "GitHub User";
                 if(profile?.email == "adobeashu1812@gmail.com") {
@@ -20,6 +22,7 @@ export const authOptions : NextAuthOptions  = {
                 return {
                     ...profile,
                     role: userRole,
+                    photo: profile.avatar_url,
                 };
             },
             clientId: process.env.GITHUB_ID!,
@@ -28,11 +31,12 @@ export const authOptions : NextAuthOptions  = {
       // ...add more providers here
         GoogleProvider({
             profile(profile) {
-                // console.log("Profile Google", profile);
+                console.log("Profile Google", profile);
 
                 return {
                     ...profile,
                     id: profile.sub,
+                    photo: profile.picture,
                 };
             },
             clientId: process.env.GOOGLE_ID!,
@@ -59,18 +63,26 @@ export const authOptions : NextAuthOptions  = {
         },
         // Use the signIn() callback to control if a user is allowed to sign in.
         async signIn({ user }) {
-
+            
             // Save user data to the database
-            if(user.email && user.name) {
+            if (user.email && user.name) {
                 await prisma.user.upsert({
                     where: { email: user.email },
-                    update: { name: user.name },
-                    create: { email: user.email, name: user.name },
+                    update: { 
+                        name: user.name, 
+                        photo: (user as CustomUser).photo
+                    },
+                    create: { 
+                        email: user.email, 
+                        name: user.name, 
+                        photo: (user as CustomUser).photo,
+                        tag: `${user.email.split('@')[0]}-${Math.floor(Math.random() * 1_000_000)}`,
+                    },
                 });
                 await cleanup();
             }
-            
-            const isAllowedToSignIn = true
+
+            const isAllowedToSignIn = true;
             if (isAllowedToSignIn) {
               return true
             } else {

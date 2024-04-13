@@ -18,8 +18,6 @@ model Playlist {
   videos    Video[]
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
-  channel   Channel? @relation(fields: [channelId], references: [id])
-  channelId Int?
 }
 
 model Video {
@@ -39,8 +37,6 @@ model Video {
   playlistId      Int?
   author          User      @relation(fields: [authorId], references: [id])
   authorId        Int
-  channel         Channel?   @relation(fields: [channelId], references: [id])
-  channelId       Int?
   liked_by        User[]    @relation("LikedVideos")
 }
 
@@ -60,34 +56,20 @@ model Comment {
   parentId  Int?      @unique
 }
 
-model Channel {
-  id                Int     @id @default(autoincrement())
-  tag               String  @unique
-  name              String  @default("Channel")
+model User {
+  id                Int             @id @default(autoincrement())
+  tag               String?          @unique
+  email             String          @unique
+  name              String?
   photo             String?
   bio               String?
-  total_subscribers Int     @default(0)
-  // many to many relationship with User
-  subscribers       User[]  @relation("ChannelSubscriptions")
-  total_videos      Int     @default(0)
   videos            Video[]
+  liked_videos      Video[]         @relation("LikedVideos")
+  total_videos      Int             @default(0)
   playlists         Playlist[]
-  // one to one relationship with User
-  owner             User    @relation(fields: [ownerId], references: [id])
-  ownerId           Int     @unique
-}
-
-model User {
-  id           Int          @id @default(autoincrement())
-  email        String       @unique
-  name         String?
-  photo        String?
-  videos       Video[]
-  playlists    Playlist[]
-  liked_videos Video[]      @relation("LikedVideos")
-  comments     Comment[]
-  // many to many relationship with Channel
-  subscriptions     Channel[]    @relation("ChannelSubscriptions")
-  // one to one relationship with Channel
-  ownChannel   Channel?
+  comments          Comment[]
+  // many to many self-relation with Channel
+  subscribers       User[]       @relation("Subscriptions")
+  subscriptions     User[]       @relation("Subscriptions")
+  total_subscribers Int             @default(0)
 }
