@@ -16,7 +16,7 @@ export default function Page({ searchParams }: WatchPageProps) {
     return (
         <main className='flex justify-center'>
             <div className='w-full max-w-[106.5rem] md:mx-6 flex flex-col lg:flex-row gap-6 items-start justify-center'>
-                <div className='w-full'>
+                <div className='w-full mb-6'>
                     <VideoPlayer video_id={v as string}>
                     <Suspense fallback={<VideoDetailsSkeleton/>}>
                         <VideoDetails v={v as string} />

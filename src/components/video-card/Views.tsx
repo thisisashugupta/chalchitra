@@ -1,8 +1,9 @@
+import { formatNumber } from '@/lib/number';
+
 export default function Views({views}: {views: number}) {
-
-  const _views = String(views);
-
+  const viewsInShort = formatNumber(views);
+  
   return (
-    <span>{`${_views} views`}</span>
+    <span>{`${viewsInShort} views`}</span>
   )
 }

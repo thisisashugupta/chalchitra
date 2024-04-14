@@ -1,14 +1,13 @@
 "use server"
 
-import { type Video, type User } from "@prisma/client"
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
 const prisma = getPrismaClient();
 
-type VideoType = Video & { author: Partial<User> } | null
+import { VideoWithAuthor } from "@/types/video"
 
 export async function useVideoDetails(v: string) {
 
-    let video: VideoType = null;
+    let video = {} as VideoWithAuthor;
 
     try {
         // fetch video details, along with author name, photo and total subscribers
@@ -28,7 +27,7 @@ export async function useVideoDetails(v: string) {
                 },
             }
         });
-        video = response;
+        video = response as VideoWithAuthor;
 
         console.log("video:", response);
 

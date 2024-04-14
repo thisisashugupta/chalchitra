@@ -25,6 +25,6 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
             <ButtonsTray video={video} />
         </div>
 
-        <DescriptionBox description={video?.content} createdAt={video?.createdAt} />
+        <DescriptionBox video={video} />
     </div>);
 }

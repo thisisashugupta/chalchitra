@@ -32,8 +32,23 @@ export function getElapsedTime(updatedAt: string) {
     }
 }
 
-export function formatDate(inputDate: string) {
-    const date = new Date(inputDate);
+export function formatDate2(date: Date): string {
+    // const date = new Date(inputDate);
     const options : any = { day: '2-digit', month: 'long', year: 'numeric' };
     return date.toLocaleDateString('en-GB', options);
 }
+
+
+export function formatDate(date: Date): string {
+    // Define options for formatting the date
+    const options: Intl.DateTimeFormatOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+
+    // Format the date
+    const formattedDate: string = date.toLocaleDateString('en-US', options);
+
+    return formattedDate;
+}
+
+// // Test
+// const myDate = new Date(2022, 10, 25); // November 25, 2022
+// console.log(formatDate2(myDate)); // Output: Nov 25, 2022
