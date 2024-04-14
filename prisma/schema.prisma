@@ -27,6 +27,7 @@ model Video {
   title           String    @db.VarChar(255)
   content         String?
   published       Boolean   @default(false)
+  views           Int       @default(0)
   likes           Int       @default(0)
   dislikes        Int       @default(0)
   total_comments  Int       @default(0)

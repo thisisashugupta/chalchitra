@@ -1,15 +1,12 @@
 "use client"
-
+/* /uploads */
+// TODO: convert into server component, maybe make the card component as client component
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Video } from '@prisma/client'
+import { VideoWithAuthor } from '@/types/video'
 import { Button } from "@/components/ui/button"
-import VideoCard from "@/app/uploads/VideoCard"
+import VideoCard from "@/app/uploads/UploadsVideoCard"
 import UploadsSkeleton from './UploadsSkeleton'
-
-const BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME
-const BUCKET_REGION = process.env.NEXT_PUBLIC_BUCKET_REGION
-const thumbnailUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails`
 
 export default function Uploads() {
 
@@ -42,21 +39,28 @@ export default function Uploads() {
 
     return (
         <>
-            <div className='flex justify-between mx-2 my-4'>
+            <div className='flex justify-between md:mx-6 md:my-4'>
                 <p>My Uploads</p>
                 <Button onClick={() => setRefresh((prevVal) => !prevVal)}>Refresh</Button>
-            </div>    
-            <div className="flex">
-                { isLoading ? <UploadsSkeleton /> : 
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6">
-                    {videos.map((video : Video & { name: string }) => (
-                        <div key={video.id} className='mx-2 mb-6'>
-                          <VideoCard title={video.title} video_id={video.video_id} thumbnailUrl={`${thumbnailUrl}/${video.thumbnail_id}`} setRefresh={setRefresh}/>
-                        </div>
-                    ))}
-                </div>
-                }
             </div>
+
+            { isLoading ? <UploadsSkeleton /> : 
+            <div className={`md:mx-4 md:my-8
+                grid grid-cols-1 
+                md:grid-cols-2 
+                lg:grid-cols-3 
+                xl:grid-cols-4 
+                2xl:grid-cols-5 
+                3xl:grid-cols-6
+            `}>
+                {videos.map((video : VideoWithAuthor) => (
+                    <div key={video.id}>
+                        <VideoCard video={video} setRefresh={setRefresh}/>
+                    </div>
+                ))}
+            </div>
+            }
+
         </>
     )
 }

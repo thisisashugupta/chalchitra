@@ -1,7 +1,8 @@
 "use server"
 // Fetches feed videos data and renders it in a grid layout, provides it to Card component
-import { type Video, type User }  from '@prisma/client'
+
 import Card from '@/components/Card'
+import { VideoWithAuthor } from '@/types/video'
 
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
 const prisma = getPrismaClient();
@@ -10,11 +11,9 @@ const BUCKET_NAME = process.env.BUCKET_NAME
 const BUCKET_REGION = process.env.BUCKET_REGION
 const thumbnailUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails`
 
-type FeedVideo = Partial<Video> & { author: Partial<User> }
-
 export default async function Feed() {
 
-    let videos : FeedVideo[] | null = null;
+    let videos : VideoWithAuthor[] | null = null;
     let isError = false;
 
     try {
@@ -51,7 +50,7 @@ export default async function Feed() {
             3xl:grid-cols-5 
             4xl:grid-cols-6
         `}>
-            {videos.map((video : FeedVideo) => (
+            {videos.map((video : VideoWithAuthor) => (
                 <div key={video.id}>
                     <Card video={video} thumbnailUrl={thumbnailUrl} />
                 </div>

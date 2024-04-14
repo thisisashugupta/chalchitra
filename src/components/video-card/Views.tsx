@@ -1,12 +1,8 @@
-import React from 'react'
+export default function Views({views}: {views: number}) {
 
-function Views({views}: {views: string}) {
-
-    const _views = String(views);
+  const _views = String(views);
 
   return (
     <span>{`${_views} views`}</span>
   )
 }
-
-export default Views
