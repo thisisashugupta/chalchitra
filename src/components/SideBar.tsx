@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Home, Disc, Download, CircleUserRound, GalleryVerticalEnd, Play } from 'lucide-react';
-import Icon from '@/components/Icon';
+import Icon from '@/components/SidebarButtonIcon';
 import { usePathname } from 'next/navigation'
 
 
