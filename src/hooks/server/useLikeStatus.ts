@@ -3,7 +3,14 @@
 import { getPrismaClient } from '@/app/providers/PrismaProvider'
 const prisma = getPrismaClient()
 
-async function useLikeStatus({email, video_id}: {email: string, video_id: string}) {
+type UseLikeStatusProps = {
+    email?: string | null | undefined, 
+    video_id: string | null | undefined 
+}
+
+async function useLikeStatus({email, video_id}: UseLikeStatusProps) {
+    if (!email) return { error: 'email is required' }
+    if (!video_id) return { error: 'video_id is required' }
 
     try {
         // searching of among the videos liked by user, if the video with video_id is present
@@ -20,7 +27,7 @@ async function useLikeStatus({email, video_id}: {email: string, video_id: string
         return { videoLiked };
     } catch (error) {
         console.error(error);
-        return { isVideoLiked: null };
+        return { isVideoLiked: null, error: 'error occurred while fetching like status of video'};
     }
 }
 

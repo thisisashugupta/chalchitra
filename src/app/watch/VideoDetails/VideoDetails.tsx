@@ -14,6 +14,8 @@ interface VideoDetailsProps {
 export default async function VideoDetails({v}: VideoDetailsProps) {
     console.log('Video Details page');
     const { video } = await useVideoDetails(v);
+    // TODO: add error handling
+    // TODO: fetch video like status here and pass to LikeVideo component
 
     return (
     <div className="mt-3 w-full px-3 md:px-0">
