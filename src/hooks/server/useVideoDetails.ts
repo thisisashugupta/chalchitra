@@ -18,6 +18,7 @@ export async function useVideoDetails(v: string) {
             include: {
                 author: {
                     select: {
+                        id: true,
                         tag: true,
                         name: true,
                         email: true,
@@ -29,7 +30,7 @@ export async function useVideoDetails(v: string) {
         });
         video = response as VideoWithAuthor;
 
-        console.log("video:", response);
+        // console.log('video:', response);
 
     } catch (error) {
         console.error(error);

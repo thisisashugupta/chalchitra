@@ -1,19 +1,21 @@
 "use server"
 
 // import Image from 'next/image'
-import SubscribeButton from '@/app/watch/VideoDetails/SubscribeButton'
+import Subscribe from '@/app/watch/VideoDetails/Subscribe/Subscribe'
+import SubscribersCount from '@/app/watch/VideoDetails/Subscribe/SubscribersCount'
 import { type User } from "@prisma/client"
 import Link from 'next/link';
 
-type VideoDetailsAuthorCardProps = {
+type ChannelDetailsCardProps = {
     author: Partial<User> | undefined;
 }
 
-function VideoDetailsAuthorCard({ author }: VideoDetailsAuthorCardProps) {
+function ChannelDetailsCard({ author }: ChannelDetailsCardProps) {
   return (
     <div className="flex items-left">
         
         <Link href={`/user/${author?.tag}`}>
+            {/* Channel PFP */}
             <img
                 src={author?.photo || ""}
                 alt="avatar"
@@ -25,16 +27,18 @@ function VideoDetailsAuthorCard({ author }: VideoDetailsAuthorCardProps) {
 
         <div>
             <Link href={`/user/${author?.tag}`}>
+                {/* Channel Name */}
                 <p className="font-semibold text-base">{`${author?.name}`}</p>
             </Link>
-            <p className="min-w-max font-base text-xs text-gray-500">{`${author?.total_subscribers}`} subscribers</p>
+            {/* Subscribers Count */}
+            <SubscribersCount subscribers={author?.total_subscribers || 0} />
         </div>
         
         <div className="ml-6 flex items-center">
-            <SubscribeButton/>
+            <Subscribe channel_id={author?.id} subscribers={author?.total_subscribers || 0} />
         </div>
     </div>
   )
 }
 
-export default VideoDetailsAuthorCard
+export default ChannelDetailsCard
