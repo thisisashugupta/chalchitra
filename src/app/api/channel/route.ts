@@ -1,9 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
 const prisma = getPrismaClient();
-import { User, Channel } from '@prisma/client';
+import { User } from '@prisma/client';
 
-type UserResponse = (User & { ownChannel: Channel | null; }) | null;
+type UserResponse = User | null;
+// TODO: Channel to User
 
 export async function GET(request: NextRequest) {
 
@@ -15,9 +16,6 @@ export async function GET(request: NextRequest) {
         const data : UserResponse = await prisma.user.findUnique({
             where: {
                 id: user_id
-            },
-            include: {
-                ownChannel: true
             }
         });
 

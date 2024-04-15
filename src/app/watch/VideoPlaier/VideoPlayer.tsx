@@ -1,10 +1,10 @@
 'use client'
 import React, { useMemo, useRef, useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { VideoPlayerSkeleton } from './loading'
+import { VideoPlayerSkeleton } from '../loading'
 import { Suspense } from 'react'
 import { videoState } from '@/app/providers/RecoilProvider'
-import VideoPlayerTemplate from '@/app/watch/VideoPlayerTemplate'
+import VideoPlayerTemplate from './VideoPlayerTemplate'
 
 const BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME
 const BUCKET_REGION = process.env.NEXT_PUBLIC_BUCKET_REGION

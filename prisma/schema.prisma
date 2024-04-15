@@ -27,6 +27,7 @@ model Video {
   title           String    @db.VarChar(255)
   content         String?
   published       Boolean   @default(false)
+  views           Int       @default(0)
   likes           Int       @default(0)
   dislikes        Int       @default(0)
   total_comments  Int       @default(0)
@@ -56,28 +57,20 @@ model Comment {
   parentId  Int?      @unique
 }
 
-model Channel {
-  id                Int     @id @default(autoincrement())
-  name              String  @default("Channel")
-  bio               String?
-  total_subscribers Int     @default(0)
-  // many to many relationship with User
-  subscribers       User[]  @relation("ChannelSubscriptions")
-  // one to one relationship with User
-  owner             User    @relation(fields: [ownerId], references: [id])
-  ownerId           Int     @unique
-}
-
 model User {
-  id           Int          @id @default(autoincrement())
-  email        String       @unique
-  name         String?
-  videos       Video[]
-  playlists    Playlist[]
-  liked_videos Video[]      @relation("LikedVideos")
-  comments     Comment[]
-  // many to many relationship with Channel
-  subscriptions     Channel[]    @relation("ChannelSubscriptions")
-  // one to one relationship with Channel
-  ownChannel   Channel?
+  id                Int             @id @default(autoincrement())
+  tag               String?          @unique
+  email             String          @unique
+  name              String?
+  photo             String?
+  bio               String?
+  videos            Video[]
+  liked_videos      Video[]         @relation("LikedVideos")
+  total_videos      Int             @default(0)
+  playlists         Playlist[]
+  comments          Comment[]
+  // many to many self-relation with Channel
+  subscribers       User[]       @relation("Subscriptions")
+  subscriptions     User[]       @relation("Subscriptions")
+  total_subscribers Int             @default(0)
 }

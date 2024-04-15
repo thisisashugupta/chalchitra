@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { User, Channel } from '@prisma/client';
+import { type User } from '@prisma/client';
 
-type UserResponse = (User & { ownChannel: Channel | null }) | null;
-
+type UserResponse = User | null;
+// TODO: Channel to User
 
 const UserProfile = ({params}:{params: {user_id: string}}) => {
 
@@ -40,7 +40,7 @@ const UserProfile = ({params}:{params: {user_id: string}}) => {
                 <div>
                     <h1>{userProfile?.name}</h1>
                     {/* <h2>Bio: {userProfile?.profile?.bio}</h2> */}
-                    <h2>Channel: {userProfile?.ownChannel?.name}</h2>
+                    <h2>Channel: {"User Channel"}</h2>
                 </div>
             }
         </div>
