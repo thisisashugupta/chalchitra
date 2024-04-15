@@ -23,7 +23,7 @@ async function Like({likes, video_id}: {likes: number, video_id: string}) {
     liked: isVideoLiked as boolean,
     email: userEmail as string,
   }
-  console.log(likeStatus);
+  // console.log('likeStatus', likeStatus);
 
   if (!session) 
     return (
