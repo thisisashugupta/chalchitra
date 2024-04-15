@@ -21,6 +21,10 @@ export function addCommas(number: number) {
 
 
 export function formatNumber(number: number): string {
+
+    if (!number) return '0';
+    if (number < 1000) return String(number);
+
     // Define suffixes for thousands, millions, billions, etc.
     const suffixes: string[] = ['', 'K', 'M', 'B', 'T'];
 
