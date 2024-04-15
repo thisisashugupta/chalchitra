@@ -1,15 +1,23 @@
+'use client'
+
 import { useState, useOptimistic } from 'react'
-import { ShowLike } from './ShowLike'
+import { likeVideo } from "@/app/actions"
+import ShowLike from './ShowLike'
 import { LikeStatus } from "./types"
 
-type OptimisticLikeProps = {
-  defaultLikeStatus: LikeStatus, 
-  likeAction: () => Promise<any>
+interface OptimisticLikeProps {
+  likeData: {
+      liked: boolean,
+      email: string, 
+      likes: number, 
+      video_id: string
+  }
 }
 
-export function OptimisticLike({defaultLikeStatus, likeAction}: OptimisticLikeProps) {
+export default function OptimisticLike({ likeData }: OptimisticLikeProps) {
 
-  const [likeStatus, setLikeStatus] = useState<LikeStatus>(defaultLikeStatus)
+  const defaultLikeState = { likes: likeData?.likes, liked: likeData?.liked }
+  const [likeStatus, setLikeStatus] = useState<LikeStatus>(defaultLikeState)
 
   const newLikeStatus = { 
     liked: !likeStatus.liked, 
@@ -21,17 +29,17 @@ export function OptimisticLike({defaultLikeStatus, likeAction}: OptimisticLikePr
     typeof newLikeStatus
   >(likeStatus, (_, newLikeStatus) => newLikeStatus);
 
-  const handleSubmit = async (formData: FormData) => {
+  const likeAction = async (formData: FormData) => {
     addOptimisticLike(newLikeStatus)
-    await likeAction()
-    //   if successfully liked, only then
+    await likeVideo(likeData?.email!, likeData?.video_id!);
+    // TODO:  if successfully liked, only then
     setLikeStatus(newLikeStatus)
   }
   
   return (      
-    <form action={handleSubmit}>
+    <form action={likeAction}>
       <button type="submit">
-        <ShowLike optimisticLikeStatus={optimisticLikeStatus} />
+        <ShowLike likeStatus={optimisticLikeStatus} />
       </button>
     </form>
   )

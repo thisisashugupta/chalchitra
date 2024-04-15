@@ -84,8 +84,6 @@ export async function likeVideo(email: string, video_id: string) {
             }
         })
 
-        console.log('userLikedVideoData OG', userLikedVideoData);
-
         if (userLikedVideoData?.liked_videos.length === 0) {
             // video is not already liked by user
             // add user to videos's liked_by

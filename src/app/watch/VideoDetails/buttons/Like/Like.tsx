@@ -1,25 +1,38 @@
 'use server'
-//  fetch like status of video, if current user has liked the video, and passes it to a client component for action
-
-import dynamic from "next/dynamic"
-const LikeVideo = dynamic(() => import("@/app/watch/VideoDetails/buttons/Like/LikeVideo"), { ssr: false })
+//  fetch like status of video, if user has liked the video, and passes it to a client component for like action
 
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/options"
 
 import useLikeStatus from "@/hooks/server/useLikeStatus"
+import OptimisticLike from '@/app/watch/VideoDetails/buttons/Like/OptimisticLike'
+import RequireLogin from "@/components/RequireLogin"
+import ShowLike from "@/app/watch/VideoDetails/buttons/Like/ShowLike"
 
 async function Like({likes, video_id}: {likes: number, video_id: string}) {
 
   const session = await getServerSession(authOptions)
   const userEmail = session?.user?.email
 
-  const { videoLiked, error } = await useLikeStatus({ email: userEmail, video_id });
-  if (error || videoLiked===null || videoLiked===undefined) 
-    throw new Error('videoLiked is null or undefined');
+  const { isVideoLiked, error } = await useLikeStatus({ email: userEmail, video_id });
+  // TODO: add error handling
+
+  const likeStatus = { 
+    likes,
+    video_id,
+    liked: isVideoLiked as boolean,
+    email: userEmail as string,
+  }
+  console.log(likeStatus);
+
+  if (!session) 
+    return (
+      <RequireLogin>
+        <ShowLike likeStatus={{liked: false, likes}} />
+      </RequireLogin>
+    )
   
-  if (!session) return (<LikeVideo video_id={video_id} likes={likes} />)
-  return (<LikeVideo videoLiked={videoLiked} likes={likes} email={userEmail!} video_id={video_id} />)
+  return (<OptimisticLike likeData={likeStatus} />)
 }
 
 export default Like

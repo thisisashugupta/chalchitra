@@ -23,8 +23,8 @@ async function useLikeStatus({email, video_id}: UseLikeStatusProps) {
                 }
             }
         })
-        const videoLiked = userLikedVideoData?.liked_videos.length === 0 ? false : true;
-        return { videoLiked };
+        const isVideoLiked = userLikedVideoData?.liked_videos.length === 0 ? false : true;
+        return { isVideoLiked };
     } catch (error) {
         console.error(error);
         return { isVideoLiked: null, error: 'error occurred while fetching like status of video'};

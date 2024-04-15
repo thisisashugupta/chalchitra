@@ -1,6 +1,8 @@
+'use client'
+
 import { useState } from 'react'
 
-export default function RequireLogin() {
+export default function RequireLogin({children}: {children: React.ReactNode}) {
 
     const [openLoginModal, setOpenLoginModal] = useState(false);
 
@@ -11,5 +13,8 @@ export default function RequireLogin() {
                 <button className="mx-auto bg-black text-white px-4 py-3 font-semibold" onClick={() => setOpenLoginModal(false)}>Okay</button>
             </div>
         </div>}
+        <button onClick={() => setOpenLoginModal(true)}>
+            {children}
+        </button>
     </>
 }
