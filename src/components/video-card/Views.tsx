@@ -1,7 +1,9 @@
 import { formatNumber } from '@/lib/number';
 
 export default function Views({views}: {views: number}) {
-  const viewsInShort = formatNumber(views);
+
+  let viewsInShort = formatNumber(views);
+  if (!views) viewsInShort = "0";
   
   return (
     <span>{`${viewsInShort} views`}</span>

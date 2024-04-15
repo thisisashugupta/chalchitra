@@ -5,12 +5,13 @@ import { VideoWithAuthor } from '@/types/video'
 
 type VideoMetadataProps = {
   video: VideoWithAuthor,
+  className?: string,
   hideAuthor?: boolean
 }
 
-function VideoMetadata({video, hideAuthor = false}: VideoMetadataProps) {
+function VideoMetadata({video, className, hideAuthor = false}: VideoMetadataProps) {
   return (
-    <div className='mt-1 text-xs text-gray-500 space-x-1'>
+    <div className={`mt-1 text-xs text-gray-500 space-x-1 ${className}`}>
         {hideAuthor || 
         <>
           <span>{video?.author?.name}</span>

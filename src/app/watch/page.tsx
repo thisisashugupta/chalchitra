@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
 import { permanentRedirect } from 'next/navigation'
-import VideoPlayer from '@/app/watch/VideoPlayer' // client component
+import VideoPlayer from '@/app/watch/VideoPlaier/VideoPlayer' // client component
 import VideoDetails from '@/app/watch/VideoDetails/VideoDetails' // server component
-import Suggestions from '@/app/watch/Suggestions' // server component
+import Suggestions from '@/app/watch/Suggestions/Suggestions' // server component
 import { VideoDetailsSkeleton, SuggestionsSkeleton } from './loading'
 
 interface WatchPageProps {
