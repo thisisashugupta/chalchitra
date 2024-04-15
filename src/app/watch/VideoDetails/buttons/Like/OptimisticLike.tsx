@@ -29,7 +29,7 @@ export default function OptimisticLike({ likeData }: OptimisticLikeProps) {
     typeof newLikeStatus
   >(likeStatus, (_, newLikeStatus) => newLikeStatus);
 
-  const likeAction = async (formData: FormData) => {
+  const likeAction = async () => {
     addOptimisticLike(newLikeStatus)
     await likeVideo(likeData?.email!, likeData?.video_id!);
     // TODO:  if successfully liked, only then

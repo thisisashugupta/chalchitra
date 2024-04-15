@@ -3,7 +3,7 @@
 import { useVideoDetails } from "@/hooks/server/useVideoDetails"
 
 import VideoTitle from "@/app/watch/VideoDetails/VideoTitle"
-import AuthorCard from "@/app/watch/VideoDetails/AuthorCard"
+import ChannelDetailsCard from "@/app/watch/VideoDetails/ChannelDetailsCard"
 import ButtonsTray from "@/app/watch/VideoDetails/ButtonsTray"
 import DescriptionBox from "@/app/watch/VideoDetails/DescriptionBox"
 
@@ -12,7 +12,7 @@ interface VideoDetailsProps {
 }
 
 export default async function VideoDetails({v}: VideoDetailsProps) {
-    console.log('Video Details page');
+
     const { video } = await useVideoDetails(v);
     // TODO: add error handling
     // TODO: fetch video like status here and pass to LikeVideo component
@@ -23,7 +23,7 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
         <VideoTitle title={video?.title} />
 
         <div className="relative flex flex-col md:flex-row md:flex-wrap gap-3 mt-2 justify-between font-semibold">
-            <AuthorCard author={video?.author} />
+            <ChannelDetailsCard author={video?.author} />
             <ButtonsTray video={video} />
         </div>
 

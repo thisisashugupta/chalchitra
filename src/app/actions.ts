@@ -124,3 +124,65 @@ export async function likeVideo(email: string, video_id: string) {
     }
 
 }
+
+export async function handleSubscribe(email: string, id: number) {
+
+    try {
+        // 1. check if channel is already subscribed by user
+
+        const userSubscribedChannel = await prisma.user.findUnique({
+            where: { email },
+            select: {
+                subscriptions: {
+                    where: { id },
+                    select: { 
+                        id: true,
+                        tag: true
+                    }
+                }
+            }
+        })
+
+        const isSubscribed = userSubscribedChannel?.subscriptions.length === 0 ? false : true;
+        
+        if (isSubscribed) await unsubscribe(email, id);
+        else await subscribe(email, id);
+        
+    } catch (error) {
+        console.error(error);
+        throw new Error(`${error}`);
+    } finally {
+        await cleanup();
+    }
+
+}
+
+const subscribe = async (email: string, id: number) => {
+    await prisma.user.update({
+        where: { id },
+        data: {
+            subscribers: {
+                connect: { email },
+            },
+            total_subscribers: {
+                increment: 1,
+            },
+        },
+    });
+    console.log(`${email} subscribed to channel ${id}`);
+}
+
+const unsubscribe = async (email: string, id: number) => {
+    await prisma.user.update({
+        where: { id },
+        data: {
+            subscribers: {
+                disconnect: { email },
+            },
+            total_subscribers: {
+                decrement: 1,
+            },
+        },
+    });
+    console.log(`${email} unsubscribed from channel ${id}`);
+}
