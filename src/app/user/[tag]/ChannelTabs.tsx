@@ -7,6 +7,9 @@ function ChannelTabs({tag}: {tag: string}) {
   return (
     <div>
         <div className='py-4 flex space-x-6 font-bold text-gray-400'>
+            <Link href={`/user/${tag}`}>
+                Home
+            </Link>
             <Link href={`/user/${tag}/videos`}>
                 Videos
             </Link>
