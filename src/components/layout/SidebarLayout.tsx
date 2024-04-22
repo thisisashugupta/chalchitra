@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { usePathname } from 'next/navigation'
-import SideBar from '@/components/SideBar';
+import SideBar from '@/components/feature/SideBar'
 
 function SidebarLayout({children}: React.PropsWithChildren<{}>) {
     const pathname = usePathname()

@@ -4,6 +4,7 @@
 import React from 'react'
 import { getPrismaClient } from '@/app/providers/PrismaProvider'
 import Channel from './Channel'
+import SomeVideos from './SomeVideos'
 
 async function page({params}:{params: {tag: string}}) {
     
@@ -17,20 +18,24 @@ async function page({params}:{params: {tag: string}}) {
         },
         include: {
             videos: {
-                take: 10,
+                take: 6,
                 select: {
                     id: true,
                     title: true,
                     views: true,
                     thumbnail_id: true,
+                    createdAt: true,
                 },
             }
         }
     });
 
-    console.log(channelData);
+    if (!channelData) throw new Error('Error Fetching Channel Data')        
     
-  return (<Channel channelData={channelData} />)
+  return (<div className='pt-4 px-8'>
+    <Channel channelData={channelData} />
+    <SomeVideos videos={channelData?.videos!} />
+  </div>)
 }
 
 export default page

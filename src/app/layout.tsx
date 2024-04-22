@@ -8,7 +8,7 @@ import AuthProvider from './providers/AuthProvider';
 import { ThemeModeProvider } from '@/app/providers/ThemeProvider';
 import RecoilProvider from '@/app/providers/RecoilProvider';
 import { Toaster } from "@/components/ui/toaster";
-import SidebarLayout from '@/components/SidebarLayout';
+import SidebarLayout from '@/components/layout/SidebarLayout';
 
 const inter = Inter({ subsets: ['latin'] })
 

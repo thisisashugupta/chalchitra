@@ -21,7 +21,7 @@ async function page({params}:{params: {tag: string}}) {
         },
         include: {
             videos: {
-                take: 10,
+                // take: 10,
                 select: {
                     id: true,
                     title: true,
@@ -33,13 +33,13 @@ async function page({params}:{params: {tag: string}}) {
         }
     });
 
-    console.log(channel);
-
     const author = {
         photo: channel?.photo,
         name: channel?.name,
         tag: channel?.tag,
     }
+
+    if(!channel) throw new Error('Error fetching Channel Data')
     
   return (<div className='pt-4 px-8'>
   <Channel channelData={channel} />

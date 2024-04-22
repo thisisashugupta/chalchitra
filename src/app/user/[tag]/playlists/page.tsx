@@ -31,7 +31,9 @@ async function page({params}:{params: {tag: string}}) {
                 },
             }
         }
-    });
+    })
+
+    if(!channel) throw new Error('Error fetching Channel Data')
     
   return (<div className='pt-4 px-8'>
     <Channel channelData={channel} />

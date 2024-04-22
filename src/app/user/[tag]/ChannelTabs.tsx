@@ -1,19 +1,29 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import React from 'react'
 
 function ChannelTabs({tag}: {tag: string}) {
-    // TODO: highlight current tab
+    const pathname = usePathname()
+    const currentTab = pathname.split("/")[3]
     
   return (
     <div>
         <div className='py-4 flex space-x-6 font-bold text-gray-400'>
-            <Link href={`/user/${tag}`}>
+            <Link 
+                className={currentTab ? '' : 'text-red-500'}
+                href={`/user/${tag}`}>
                 Home
             </Link>
-            <Link href={`/user/${tag}/videos`}>
+            <Link
+                className={currentTab == 'videos' ? 'text-red-500' : ''}
+                href={`/user/${tag}/videos`}>
                 Videos
             </Link>
-            <Link href={`/user/${tag}/playlists`}>
+            <Link 
+                className={currentTab == 'playlists' ? 'text-red-500' : ''}
+                href={`/user/${tag}/playlists`}
+                >
                 Playlists
             </Link>
         </div>
