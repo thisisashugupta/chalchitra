@@ -6,11 +6,12 @@ import Link from 'next/link'
 import SheetBar from '@/components/SheetBar'
 import SearchBar from '@/components/SearchBar'
 import VoiceButton from '@/components/VoiceButton'
-import { Button } from '@/components/ui/button'
+import { CircleUserRound } from 'lucide-react'
 import { MonitorPlay, Search, X } from 'lucide-react'
 import ThemeSwitch from '@/components/ThemeSwitch'
+import { User } from '@prisma/client'
 
-export default function NavClient({session} : {session: Session | null}) {
+export default function NavClient({session, user} : {session: Session | null, user: User | null}) {
 
     const [openSearch, setOpenSearch] = useState<boolean>(false);
 
@@ -26,13 +27,26 @@ export default function NavClient({session} : {session: Session | null}) {
                 <VoiceButton />
             </div>
             <div className='pl-4 flex items-center space-x-4'>
-                <ThemeSwitch />
-                <Button>
+                <div className='flex items-center min-w-max'>
+                    <ThemeSwitch />
                     { session ? 
-                        ( <Link href="/api/auth/signout?callbackUrl=/">Logout</Link> ) : 
-                        ( <Link href="/api/auth/signin">Login</Link> )
+                        <img
+                            src={ user?.photo || 'https://picsum.photos/200'} 
+                            className="m-2 w-9 h-9 rounded-full"
+                        /> :
+                        <div className='ml-2'>
+                            <Link href="/api/auth/signin">
+                                {/* Sign In Button */}
+                                <div className='px-[0.6rem] py-[0.3rem] flex text-blue-500 text-sm border border-gray-700 rounded-full hover:bg-blue-400/50'>
+                                    <CircleUserRound strokeWidth={1} />
+                                    <p className='mx-1 font-semibold'>Sign in</p>
+                                </div>
+                            </Link>
+                        </div>
                     }
-                </Button>
+                    
+
+                </div>
             </div>
         </nav>
 
