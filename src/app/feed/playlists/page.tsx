@@ -1,7 +1,7 @@
 'use server'
 import useServerAuth from "@/hooks/server/useServerAuth"
 
-async function page() {
+async function Page() {
 
   const { isAuthenticated, user } = await useServerAuth()
 
@@ -20,4 +20,4 @@ async function page() {
   )
 }
 
-export default page
+export default Page

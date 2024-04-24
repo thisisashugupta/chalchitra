@@ -6,7 +6,7 @@ import { getPrismaClient } from '@/app/providers/PrismaProvider'
 import Channel from './Channel'
 import SomeVideos from './SomeVideos'
 
-async function page({params}:{params: {tag: string}}) {
+async function Page({params}:{params: {tag: string}}) {
     
     const tag = params.tag;
     
@@ -38,4 +38,4 @@ async function page({params}:{params: {tag: string}}) {
   </div>)
 }
 
-export default page
+export default Page
