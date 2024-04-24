@@ -9,7 +9,7 @@ import { Heading } from '@/components/ui/heading'
 import VideoCardVertical from '@/components/ui/video-card-vertical'
 import { thumbnailUrl } from '@/lib/exports'
 
-async function page({params}:{params: {tag: string}}) {
+async function Page({params}:{params: {tag: string}}) {
     
     const tag = params.tag;
     
@@ -31,7 +31,9 @@ async function page({params}:{params: {tag: string}}) {
                 },
             }
         }
-    });
+    })
+
+    if(!channel) throw new Error('Error fetching Channel Data')
     
   return (<div className='pt-4 px-8'>
     <Channel channelData={channel} />
@@ -52,4 +54,4 @@ async function page({params}:{params: {tag: string}}) {
   </div>)
 }
 
-export default page
+export default Page

@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
 let prisma: PrismaClient | null = null;
+// TODO: add singleton prisma client
 
 export const getPrismaClient = (): PrismaClient => {
   if (!prisma) {

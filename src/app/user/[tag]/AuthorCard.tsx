@@ -3,7 +3,7 @@ import Subscribe from '@/app/watch/VideoDetails/Subscribe/Subscribe'
 
 function AuthorCard({channelData}: any) {
   return (
-    <div className='flex flex-col sm:flex-row items-center justify-left'>
+    <div className='flex flex-col sm:flex-row justify-left'>
         
         <img 
           className='w-36 h-36 mr-8 object-cover rounded-full'

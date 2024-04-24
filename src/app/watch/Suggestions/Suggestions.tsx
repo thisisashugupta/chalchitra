@@ -32,7 +32,7 @@ const Suggestions = async () => {
 
     return (
         <>
-            <div className='lg:min-w-[25rem] lg:max-w-[25rem] space-y-4 mb-6 md:my-6 mx-3 md:mx-0'>
+            <div className='lg:min-w-[25rem] lg:max-w-[25rem] space-y-2 mb-6 md:my-6 mx-3 md:mx-0'>
                 <h2 className='text-xl font-semibold'>Suggestions</h2>
                 {videos.map((video: VideoWithAuthor) => (
                 <div key={video.id}>

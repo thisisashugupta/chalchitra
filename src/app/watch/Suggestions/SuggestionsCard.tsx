@@ -19,22 +19,20 @@ export default function SuggestionsCard({video}: SuggestionsCardProps) {
     const setVideoState = useSetRecoilState(videoState)
     const router = useRouter()
 
+    function setVideo() {
+        setVideoState(video?.video_id!)
+        router.push(`/watch/?v=${video?.video_id}`)
+    }
+
     return (
-        <div className='flex gap-4'>
+        <div className='flex gap-2'>
 
-            <div className='w-full min-w-[160px] max-w-[160px] select-none'>
-                <button 
-                className='w-full aspect-video'
-                onClick={() => {
-                    setVideoState(video?.video_id!)
-                    router.push(`/watch/?v=${video?.video_id}`)
-                }}>
-                    <Thumbnail thumbnailUrl={`${thumbnailUrl}/${video?.video_id}`} rounded='lg' />
-                </button>
-            </div>
+            <button onClick={setVideo} className='w-full aspect-video min-w-[160px] max-w-[160px] select-none'>
+                <Thumbnail thumbnailUrl={`${thumbnailUrl}/${video?.video_id}`} rounded='lg' />
+            </button>
 
-            <Link href={`/watch/?v=${video?.video_id}`} passHref legacyBehavior >
-                <div className='w-full flex flex-col cursor-pointer'>
+            <div className='flex flex-col justify-start w-full'>
+                <button onClick={setVideo} className='text-left'>
                     <div className='flex justify-between space-x-2 text-md font-medium'>
                         {/* Video Title */}
                         <div className="line-clamp-2">{video?.title}</div>
@@ -43,14 +41,11 @@ export default function SuggestionsCard({video}: SuggestionsCardProps) {
                         </div>
                     </div>
                     {/* Author Name */}
-                    <Link href={`/user/${video?.author?.tag}`}>
-                        <p className='text-xs text-gray-500'>
-                            {video?.author?.name}
-                        </p>
-                    </Link>
+                    <div><p className='text-xs text-gray-400'>{video?.author?.name}</p></div>
                     <VideoMetadata className='mt-0' video={video} hideAuthor />
-                </div>
-            </Link>
+                </button>
+            </div>
+
         </div>
     );
 

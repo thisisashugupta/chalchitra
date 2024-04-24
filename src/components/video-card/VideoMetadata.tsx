@@ -11,7 +11,7 @@ type VideoMetadataProps = {
 
 function VideoMetadata({video, className, hideAuthor = false}: VideoMetadataProps) {
   return (
-    <div className={`mt-1 text-xs text-gray-500 space-x-1 ${className}`}>
+    <div className={`mt-1 text-xs text-gray-400 space-x-1 ${className}`}>
         {hideAuthor || 
         <>
           <span>{video?.author?.name}</span>

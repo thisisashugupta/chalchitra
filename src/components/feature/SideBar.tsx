@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Home, Disc, Download, CircleUserRound, GalleryVerticalEnd, Play } from 'lucide-react';
-import Icon from '@/components/SidebarButtonIcon';
+import Icon from '@/components/ui/SidebarButtonIcon';
 import { usePathname } from 'next/navigation'
 
 
@@ -30,7 +30,7 @@ export default function SideBar() {
                     <p>Subscriptions</p>
                 </Icon>
             </Link>
-            <Link href='/test'>
+            <Link href='https://music.youtube.com' target='_blank'>
                 <Icon>
                     <Disc size={22} strokeWidth={1} />
                     <p>Music</p>
