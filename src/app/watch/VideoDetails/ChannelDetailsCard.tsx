@@ -12,8 +12,9 @@ type ChannelDetailsCardProps = {
 
 function ChannelDetailsCard({ author }: ChannelDetailsCardProps) {
   return (
-    <div className="flex items-left">
-        
+    <div className="flex justify-between">
+
+        <div className='flex'>
         <Link href={`/user/${author?.tag}`}>
             {/* Channel PFP */}
             <img
@@ -32,6 +33,7 @@ function ChannelDetailsCard({ author }: ChannelDetailsCardProps) {
             </Link>
             {/* Subscribers Count */}
             <SubscribersCount subscribers={author?.total_subscribers || 0} />
+        </div>
         </div>
         
         <div className="ml-6 flex items-center">

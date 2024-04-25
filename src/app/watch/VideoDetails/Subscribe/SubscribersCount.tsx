@@ -7,7 +7,7 @@ import { formatNumber } from '@/lib/number'
 
 // TODO: subscriber count should be updated when user subscribes
 
-function SubscribersCount({subscribers}: {subscribers: number}) {
+function SubscribersCount({subscribers, className}: {subscribers: number, className?: string}) {
 
 //     const subscribeState = useRecoilValue(subscribeAtom)
 //     console.log('subscribeState FROM COUNT', subscribeState);
@@ -16,7 +16,7 @@ function SubscribersCount({subscribers}: {subscribers: number}) {
     const subscribersInShort = formatNumber(subscribers); // TODO: convert number to small form
 
     return (
-        <p className="min-w-max font-base text-xs text-gray-500">
+        <p className={`min-w-max font-base text-xs text-gray-500 ${className}`}>
             {`${subscribersInShort} subscriber${subscribers > 1 ? 's' : ''}`}
         </p>
     )

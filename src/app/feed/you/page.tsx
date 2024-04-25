@@ -32,7 +32,7 @@ async function YouPage() {
         }
     })
 
-    console.log('playlists', userData?.playlists)
+    // console.log('playlists', userData?.playlists)
 
     if (!userData) throw new Error('Error Fetching User Data')
 

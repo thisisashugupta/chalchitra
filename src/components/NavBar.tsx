@@ -21,9 +21,6 @@ export default async function Nav() {
                 email: email
             }
         })
-
-        console.log(user);
-        
     }
 
 
