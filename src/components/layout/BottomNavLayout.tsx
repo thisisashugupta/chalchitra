@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
-const BottomNavbar = dynamic(() => import('@/components/feature/BottomNavbar'), { ssr: false })
+const BottomNavbar = dynamic(() => import('@/components/layout/BottomNavbar'), { ssr: false })
 
 function SidebarLayout({children}: React.PropsWithChildren<{}>) {
     const pathname = usePathname()
