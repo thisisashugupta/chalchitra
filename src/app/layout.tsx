@@ -3,12 +3,12 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import NavBar from '@/components/NavBar';
-// import SideBar from '@/components/SideBar';
 import AuthProvider from './providers/AuthProvider';
 import { ThemeModeProvider } from '@/app/providers/ThemeProvider';
 import RecoilProvider from '@/app/providers/RecoilProvider';
 import { Toaster } from "@/components/ui/toaster";
-import SidebarLayout from '@/components/layout/SidebarLayout';
+import SidebarLayout from '@/components/layout/SidebarLayout'
+import BottomNavLayout from '@/components/layout/BottomNavLayout'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,7 +30,9 @@ export default function RootLayout({
             <RecoilProvider>
               <div className='z-10 w-full fixed top-0'><NavBar /></div>
               <SidebarLayout>
-                {children}
+                <BottomNavLayout>
+                  {children}
+                </BottomNavLayout>
               </SidebarLayout>
               {/* <div className='z-10 md:fixed hidden md:block'><SideBar /></div> */}
               {/* <div className='md:ml-20 mt-12 md:mt-14'>{children}</div> */}

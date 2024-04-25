@@ -25,9 +25,24 @@ export default function VideoPlayer({children, video_id}: VideoPlayerProps) {
 
     useEffect(() => {
         setMounted(true)
-        return function() {
-            setMounted(false)
-        }
+        return () => setMounted(false)
+    }, [])
+
+    useEffect(() => {
+        // api call to increment view count
+        fetch('/api/watch', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ video_id }),
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch((error) => {
+        console.error('Error:', error)
+        })
+        
     }, [])
     
     const playVideo = async () => await videoRef.current?.play()

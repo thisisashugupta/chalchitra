@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import Thumbnail from '@/components/ui/Thumbnail';
-import { MoreVertical } from 'lucide-react';
+import Link from 'next/link'
+import Thumbnail from '@/components/ui/FeedThumbnail'
+import { MoreVertical } from 'lucide-react'
 import { VideoWithAuthor } from '@/types/video'
-import VideoMetadata from '@/components/video-card/VideoMetadata';
+import VideoMetadata from '@/components/video-card/VideoMetadata'
 
 type CardProps = {
     video: VideoWithAuthor
