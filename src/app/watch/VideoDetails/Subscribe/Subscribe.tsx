@@ -28,7 +28,6 @@ async function Subscribe({channel_id, subscribers}: SubscribeProps) {
     email: userEmail! as string,
     id: channel_id as number,
   }
-  console.log('subscribeStatus', subscribeStatus);
 
   if (!session) 
     return (
