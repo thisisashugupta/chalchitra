@@ -22,7 +22,7 @@ export default async function VideoDetails({v}: VideoDetailsProps) {
 
         <VideoTitle title={video?.title} />
 
-        <div className="relative flex flex-col md:flex-row md:flex-wrap gap-3 mt-2 justify-between font-semibold">
+        <div className="flex flex-col md:flex-row md:flex-wrap gap-3 mt-2 justify-between font-semibold">
             <ChannelDetailsCard author={video?.author} />
             <ButtonsTray video={video} />
         </div>
