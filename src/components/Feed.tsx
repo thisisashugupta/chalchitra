@@ -1,7 +1,7 @@
 "use server"
 // Fetches feed videos data and renders it in a grid layout, provides it to Card component
 
-import Card from '@/components/Card'
+import VideoCard from '@/components/ui/FeedVideoCard'
 import { VideoWithAuthor } from '@/types/video'
 
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
@@ -52,7 +52,7 @@ export default async function Feed() {
         `}>
             {videos.map((video : VideoWithAuthor) => (
                 <div key={video.id}>
-                    <Card video={video} thumbnailUrl={thumbnailUrl} />
+                    <VideoCard video={video} thumbnailUrl={thumbnailUrl} />
                 </div>
             ))}
         </div>
