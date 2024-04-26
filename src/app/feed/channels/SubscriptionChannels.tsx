@@ -1,8 +1,9 @@
-import { Heading } from "@/components/ui/heading"
-import { type User } from "@prisma/client"
-import SubscriptionsChannelCard from "./ChannelsCard"
-import CircularButton from "@/components/ui/buttons/CircularButton"
 import Link from "next/link"
+import { Heading } from "@/components/ui/heading"
+import CircularButton from "@/components/ui/buttons/CircularButton"
+
+import SubscriptionsChannelCard from "./ChannelsCard"
+import { type User } from "@prisma/client"
 
 function Subscriptions({subscriptions}: {subscriptions: User[]}) {
 

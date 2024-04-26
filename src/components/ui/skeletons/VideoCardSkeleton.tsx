@@ -1,12 +1,9 @@
-'use client'
-
 import { MoreVertical } from 'lucide-react'
 import { Skeleton } from "@/components/ui/skeleton"
 
 export default function VideoCardSkeleton() {
 
     return (
-        
         <div className='flex flex-col gap-1'>
             <Skeleton className="w-full aspect-video md:rounded-xl" />
             <div className='flex w-full justify-between pl-2'>

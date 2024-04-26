@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { VideoWithAuthor } from '@/types/video'
 import { Button } from "@/components/ui/button"
 import VideoCard from "@/app/uploads/UploadsVideoCard"
-import UploadsSkeleton from './UploadsSkeleton'
+import UploadsSkeleton from '@/components/ui/skeletons/UploadsSkeleton'
 
 export default function Uploads() {
 
