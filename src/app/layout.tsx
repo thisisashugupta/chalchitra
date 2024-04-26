@@ -2,11 +2,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import NavBar from '@/components/NavBar';
-import AuthProvider from './providers/AuthProvider';
-import { ThemeModeProvider } from '@/app/providers/ThemeProvider';
-import RecoilProvider from '@/app/providers/RecoilProvider';
-import { Toaster } from "@/components/ui/toaster";
+import AuthProvider from './providers/AuthProvider'
+import { ThemeModeProvider } from '@/app/providers/ThemeProvider'
+import RecoilProvider from '@/app/providers/RecoilProvider'
+import { Toaster } from "@/components/ui/toaster"
+import NavBar from '@/components/layout/NavBar'
 import SidebarLayout from '@/components/layout/SidebarLayout'
 import BottomNavLayout from '@/components/layout/BottomNavLayout'
 
