@@ -1,7 +1,8 @@
 import React from 'react'
+import Link from 'next/link'
+
 import Subscribe from '@/app/watch/VideoDetails/Subscribe/Subscribe'
 import SubscribersCount from '@/app/watch/VideoDetails/Subscribe/SubscribersCount'
-import Link from 'next/link'
 
 export default function SubscriptionsChannelCard({channel}: any) {
 

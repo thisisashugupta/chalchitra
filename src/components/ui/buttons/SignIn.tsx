@@ -1,6 +1,6 @@
 import { CircleUserRound } from 'lucide-react'
 
-function SignIn() {
+export default function SignIn() {
   return (
     <div className='px-[0.6rem] py-[0.3rem] flex text-blue-500 text-sm border border-gray-700 rounded-full hover:bg-blue-400/50'>
         <CircleUserRound strokeWidth={1} />
@@ -8,5 +8,3 @@ function SignIn() {
     </div>
   )
 }
-
-export default SignIn

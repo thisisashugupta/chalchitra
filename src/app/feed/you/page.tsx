@@ -40,7 +40,7 @@ async function YouPage() {
         <div className="m-4 flex justify-center">
             <div className='max-w-7xl w-full'>
                 <UserCard userData={userData} />
-                <VideoShowcase title="Some Uploads" videos={userData.videos} href="/uploads" />
+                <VideoShowcase title="Uploads" videos={userData.videos} href="/uploads" />
                 {/* <VideoShowcase title="Liked videos" videos={userData.liked_videos} /> */}
                 {/* TODO: Liked VIdeos is a playlist */}
                 <PlaylistShowcase playlists={userData.playlists} />
