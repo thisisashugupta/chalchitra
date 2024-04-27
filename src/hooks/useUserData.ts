@@ -11,7 +11,7 @@ export default function useUserData() {
     const { session } = useAuth()
     const email = session?.user?.email
     
-    fetch(`/api/user?email=${email}`)
+    email && fetch(`/api/user?email=${email}`)
     .then(res => res.json())
     .then(data => setUser(data))
 }
