@@ -6,6 +6,7 @@ import { type Playlist } from '@prisma/client'
 import ViewAllButton from '@/components/ui/buttons/ViewAllButton'
 import PlaylistCardVertical from '@/components/ui/playlist-card-vertical'
 import { playlistUrl as thumbnailUrl } from '@/lib/exports'
+import { Heading } from '@/components/ui/heading'
 
 function PlaylistShowcase({playlists}: {playlists: Playlist[]}) {
 
@@ -16,6 +17,8 @@ function PlaylistShowcase({playlists}: {playlists: Playlist[]}) {
             <Link href='/feed/playlists'><ViewAllButton/></Link>
         </div>
         
+        { playlists.length<=0 ? 
+        <Heading>No Playlists</Heading> : 
         <CarouselWrapper>
             {playlists.map((playlist, index) => (
                 <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
@@ -26,7 +29,7 @@ function PlaylistShowcase({playlists}: {playlists: Playlist[]}) {
                     />
                 </CarouselItem>
             ))}
-        </CarouselWrapper>
+        </CarouselWrapper>}
     </div>
   )
 }
