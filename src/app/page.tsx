@@ -12,7 +12,7 @@ export default async function Home() {
     <>
       <Tags />
       <div className='z-10'>
-        <Suspense fallback={<FeedSkeleton />}>
+        <Suspense fallback={<div className="md:mx-4 md:my-6"><FeedSkeleton /></div>}>
           <Feed />
         </Suspense>
       </div>

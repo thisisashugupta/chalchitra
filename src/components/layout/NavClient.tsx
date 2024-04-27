@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import SheetBar from '@/components/SheetBar'
+
+import dynamic from 'next/dynamic'
+const SheetBar = dynamic(() => import('@/components/SheetBar'))
 import SearchBar from '@/components/SearchBar'
 import SignIn from '@/components/ui/buttons/SignIn'
 import VoiceButton from '@/components/ui/buttons/VoiceButton'
@@ -30,7 +32,7 @@ export default function NavClient({session, user} : {session: Session | null, us
             </div>
             <div className='pl-4 flex items-center space-x-4'>
                 <div className='flex justify-center items-center min-w-max space-x-2'>
-                    <Link href={'/upload'}><CreateVideo /></Link>
+                    <Link href={'/create'}><CreateVideo /></Link>
                     <div><ThemeSwitch /></div>
                     <div className='px-1 min-w-max'>
                     { session ? 

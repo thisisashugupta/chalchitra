@@ -35,11 +35,20 @@ async function YouPage() {
     // console.log('playlists', userData?.playlists)
 
     if (!userData) throw new Error('Error Fetching User Data')
-
+    
+    const userInfo = {
+        name: userData.name,
+        tag: userData.tag,
+        photo: userData.photo,
+        bio: userData.bio,
+        total_subscribers: userData.total_subscribers,
+        total_videos: userData.total_videos
+    }
+    
     return (
         <div className="m-4 flex justify-center">
             <div className='max-w-7xl w-full'>
-                <UserCard userData={userData} />
+                <UserCard userData={userInfo} />
                 <VideoShowcase title="Uploads" videos={userData.videos} href="/uploads" />
                 {/* <VideoShowcase title="Liked videos" videos={userData.liked_videos} /> */}
                 {/* TODO: Liked VIdeos is a playlist */}

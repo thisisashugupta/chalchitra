@@ -8,6 +8,7 @@ import { type Video } from '@prisma/client'
 import { thumbnailUrl } from '@/lib/exports'
 import { Button } from '@/components/ui/button'
 import ViewAllButton from '@/components/ui/buttons/ViewAllButton'
+import { Heading } from '@/components/ui/heading'
 
 function VideoShowcase({title, videos, href='/'}: {title: string, videos: Partial<Video>[], href?: string}) {
 
@@ -19,6 +20,8 @@ function VideoShowcase({title, videos, href='/'}: {title: string, videos: Partia
             <Link href={href}><ViewAllButton/></Link>
         </div>
         
+        { videos.length<=0 ? 
+        <Heading>No Uploads</Heading> : 
         <CarouselWrapper>
             {videos.map((video, index) => (
                 <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
@@ -29,7 +32,7 @@ function VideoShowcase({title, videos, href='/'}: {title: string, videos: Partia
                     />
                 </CarouselItem>
             ))}
-        </CarouselWrapper>
+        </CarouselWrapper>}
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import CardSkeleton from "@/components/ui/skeletons/CardSkeleton"
+import DisplayInGrid from "@/components/ui/display-in-grid"
 
 export default function FeedSkeleton() {
 
@@ -9,14 +10,12 @@ export default function FeedSkeleton() {
   }))
 
   return (
-    <div className="md:mx-4 md:my-6 flex">
-    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6">
+      <DisplayInGrid>
       {videos.map((video) => (
         <div key={video.id} className='md:mx-2 mb-6'>
           <CardSkeleton />
         </div>
       ))}
-    </div>
-    </div>
+      </DisplayInGrid>
   );
 }
