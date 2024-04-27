@@ -8,6 +8,7 @@ export default async function useServerAuth() {
     const session = await getServerSession(authOptions)
     return { 
         isAuthenticated: Boolean(session), 
-        user: session?.user 
+        user: session?.user,
+        session: session
     }
 }

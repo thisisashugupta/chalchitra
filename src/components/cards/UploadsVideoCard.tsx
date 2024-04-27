@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import Dropdown from '@/app/uploads/Dropdown';
+import Options from '@/components/cards/options/UploadsVideoCardOptions';
 import Thumbnail from '@/components/ui/Thumbnail';
 import VideoMetadata from '@/components/video-card/VideoMetadata';
 
@@ -32,7 +32,7 @@ async function UploadsVideoCard({video, setRefresh}: VideoCardProps) {
                 </div>
 
                 <div className='mt-2 ml-3 p-2 w-10 h-10 text-center rounded-full font-bold hover:bg-gray-300'>
-                    <Dropdown video_id={video?.video_id!} setRefresh={setRefresh} />
+                    <Options video_id={video?.video_id!} setRefresh={setRefresh} />
                 </div>
 
             </div>

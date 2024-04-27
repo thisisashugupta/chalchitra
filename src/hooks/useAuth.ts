@@ -5,10 +5,10 @@ import { useSession } from "next-auth/react"
 
 export default function RequireLogin() {
 
-    const { status } = useSession()
+    const { status, data } = useSession()
     
     const [isAuthenticated, _] = useState(status === "authenticated")
 
-    return { isAuthenticated } 
+    return { isAuthenticated, session: data } 
     // returns true if user is authenticated and false otherwise
 }

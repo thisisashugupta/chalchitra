@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-function CreateVideo() {
+export default function CreateVideoButton() {
   return (
     // m-[0.4rem] hover:bg-gray-300/70 dark:hover:bg-gray-300/30 rounded-full
     <div className='p-[0.4rem] hover:bg-gray-300/70 dark:hover:bg-gray-300/30 rounded-full'>
@@ -13,8 +13,5 @@ function CreateVideo() {
             priority
         />
     </div>
-
   )
 }
-
-export default CreateVideo

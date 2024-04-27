@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 
 import Tags from '@/components/Tags'
 import Feed from '@/components/Feed'
-import { FeedSkeleton } from './loading'
+import FeedSkeleton from '@/components/ui/skeletons/FeedSkeleton'
 
 export default async function Home() {
 

@@ -1,13 +1,14 @@
-import { Heading } from "@/components/ui/heading"
-import { type User } from "@prisma/client"
-import SubscriptionsChannelCard from "./ChannelsCard"
-import CircularButton from "@/components/ui/buttons/CircularButton"
 import Link from "next/link"
+import { Heading } from "@/components/ui/heading"
+import CircularButton from "@/components/ui/buttons/CircularButton"
+
+import SubscriptionsChannelCard from "@/components/cards/ChannelCard"
+import { type User } from "@prisma/client"
 
 function Subscriptions({subscriptions}: {subscriptions: User[]}) {
 
     if (subscriptions.length===0) return (<div className="flex flex-col items-center">
-        <Heading>No Subscriptions</Heading>
+        <Heading>No Channels</Heading>
         <Link href="/">
             <CircularButton title='Go Home' />
         </Link>

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -5,9 +6,8 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu";
-  import { MoreVertical } from 'lucide-react';
-  import Link from 'next/link';
+} from "@/components/ui/dropdown-menu"
+import { MoreVertical } from 'lucide-react'
 
 interface DropdownProps {
     video_id: string;

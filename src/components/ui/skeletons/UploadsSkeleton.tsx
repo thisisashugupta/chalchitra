@@ -1,14 +1,12 @@
-"use client"
-
-import VideoCardSkeleton from "@/app/uploads/VideoCardSkeleton"
-
-const videos = Array.from({ length: 10 }, (_, i) => ({
-  id: i,
-  title: "title",
-  name: "name",
-}));
+import VideoCardSkeleton from "@/components/ui/skeletons/VideoCardSkeleton"
 
 export default function UploadsSkeleton() {
+
+  const videos = Array.from({ length: 10 }, (_, i) => ({
+    id: i,
+    title: "title",
+    name: "name",
+  }))
 
   return (
     <div className="w-full flex">      
@@ -20,5 +18,5 @@ export default function UploadsSkeleton() {
         ))}
     </div>
     </div>
-  );
+  )
 }
