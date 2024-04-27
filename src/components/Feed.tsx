@@ -1,15 +1,10 @@
 "use server"
-// Fetches feed videos data and renders it in a grid layout, provides it to Card component
-
-import VideoCard from '@/components/ui/FeedVideoCard'
-import { VideoWithAuthor } from '@/types/video'
+// Fetches feed videos data and provides it to FeedClient component
 
 import { getPrismaClient, cleanup } from "@/app/providers/PrismaProvider"
-const prisma = getPrismaClient();
-
-const BUCKET_NAME = process.env.BUCKET_NAME
-const BUCKET_REGION = process.env.BUCKET_REGION
-const thumbnailUrl = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/thumbnails`
+const prisma = getPrismaClient()
+import { VideoWithAuthor } from '@/types/video'
+import FeedClient from "./FeedClient"
 
 export default async function Feed() {
 
@@ -25,7 +20,8 @@ export default async function Feed() {
                         photo: true
                     }
                 }
-            }
+            },
+            take: 5,
         });
         videos = response
     } catch (error) {
@@ -39,22 +35,5 @@ export default async function Feed() {
 
     if (!videos) return (<main className="p-4"><p className="text-center">No Videos</p></main>);
 
-    return (
-        <div className={`
-            md:mx-4 md:my-6 
-            grid grid-cols-1 
-            md:grid-cols-2 
-            lg:grid-cols-3 
-            xl:grid-cols-4 
-            2xl:grid-cols-5 
-            3xl:grid-cols-5 
-            4xl:grid-cols-6
-        `}>
-            {videos.map((video : VideoWithAuthor) => (
-                <div key={video.id}>
-                    <VideoCard video={video} thumbnailUrl={thumbnailUrl} />
-                </div>
-            ))}
-        </div>
-    )
+    return (<FeedClient videos={videos} isError={isError} />)
 }

@@ -1,7 +1,5 @@
 // display-in-grid.tsx
-import React from 'react'
-
-function DisplayInGrid({children}: {children: React.ReactNode}) {
+export default function DisplayInGrid({children}: {children: React.ReactNode}) {
   return (
     <div className={`
         grid grid-cols-1 
@@ -16,5 +14,3 @@ function DisplayInGrid({children}: {children: React.ReactNode}) {
     </div>
   )
 }
-
-export default DisplayInGrid
