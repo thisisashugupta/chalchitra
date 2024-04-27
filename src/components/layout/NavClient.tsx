@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import SheetBar from '@/components/SheetBar'
+
+import dynamic from 'next/dynamic'
+const SheetBar = dynamic(() => import('@/components/SheetBar'))
 import SearchBar from '@/components/SearchBar'
 import SignIn from '@/components/ui/buttons/SignIn'
 import VoiceButton from '@/components/ui/buttons/VoiceButton'

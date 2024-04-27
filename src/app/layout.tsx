@@ -7,8 +7,8 @@ import { ThemeModeProvider } from '@/app/providers/ThemeProvider'
 import RecoilProvider from '@/app/providers/RecoilProvider'
 import { Toaster } from "@/components/ui/toaster"
 import NavBar from '@/components/layout/NavBar'
-import SidebarLayout from '@/components/layout/SidebarLayout'
-import BottomNavLayout from '@/components/layout/BottomNavLayout'
+import SecondaryNavLayout from '@/components/layout/SecondaryNavLayout'
+import UserData from '@/components/layout/UserData'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,14 +28,12 @@ export default function RootLayout({
         <ThemeModeProvider>
           <AuthProvider>
             <RecoilProvider>
+              <UserData />
               <div className='z-10 w-full fixed top-0'><NavBar /></div>
-              <SidebarLayout>
-                <BottomNavLayout>
+              <div className='h-12 md:h-14' />
+                <SecondaryNavLayout>
                   {children}
-                </BottomNavLayout>
-              </SidebarLayout>
-              {/* <div className='z-10 md:fixed hidden md:block'><SideBar /></div> */}
-              {/* <div className='md:ml-20 mt-12 md:mt-14'>{children}</div> */}
+                </SecondaryNavLayout>
             </RecoilProvider>
           </AuthProvider>
         </ThemeModeProvider>

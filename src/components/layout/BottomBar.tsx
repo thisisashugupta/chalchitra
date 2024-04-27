@@ -1,7 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import Icon from '@/components/ui/BottomNavButtonIcon'
 import { Home, Disc, GalleryVerticalEnd, Play, CirclePlusIcon } from 'lucide-react'
-import UserPhoto from '@/components/UserPhoto'
+import UserPhoto from '@/components/layout/UserPhoto'
 
 export default function SideBar({pathname}: {pathname: string}) {
 

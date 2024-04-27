@@ -1,17 +1,8 @@
-'use client'
-
-import React from 'react';
-import Link from 'next/link';
-import { Home, Disc, Download, CircleUserRound, GalleryVerticalEnd, Play } from 'lucide-react';
-import Icon from '@/components/ui/SidebarButtonIcon';
-import { usePathname } from 'next/navigation'
-
+import Link from 'next/link'
+import { Home, Disc, Download, CircleUserRound, GalleryVerticalEnd, Play } from 'lucide-react'
+import Icon from '@/components/ui/SidebarButtonIcon'
 
 export default function SideBar() {
-    const pathname = usePathname()
-
-    if (pathname === '/watch') return null;
-
     return (<div>
 
         <div className='ml-1 w-min flex flex-col'>
