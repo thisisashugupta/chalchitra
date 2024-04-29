@@ -22,6 +22,9 @@ export default async function Feed() {
                 }
             },
             take: 5,
+            orderBy: {
+                createdAt: 'desc',
+            },
         });
         videos = response
     } catch (error) {
