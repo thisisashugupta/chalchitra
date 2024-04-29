@@ -18,7 +18,7 @@ export default function FeedClient({videos: initialVideos, isError} : {videos: V
     const [videos, setVideos] = useState<VideoWithAuthor[]>(initialVideos)
     const [hasNextPage, setHasNextPage] = useState(true)
 
-    const fetchVideos = useCallback(async (skip=0, limit=5) => {
+    const fetchVideos = useCallback(async (skip=5, limit=5) => {
         const response = await fetch(`/api/feed?skip=${skip}&limit=${limit}`)
         const data = await response.json()
         console.log(data.videos)
