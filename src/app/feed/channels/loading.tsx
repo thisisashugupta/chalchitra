@@ -1,7 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton'
 import SubscriptionsChannelCardSkeleton from '@/components/ui/skeletons/SubscriptionChannelCardSkeleton'
 
-export default function() {
+export default function loading() {
     return (
         <div className="m-4 flex justify-center">
             <div className='max-w-7xl w-full'>
