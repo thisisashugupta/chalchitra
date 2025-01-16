@@ -1,27 +1,25 @@
 "use client"
 
 import { useState, useCallback } from 'react'
-
+import CardSkeleton from "@/components/ui/skeletons/CardSkeleton"
 import VideoCard from '@/components/ui/FeedVideoCard'
 import { type VideoWithAuthor } from '@/types/video'
 import { thumbnailUrl } from '@/lib/url'
-
 import useIntersectionObserver from '@/hooks/useIntersectionObserver'
 import DisplayInGrid from '@/components/ui/display-in-grid'
-import FeedSkeleton from '@/components/ui/skeletons/FeedSkeleton'
-import Spinner from '@/components/ui/spinner'
 
-export default function FeedClient({videos: initialVideos, isError} : {videos: VideoWithAuthor[], isError: boolean}) {
-
-    console.log('rendered')
+export default function FeedClient({videos: initialVideos, isError} : {videos: VideoWithAuthor[], isError?: boolean}) {
     
     const [videos, setVideos] = useState<VideoWithAuthor[]>(initialVideos)
     const [hasNextPage, setHasNextPage] = useState(true)
 
     const fetchVideos = useCallback(async (skip=5, limit=5) => {
+        if (initialVideos.length < limit) {
+            setHasNextPage(false)
+            return [];
+        }
         const response = await fetch(`/api/feed?skip=${skip}&limit=${limit}`)
         const data = await response.json()
-        console.log(data.videos)
         if (data.total < limit) setHasNextPage(false)
         return data.videos
     }, [setHasNextPage])
@@ -41,16 +39,14 @@ export default function FeedClient({videos: initialVideos, isError} : {videos: V
                         <VideoCard video={video} thumbnailUrl={thumbnailUrl} />
                     </div>
                 ))}
-                
+                {/* loading skeletons */}
+                {hasNextPage && [1,2,3,4,5]
+                    .map((i) => { return {id: i, title: "title", name: "name" }})
+                    .map((video) => <div key={video.id} className='md:mx-2 mb-6'>
+                        <CardSkeleton />
+                    </div>)
+                }
             </DisplayInGrid>
-            {
-            hasNextPage && 
-            <div>
-                <FeedSkeleton />
-                <Spinner className='w-8 h-8' />
-
-            </div>
-            }
         </div>
     )
 }
