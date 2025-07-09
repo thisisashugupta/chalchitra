@@ -1,0 +1,79 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "includes": [
+      "src/**/*.{ts,tsx,js,jsx}",
+      "*.json",
+      "!/.idea/**",
+      "!/.next/**",
+      "!/.vscode/**",
+      "!node_modules/**",
+      "!/.git/**"
+    ],
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "formatWithErrors": false,
+    "lineEnding": "lf"
+  },
+  "linter": {
+    "enabled": true,
+
+    "includes": [
+      "src/**/*.{ts,tsx,js,jsx}",
+      "/*.json",
+      "!/.idea/**",
+      "!/.next/**",
+      "!/.vscode/**",
+      "!node_modules/**",
+      "!/.git/**"
+    ],
+    "rules": {
+      "recommended": true,
+      "style": {
+        "useImportType": "warn",
+        "useTemplate": "off",
+        "noUnusedTemplateLiteral": "warn",
+        "useNumberNamespace": "warn",
+        "noUselessElse": "warn"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "warn",
+        "noUnusedVariables": "error"
+      },
+      "suspicious": {
+        "noImplicitAnyLet": "warn"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "jsxQuoteStyle": "double",
+      "lineEnding": "lf",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "lineWidth": 100,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineEnding": "lf",
+      "trailingCommas": "none"
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  }
+}

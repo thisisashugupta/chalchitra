@@ -1,15 +1,14 @@
-"use client"
+"use client";
 
-import { useState } from 'react'
-import { Textarea } from "@/components/ui/textarea"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
-import { Loader2 } from "lucide-react"
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function UploadPage() {
-
   const [video, setVideo] = useState<File | null>(null);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
@@ -18,26 +17,24 @@ export default function UploadPage() {
   const [description, setDescription] = useState<string>("");
   const [uploading, setUploading] = useState<string | null>(null);
 
-
-  const handleVideoFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+  const handleVideoFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
-    if(selectedFile instanceof File) setVideo(selectedFile);
-  }
+    if (selectedFile instanceof File) setVideo(selectedFile);
+  };
 
-  const handleThumbnailFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+  const handleThumbnailFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files?.[0];
-    if(selectedImage instanceof File) setThumbnail(selectedImage);
-  }
+    if (selectedImage instanceof File) setThumbnail(selectedImage);
+  };
 
-  const handleSubmit = async (e : React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(!video) return;
-    if(!thumbnail) return;
+    if (!video) return;
+    if (!thumbnail) return;
     setUploading("Getting signed URL...");
 
     try {
-      
-        // get signed url from server
+      // get signed url from server
 
       const response = await fetch("/api/s3Url", { method: "GET" });
       const { video_id, videoUrl, thumbnail_id, thumbnailUrl } = await response.json();
@@ -48,66 +45,99 @@ export default function UploadPage() {
         method: "PUT",
         body: video,
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
-      setVideoUrl(videoUrl.split('?')[0]);
+      setVideoUrl(videoUrl.split("?")[0]);
       setUploading("Uploading Thumbnail...");
       // post thumbnail directly to the signedUrl using PUT request
       await fetch(thumbnailUrl, {
         method: "PUT",
         body: thumbnail,
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
-      setThumbnailUrl(thumbnailUrl.split('?')[0]);
+      setThumbnailUrl(thumbnailUrl.split("?")[0]);
       setUploading("Saving info to db...");
       // post request to my server to save some additional data into db
       const response3 = await fetch("/api/video", {
         method: "POST",
         body: JSON.stringify({ title, description, video_id, thumbnail_id }),
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       });
       await response3.json();
-
     } catch (error) {
       console.error(error);
     } finally {
       setUploading(null);
     }
-    
-  }
+  };
 
   return (
     <main className="min-w-screen flex flex-col items-center">
       <div className="w-full max-w-5xl flex flex-col items-center justify-center my-4">
+        {uploading && (
+          <Badge className="mb-4 p-1">
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            {uploading}
+          </Badge>
+        )}
 
-      {uploading && <Badge className='mb-4 p-1'><Loader2 className="mr-2 h-4 w-4 animate-spin" />{uploading}</Badge>}
+        {videoUrl && (
+          <div>
+            <video className="max-h-screen md:rounded-2xl" controls autoPlay>
+              <source src={videoUrl} type="video/mp4" />
+            </video>
+            <p className="my-4 text-center text-sm">Video uploaded successfully</p>
+          </div>
+        )}
 
-      {videoUrl && (
-        <div>
-          <video className='max-h-screen md:rounded-2xl' controls autoPlay>
-            <source src={videoUrl} type="video/mp4"/>
-          </video>
-          <p className='my-4 text-center text-sm'>Video uploaded successfully</p>
-        </div>
-      )}
-
-        <form className='space-y-2 text-center' onSubmit={handleSubmit}>
-          <Label htmlFor='video'>Choose Video</Label>
-          <Input name='video' onChange={handleVideoFileChange} type="file" accept="video/*" required />
-          <Label htmlFor='thumbnail'>Choose Thumbnail</Label>
-          <Input name='thumbnail' onChange={handleThumbnailFileChange} type="file" accept="image/*" required />
-          <Input name='title' onChange={e => setTitle(e.target.value)} type="text" value={title} placeholder='Title' required />
-          <Textarea name='description' onChange={e => setDescription(e.target.value)} value={description} placeholder='Description (optional)' />
-          <Button type="submit" disabled={!video || title === "" || uploading!==null}>
-            {uploading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /><span>Uploading</span></> : "Upload"}
+        <form className="space-y-2 text-center" onSubmit={handleSubmit}>
+          <Label htmlFor="video">Choose Video</Label>
+          <Input
+            name="video"
+            onChange={handleVideoFileChange}
+            type="file"
+            accept="video/*"
+            required
+          />
+          <Label htmlFor="thumbnail">Choose Thumbnail</Label>
+          <Input
+            name="thumbnail"
+            onChange={handleThumbnailFileChange}
+            type="file"
+            accept="image/*"
+            required
+          />
+          <Input
+            name="title"
+            onChange={(e) => setTitle(e.target.value)}
+            type="text"
+            value={title}
+            placeholder="Title"
+            required
+          />
+          <Textarea
+            name="description"
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
+            placeholder="Description (optional)"
+          />
+          <Button type="submit" disabled={!video || title === "" || uploading !== null}>
+            {uploading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <span>Uploading</span>
+              </>
+            ) : (
+              "Upload"
+            )}
           </Button>
-        </form>        
+        </form>
       </div>
     </main>
-  )
+  );
 }

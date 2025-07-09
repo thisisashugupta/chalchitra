@@ -1,54 +1,60 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { mutateVideoServerAction } from "@/app/actions"
-import { Video } from '@prisma/client'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import { useToast } from "@/components/ui/use-toast"
+import React from "react";
+import { mutateVideoServerAction } from "@/app/actions";
+import { Video } from "@prisma/client";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 
 interface EditVideoFormProps {
-    video: Video;
+  video: Video;
 }
 
 export default function EditVideoForm({ video }: EditVideoFormProps) {
-    const id = video.id;
-    const sendWithFormData = mutateVideoServerAction.bind(null, id, video.video_id);
-    const { toast } = useToast()
+  const id = video.id;
+  const sendWithFormData = mutateVideoServerAction.bind(null, id, video.video_id);
+  const { toast } = useToast();
 
-    // console.log('video from EditVideoForm');
-    // console.log(video);
+  // console.log('video from EditVideoForm');
+  // console.log(video);
 
-    return (
-            <form className='w-full space-y-4 flex flex-col items-left' action={sendWithFormData}>
+  return (
+    <form className="w-full space-y-4 flex flex-col items-left" action={sendWithFormData}>
+      <div>
+        <Label htmlFor="thumbnail">Choose Thumbnail</Label>
+        <Input name="thumbnail" type="file" accept="image/*" />
+      </div>
 
-                <div>
-                <Label htmlFor='thumbnail'>Choose Thumbnail</Label>
-                <Input name='thumbnail' type="file" accept="image/*" />
-                </div>
+      <div>
+        <Label htmlFor="title">Title</Label>
+        <Input type="text" name="title" defaultValue={video.title} />
+      </div>
 
-                <div>
-                <Label htmlFor='title'>Title</Label>
-                <Input type="text" name="title" defaultValue={video.title}/>
-                </div>
-                
-                <div>
-                <Label htmlFor="content">Description</Label>
-                <Textarea className='min-h-36 max-h-72' name="content" defaultValue={video.content!}/>
-                </div>
-                
-                <div className='flex space-x-3 items-center'>
-                <Label htmlFor="published">Published</Label>
-                <Input className='w-4 h-4' type="checkbox" name="published" defaultChecked={video.published!}/>
-                </div>
-                
-                {/* * * * * * * playlistId * * * * * * */}
-                {/* <Label htmlFor="playlistId">playlistId</Label> */}
-                {/* <Input type="text" name="playlistId" defaultValue={video?.playlistId?.toString()}/> */}
+      <div>
+        <Label htmlFor="content">Description</Label>
+        <Textarea className="min-h-36 max-h-72" name="content" defaultValue={video.content!} />
+      </div>
 
-                <Button type="submit" onClick={() => toast({ title: "Updated Successfully" })}>Save</Button>
-            </form>
-    );
-};
+      <div className="flex space-x-3 items-center">
+        <Label htmlFor="published">Published</Label>
+        <Input
+          className="w-4 h-4"
+          type="checkbox"
+          name="published"
+          defaultChecked={video.published!}
+        />
+      </div>
+
+      {/* * * * * * * playlistId * * * * * * */}
+      {/* <Label htmlFor="playlistId">playlistId</Label> */}
+      {/* <Input type="text" name="playlistId" defaultValue={video?.playlistId?.toString()}/> */}
+
+      <Button type="submit" onClick={() => toast({ title: "Updated Successfully" })}>
+        Save
+      </Button>
+    </form>
+  );
+}

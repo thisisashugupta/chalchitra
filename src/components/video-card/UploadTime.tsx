@@ -1,10 +1,7 @@
-import {getElapsedTime} from '@/lib/time'
+import { getElapsedTime } from "@/lib/time";
 
-export default function UploadTime({createdAt}: {createdAt: Date | undefined}) {
+export default function UploadTime({ createdAt }: { createdAt: Date | undefined }) {
+  const timeago = getElapsedTime(createdAt?.toString() || "");
 
-  const timeago = getElapsedTime(createdAt?.toString() || '')
-
-  return (
-    <span>{`${timeago} ago`}</span>
-  )
+  return <span>{`${timeago} ago`}</span>;
 }

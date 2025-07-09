@@ -3,9 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "format:prettier": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format:check": "npx @biomejs/biome format .",
+    "format": "npx @biomejs/biome format --write .",
+    "format:changed": "npx @biomejs/biome format --changed --write",
+    "format:commit": "npx @biomejs/biome format --since=HEAD~1 --write",
+    "format:staged": "npx @biomejs/biome format --staged --write",
+    "lint:check": "npx @biomejs/biome lint .",
+    "lint:error": "npx @biomejs/biome lint . --diagnostic-level=error",
+    "lint:fix": "npx @biomejs/biome lint --write .",
+    "lint:write": "npx @biomejs/biome lint --write .",
+    "check": "npx @biomejs/biome check .",
+    "check:write": "npx @biomejs/biome check --write .",
+    "check:report": "bun run check --max-diagnostics 10000 > biome-check-report.txt 2>&1",
     "dev": "next dev",
     "build": "next build",
-    "postinstall": "prisma migrate deploy && prisma generate",
+    "possiinstall": "prisma migrate deploy && prisma generate",
     "start": "next start",
     "lint": "next lint"
   },
@@ -42,6 +55,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.0.0",
     "@types/multer": "^1.4.11",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -53,5 +67,6 @@
     "prisma": "^5.12.1",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
